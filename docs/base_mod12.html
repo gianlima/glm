@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Base de dados sobre spams</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Base de dados sobre spams</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<div id="regressão-para-dados-binários---modelo-preditivo" class="section level1">
+<h1>Regressão para dados binários - modelo preditivo</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(kernlab)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">require</span>(statmod)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">require</span>(pROC)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">require</span>(car)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">require</span>(glmnet)</a></code></pre></div>
+<p>Vamos usar regressão logística para classificar e-mails como spams ou não spams segundo as frequências com que diferentes termos e caracteres aparecem no corpo da mensagem.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;spam&quot;</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">help</span>(<span class="st">&quot;spam&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">summary</span>(spam)</a></code></pre></div>
+<pre><code>##       make           address            all             num3d         
+##  Min.   :0.0000   Min.   : 0.000   Min.   :0.0000   Min.   : 0.00000  
+##  1st Qu.:0.0000   1st Qu.: 0.000   1st Qu.:0.0000   1st Qu.: 0.00000  
+##  Median :0.0000   Median : 0.000   Median :0.0000   Median : 0.00000  
+##  Mean   :0.1046   Mean   : 0.213   Mean   :0.2807   Mean   : 0.06542  
+##  3rd Qu.:0.0000   3rd Qu.: 0.000   3rd Qu.:0.4200   3rd Qu.: 0.00000  
+##  Max.   :4.5400   Max.   :14.280   Max.   :5.1000   Max.   :42.81000  
+##       our               over            remove          internet      
+##  Min.   : 0.0000   Min.   :0.0000   Min.   :0.0000   Min.   : 0.0000  
+##  1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.: 0.0000  
+##  Median : 0.0000   Median :0.0000   Median :0.0000   Median : 0.0000  
+##  Mean   : 0.3122   Mean   :0.0959   Mean   :0.1142   Mean   : 0.1053  
+##  3rd Qu.: 0.3800   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.: 0.0000  
+##  Max.   :10.0000   Max.   :5.8800   Max.   :7.2700   Max.   :11.1100  
+##      order              mail            receive             will       
+##  Min.   :0.00000   Min.   : 0.0000   Min.   :0.00000   Min.   :0.0000  
+##  1st Qu.:0.00000   1st Qu.: 0.0000   1st Qu.:0.00000   1st Qu.:0.0000  
+##  Median :0.00000   Median : 0.0000   Median :0.00000   Median :0.1000  
+##  Mean   :0.09007   Mean   : 0.2394   Mean   :0.05982   Mean   :0.5417  
+##  3rd Qu.:0.00000   3rd Qu.: 0.1600   3rd Qu.:0.00000   3rd Qu.:0.8000  
+##  Max.   :5.26000   Max.   :18.1800   Max.   :2.61000   Max.   :9.6700  
+##      people            report           addresses           free        
+##  Min.   :0.00000   Min.   : 0.00000   Min.   :0.0000   Min.   : 0.0000  
+##  1st Qu.:0.00000   1st Qu.: 0.00000   1st Qu.:0.0000   1st Qu.: 0.0000  
+##  Median :0.00000   Median : 0.00000   Median :0.0000   Median : 0.0000  
+##  Mean   :0.09393   Mean   : 0.05863   Mean   :0.0492   Mean   : 0.2488  
+##  3rd Qu.:0.00000   3rd Qu.: 0.00000   3rd Qu.:0.0000   3rd Qu.: 0.1000  
+##  Max.   :5.55000   Max.   :10.00000   Max.   :4.4100   Max.   :20.0000  
+##     business          email             you             credit        
+##  Min.   :0.0000   Min.   :0.0000   Min.   : 0.000   Min.   : 0.00000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.: 0.000   1st Qu.: 0.00000  
+##  Median :0.0000   Median :0.0000   Median : 1.310   Median : 0.00000  
+##  Mean   :0.1426   Mean   :0.1847   Mean   : 1.662   Mean   : 0.08558  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.: 2.640   3rd Qu.: 0.00000  
+##  Max.   :7.1400   Max.   :9.0900   Max.   :18.750   Max.   :18.18000  
+##       your              font             num000           money         
+##  Min.   : 0.0000   Min.   : 0.0000   Min.   :0.0000   Min.   : 0.00000  
+##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.: 0.00000  
+##  Median : 0.2200   Median : 0.0000   Median :0.0000   Median : 0.00000  
+##  Mean   : 0.8098   Mean   : 0.1212   Mean   :0.1016   Mean   : 0.09427  
+##  3rd Qu.: 1.2700   3rd Qu.: 0.0000   3rd Qu.:0.0000   3rd Qu.: 0.00000  
+##  Max.   :11.1100   Max.   :17.1000   Max.   :5.4500   Max.   :12.50000  
+##        hp               hpl              george            num650      
+##  Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000   Min.   :0.0000  
+##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:0.0000  
+##  Median : 0.0000   Median : 0.0000   Median : 0.0000   Median :0.0000  
+##  Mean   : 0.5495   Mean   : 0.2654   Mean   : 0.7673   Mean   :0.1248  
+##  3rd Qu.: 0.0000   3rd Qu.: 0.0000   3rd Qu.: 0.0000   3rd Qu.:0.0000  
+##  Max.   :20.8300   Max.   :16.6600   Max.   :33.3300   Max.   :9.0900  
+##       lab                labs            telnet             num857       
+##  Min.   : 0.00000   Min.   :0.0000   Min.   : 0.00000   Min.   :0.00000  
+##  1st Qu.: 0.00000   1st Qu.:0.0000   1st Qu.: 0.00000   1st Qu.:0.00000  
+##  Median : 0.00000   Median :0.0000   Median : 0.00000   Median :0.00000  
+##  Mean   : 0.09892   Mean   :0.1029   Mean   : 0.06475   Mean   :0.04705  
+##  3rd Qu.: 0.00000   3rd Qu.:0.0000   3rd Qu.: 0.00000   3rd Qu.:0.00000  
+##  Max.   :14.28000   Max.   :5.8800   Max.   :12.50000   Max.   :4.76000  
+##       data              num415            num85           technology     
+##  Min.   : 0.00000   Min.   :0.00000   Min.   : 0.0000   Min.   :0.00000  
+##  1st Qu.: 0.00000   1st Qu.:0.00000   1st Qu.: 0.0000   1st Qu.:0.00000  
+##  Median : 0.00000   Median :0.00000   Median : 0.0000   Median :0.00000  
+##  Mean   : 0.09723   Mean   :0.04784   Mean   : 0.1054   Mean   :0.09748  
+##  3rd Qu.: 0.00000   3rd Qu.:0.00000   3rd Qu.: 0.0000   3rd Qu.:0.00000  
+##  Max.   :18.18000   Max.   :4.76000   Max.   :20.0000   Max.   :7.69000  
+##     num1999          parts              pm               direct       
+##  Min.   :0.000   Min.   :0.0000   Min.   : 0.00000   Min.   :0.00000  
+##  1st Qu.:0.000   1st Qu.:0.0000   1st Qu.: 0.00000   1st Qu.:0.00000  
+##  Median :0.000   Median :0.0000   Median : 0.00000   Median :0.00000  
+##  Mean   :0.137   Mean   :0.0132   Mean   : 0.07863   Mean   :0.06483  
+##  3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.: 0.00000   3rd Qu.:0.00000  
+##  Max.   :6.890   Max.   :8.3300   Max.   :11.11000   Max.   :4.76000  
+##        cs             meeting           original         project       
+##  Min.   :0.00000   Min.   : 0.0000   Min.   :0.0000   Min.   : 0.0000  
+##  1st Qu.:0.00000   1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.: 0.0000  
+##  Median :0.00000   Median : 0.0000   Median :0.0000   Median : 0.0000  
+##  Mean   :0.04367   Mean   : 0.1323   Mean   :0.0461   Mean   : 0.0792  
+##  3rd Qu.:0.00000   3rd Qu.: 0.0000   3rd Qu.:0.0000   3rd Qu.: 0.0000  
+##  Max.   :7.14000   Max.   :14.2800   Max.   :3.5700   Max.   :20.0000  
+##        re               edu              table            conference      
+##  Min.   : 0.0000   Min.   : 0.0000   Min.   :0.000000   Min.   : 0.00000  
+##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:0.000000   1st Qu.: 0.00000  
+##  Median : 0.0000   Median : 0.0000   Median :0.000000   Median : 0.00000  
+##  Mean   : 0.3012   Mean   : 0.1798   Mean   :0.005444   Mean   : 0.03187  
+##  3rd Qu.: 0.1100   3rd Qu.: 0.0000   3rd Qu.:0.000000   3rd Qu.: 0.00000  
+##  Max.   :21.4200   Max.   :22.0500   Max.   :2.170000   Max.   :10.00000  
+##  charSemicolon     charRoundbracket charSquarebracket charExclamation  
+##  Min.   :0.00000   Min.   :0.000    Min.   :0.00000   Min.   : 0.0000  
+##  1st Qu.:0.00000   1st Qu.:0.000    1st Qu.:0.00000   1st Qu.: 0.0000  
+##  Median :0.00000   Median :0.065    Median :0.00000   Median : 0.0000  
+##  Mean   :0.03857   Mean   :0.139    Mean   :0.01698   Mean   : 0.2691  
+##  3rd Qu.:0.00000   3rd Qu.:0.188    3rd Qu.:0.00000   3rd Qu.: 0.3150  
+##  Max.   :4.38500   Max.   :9.752    Max.   :4.08100   Max.   :32.4780  
+##    charDollar         charHash          capitalAve        capitalLong     
+##  Min.   :0.00000   Min.   : 0.00000   Min.   :   1.000   Min.   :   1.00  
+##  1st Qu.:0.00000   1st Qu.: 0.00000   1st Qu.:   1.588   1st Qu.:   6.00  
+##  Median :0.00000   Median : 0.00000   Median :   2.276   Median :  15.00  
+##  Mean   :0.07581   Mean   : 0.04424   Mean   :   5.191   Mean   :  52.17  
+##  3rd Qu.:0.05200   3rd Qu.: 0.00000   3rd Qu.:   3.706   3rd Qu.:  43.00  
+##  Max.   :6.00300   Max.   :19.82900   Max.   :1102.500   Max.   :9989.00  
+##   capitalTotal          type     
+##  Min.   :    1.0   nonspam:2788  
+##  1st Qu.:   35.0   spam   :1813  
+##  Median :   95.0                 
+##  Mean   :  283.3                 
+##  3rd Qu.:  266.0                 
+##  Max.   :15841.0</code></pre>
+<p>Vamos selecionar apenas as covariáveis com frequência média superior a 0.2 para a sequência da análise.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">i_freq &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">apply</span>(spam[,<span class="dv">1</span><span class="op">:</span><span class="dv">57</span>],<span class="dv">2</span>,mean) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">spam2 &lt;-<span class="st"> </span>spam[,<span class="kw">c</span>(i_freq, <span class="dv">58</span>)]</a></code></pre></div>
+<p>Alguns gráficos</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">with</span>(spam2, <span class="kw">boxplot</span>(<span class="kw">log</span>(charExclamation <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>) <span class="op">~</span><span class="st"> </span>type, <span class="dt">ylab =</span> <span class="st">&#39;log(frequência)&#39;</span>,</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">                   <span class="dt">col =</span> <span class="st">&#39;lightblue&#39;</span>, <span class="dt">cex =</span> <span class="fl">1.45</span>, <span class="dt">las =</span> <span class="dv">1</span>))</a></code></pre></div>
+<p><img src="base_mod12_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">with</span>(spam2, <span class="kw">boxplot</span>(<span class="kw">log</span>(capitalTotal <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>) <span class="op">~</span><span class="st"> </span>type, <span class="dt">ylab =</span> <span class="st">&#39;log(frequência)&#39;</span>,</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">                   <span class="dt">col =</span> <span class="st">&#39;lightblue&#39;</span>, <span class="dt">cex =</span> <span class="fl">1.45</span>, <span class="dt">las =</span> <span class="dv">1</span>))</a></code></pre></div>
+<p><img src="base_mod12_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p>Aparentemente, as frequências de pontos de exclamação ou letras maiúsculas são importantes para discriminar spams e não spams (spams têm maior frequência de ambos).</p>
+<div id="preparação-dos-dados" class="section level2">
+<h2>Preparação dos dados</h2>
+<p>Vamos dividir a base em duas: uma para ajuste do modelo e outra para validação. A base de validação com 1000 observações e a de ajuste com as demais.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">88</span>) <span class="co"># Fixando a semente para sorteio das observações.</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">select &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(spam2), <span class="dv">1000</span>)</a></code></pre></div>
+<p>Linhas da base que serão usadas para validação.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">spam_ajuste &lt;-<span class="st"> </span>spam2[<span class="op">-</span>select,] <span class="co"># Base de ajuste.</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">spam_predict &lt;-<span class="st"> </span>spam2[select,] <span class="co"># Base de validação.</span></a></code></pre></div>
+</div>
+<div id="ajuste-do-modelo" class="section level2">
+<h2>Ajuste do modelo</h2>
+<p>Vamos considerar diferentes abordagens:</p>
+<p>Modelo 1 - GLM com todas as covariáveis;</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">modelo1 &lt;-<span class="st"> </span><span class="kw">glm</span>(type <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">data =</span> spam_ajuste)</a></code></pre></div>
+<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">pred1 &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo1, <span class="dt">newdata =</span> spam_predict, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">head</span>(<span class="kw">round</span>(pred1,<span class="dv">5</span>), <span class="dt">n =</span> <span class="dv">10</span>) <span class="co"># Predições.</span></a></code></pre></div>
+<pre><code>##    2327    2129     669    3417    3229    3471    3669    1353     839 
+## 0.22983 0.01088 0.92569 0.00000 0.00000 0.00004 0.00000 0.78723 0.78501 
+##    2645 
+## 0.37904</code></pre>
+<p>Tabela de confusão e medidas de performance preditiva</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">class1 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred1 <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;Class_spam&#39;</span>, <span class="st">&#39;Class_nspam&#39;</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">tabcruz &lt;-<span class="st"> </span><span class="kw">table</span>(class1, spam_predict<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">tabcruz</a></code></pre></div>
+<pre><code>##              
+## class1        nonspam spam
+##   Class_nspam     556   66
+##   Class_spam       60  318</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ac1 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(tabcruz))<span class="op">/</span><span class="dv">1000</span>; ac1 <span class="co"># Acurácia.</span></a></code></pre></div>
+<pre><code>## [1] 0.874</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">s1 &lt;-<span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]); s1 <span class="co"># Sensibilidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.828125</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">e1 &lt;-<span class="st"> </span>tabcruz[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">1</span>]); e1 <span class="co"># Especificidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.9025974</code></pre>
+</div>
+<div id="modelo-2" class="section level2">
+<h2>Modelo 2</h2>
+<p>Com seleção do tipo Backward, via AIC</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">modelo2 &lt;-<span class="st"> </span><span class="kw">step</span>(modelo1, <span class="dt">k =</span> <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=2354.97
+## type ~ address + all + our + mail + will + free + you + your + 
+##     hp + hpl + george + re + charExclamation + capitalAve + capitalLong + 
+##     capitalTotal
+## 
+##                   Df Deviance   AIC
+## - all              1     2321  2353
+## &lt;none&gt;                   2321  2355
+## - address          1     2326  2358
+## - capitalAve       1     2327  2359
+## - will             1     2333  2365
+## - hpl              1     2335  2367
+## - capitalTotal     1     2343  2375
+## - charExclamation  1     2373  2405
+## - your             1     2415  2447
+## - free             1     2446  2478
+## - george           1     2642  2674
+## - capitalLong      1    67402 67434
+## - re               1    69132 69164
+## - hp               1    73313 73345
+## - our              1    73745 73777
+## - you              1    73817 73849
+## - mail             1    77494 77526
+## 
+## Step:  AIC=2353.19
+## type ~ address + our + mail + will + free + you + your + hp + 
+##     hpl + george + re + charExclamation + capitalAve + capitalLong + 
+##     capitalTotal
+## 
+##                   Df Deviance   AIC
+## &lt;none&gt;                   2321  2353
+## - address          1     2326  2356
+## - capitalAve       1     2327  2357
+## - will             1     2333  2363
+## - capitalTotal     1     2343  2373
+## - charExclamation  1     2373  2403
+## - our              1     2384  2414
+## - your             1     2418  2448
+## - free             1     2447  2477
+## - george           1     2645  2675
+## - hp               1    37341 37371
+## - capitalLong      1    45055 45085
+## - hpl              1    56228 56258
+## - re               1    56589 56619
+## - you              1    61779 61809
+## - mail             1    78143 78173</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo2, <span class="dt">newdata =</span> spam_predict, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p>Tabela de confusão e medidas de performance preditiva</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">class2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred2 <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;Class_spam&#39;</span>, <span class="st">&#39;Class_nspam&#39;</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">tabcruz &lt;-<span class="st"> </span><span class="kw">table</span>(class2, spam_predict<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">tabcruz</a></code></pre></div>
+<pre><code>##              
+## class2        nonspam spam
+##   Class_nspam     556   65
+##   Class_spam       60  319</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">ac2 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(tabcruz))<span class="op">/</span><span class="dv">1000</span>; ac2 <span class="co"># Acurácia.</span></a></code></pre></div>
+<pre><code>## [1] 0.875</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">s2 &lt;-<span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]); s2 <span class="co"># Sensibilidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.8307292</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">e2 &lt;-<span class="st"> </span>tabcruz[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">1</span>]); e2 <span class="co"># Especificidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.9025974</code></pre>
+</div>
+<div id="modelo-3---com-seleção-do-tipo-backward-via-bic" class="section level2">
+<h2>Modelo 3 - com seleção do tipo Backward, via BIC</h2>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">modelo3 &lt;-<span class="st"> </span><span class="kw">step</span>(modelo1, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(spam_ajuste)))</a></code></pre></div>
+<pre><code>## Start:  AIC=2460.19
+## type ~ address + all + our + mail + will + free + you + your + 
+##     hp + hpl + george + re + charExclamation + capitalAve + capitalLong + 
+##     capitalTotal
+## 
+##                   Df Deviance   AIC
+## - all              1     2321  2452
+## - address          1     2326  2457
+## - capitalAve       1     2327  2458
+## &lt;none&gt;                   2321  2460
+## - will             1     2333  2464
+## - hpl              1     2335  2467
+## - capitalTotal     1     2343  2474
+## - charExclamation  1     2373  2504
+## - your             1     2415  2546
+## - free             1     2446  2577
+## - george           1     2642  2773
+## - capitalLong      1    67402 67533
+## - re               1    69132 69263
+## - hp               1    73313 73444
+## - our              1    73745 73876
+## - you              1    73817 73948
+## - mail             1    77494 77625
+## 
+## Step:  AIC=2452.21
+## type ~ address + our + mail + will + free + you + your + hp + 
+##     hpl + george + re + charExclamation + capitalAve + capitalLong + 
+##     capitalTotal
+## 
+##                   Df Deviance   AIC
+## - address          1     2326  2449
+## - capitalAve       1     2327  2450
+## &lt;none&gt;                   2321  2452
+## - will             1     2333  2455
+## - capitalTotal     1     2343  2466
+## - charExclamation  1     2373  2496
+## - our              1     2384  2506
+## - your             1     2418  2541
+## - free             1     2447  2570
+## - george           1     2645  2768
+## - hp               1    37341 37464
+## - capitalLong      1    45055 45177
+## - hpl              1    56228 56351
+## - re               1    56589 56711
+## - you              1    61779 61902
+## - mail             1    78143 78265
+## 
+## Step:  AIC=2448.94
+## type ~ our + mail + will + free + you + your + hp + hpl + george + 
+##     re + charExclamation + capitalAve + capitalLong + capitalTotal
+## 
+##                   Df Deviance   AIC
+## - capitalAve       1     2332  2447
+## &lt;none&gt;                   2326  2449
+## - will             1     2337  2452
+## - capitalTotal     1     2348  2463
+## - charExclamation  1     2379  2494
+## - our              1     2389  2504
+## - your             1     2424  2539
+## - free             1     2453  2567
+## - george           1     2649  2764
+## - you              1    34458 34572
+## - hp               1    38495 38609
+## - hpl              1    61346 61461
+## - capitalLong      1    74322 74437
+## - mail             1    78575 78690
+## - re               1    86455 86569
+## 
+## Step:  AIC=2446.54
+## type ~ our + mail + will + free + you + your + hp + hpl + george + 
+##     re + charExclamation + capitalLong + capitalTotal
+## 
+##                   Df Deviance    AIC
+## - mail             1     2338   2444
+## &lt;none&gt;                   2332   2447
+## - capitalTotal     1     2351   2458
+## - you              1     2356   2463
+## - charExclamation  1     2389   2495
+## - our              1     2394   2501
+## - hp               1     2445   2552
+## - capitalLong      1     2457   2563
+## - george           1     2649   2756
+## - hpl              1    61563  61669
+## - your             1    64230  64336
+## - will             1    64590  64697
+## - free             1    84414  84521
+## - re               1   109249 109356
+## 
+## Step:  AIC=2444.44
+## type ~ our + will + free + you + your + hp + hpl + george + re + 
+##     charExclamation + capitalLong + capitalTotal
+## 
+##                   Df Deviance   AIC
+## &lt;none&gt;                   2338  2444
+## - capitalTotal     1     2357  2455
+## - you              1     2364  2463
+## - charExclamation  1     2394  2492
+## - our              1     2406  2504
+## - re               1     2417  2515
+## - your             1     2437  2535
+## - free             1     2467  2565
+## - capitalLong      1     2469  2567
+## - george           1     2658  2756
+## - hp               1    38927 39025
+## - will             1    74322 74420
+## - hpl              1    83549 83647</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">pred3 &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo3, <span class="dt">newdata =</span> spam_predict, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p>Tabela de confusão e medidas de performance preditiva</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">class3 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred3 <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;Class_spam&#39;</span>, <span class="st">&#39;Class_nspam&#39;</span>)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">tabcruz &lt;-<span class="st"> </span><span class="kw">table</span>(class3, spam_predict<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3">tabcruz</a></code></pre></div>
+<pre><code>##              
+## class3        nonspam spam
+##   Class_nspam     556   67
+##   Class_spam       60  317</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">ac3 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(tabcruz))<span class="op">/</span><span class="dv">1000</span>; ac3 <span class="co"># Acurácia.</span></a></code></pre></div>
+<pre><code>## [1] 0.873</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">s3 &lt;-<span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]); s3 <span class="co"># Sensibilidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.8255208</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">e3 &lt;-<span class="st"> </span>tabcruz[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">1</span>]); e3 <span class="co"># Especificidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.9025974</code></pre>
+</div>
+<div id="modelo-4" class="section level2">
+<h2>Modelo 4</h2>
+<p>Com regularização, método lasso</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam_ajuste)[, <span class="dv">-1</span>]</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">ifelse</span>(spam_ajuste<span class="op">$</span>type <span class="op">==</span><span class="st"> &#39;spam&#39;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">modelo4 &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">nfolds =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">newx &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam_predict)[, <span class="dv">-1</span>]</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8">pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo4, <span class="dt">newx =</span> newx, <span class="dt">s =</span> cvfit<span class="op">$</span>lambda.min, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p>Tabela de confusão e medidas de performance preditiva</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">class4 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred4 <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;Class_spam&#39;</span>, <span class="st">&#39;Class_nspam&#39;</span>)</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">tabcruz &lt;-<span class="st"> </span><span class="kw">table</span>(class4, spam_predict<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">tabcruz</a></code></pre></div>
+<pre><code>##              
+## class4        nonspam spam
+##   Class_nspam     554   65
+##   Class_spam       62  319</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">ac4 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(tabcruz))<span class="op">/</span><span class="dv">1000</span>; ac4 <span class="co"># Acurácia.</span></a></code></pre></div>
+<pre><code>## [1] 0.873</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">s4 &lt;-<span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]); s4 <span class="co"># Sensibilidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.8307292</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">e4 &lt;-<span class="st"> </span>tabcruz[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">1</span>]); e4 <span class="co"># Especificidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.8993506</code></pre>
+</div>
+<div id="modelo-5" class="section level2">
+<h2>Modelo 5</h2>
+<p>Com regularização, método ridge</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam_ajuste)[, <span class="dv">-1</span>]</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">ifelse</span>(spam_ajuste<span class="op">$</span>type <span class="op">==</span><span class="st"> &#39;spam&#39;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">modelo5 &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">nfolds =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb52-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">newx &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam_predict)[, <span class="dv">-1</span>]</a>
+<a class="sourceLine" id="cb52-8" data-line-number="8">pred5 &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo5, <span class="dt">newx =</span> newx, <span class="dt">s =</span> cvfit<span class="op">$</span>lambda.min, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p>Tabela de confusão e medidas de performance preditiva</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">class5 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred5 <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;Class_spam&#39;</span>, <span class="st">&#39;Class_nspam&#39;</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">tabcruz &lt;-<span class="st"> </span><span class="kw">table</span>(class5, spam_predict<span class="op">$</span>type)</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">tabcruz</a></code></pre></div>
+<pre><code>##              
+## class5        nonspam spam
+##   Class_nspam     554   88
+##   Class_spam       62  296</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">ac5 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(tabcruz))<span class="op">/</span><span class="dv">1000</span>; ac5 <span class="co"># Acurácia.</span></a></code></pre></div>
+<pre><code>## [1] 0.85</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">s5 &lt;-<span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">2</span>]); s5 <span class="co"># Sensibilidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.7708333</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">e5 &lt;-<span class="st"> </span>tabcruz[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">/</span>(tabcruz[<span class="dv">1</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tabcruz[<span class="dv">2</span>,<span class="dv">1</span>]); e5 <span class="co"># Especificidade.</span></a></code></pre></div>
+<pre><code>## [1] 0.8993506</code></pre>
+</div>
+<div id="vários-resultados" class="section level2">
+<h2>Vários resultados</h2>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">data.frame</span>(<span class="dt">Modelo =</span> <span class="kw">c</span>(<span class="st">&#39;Modelo 1&#39;</span>, <span class="st">&#39;Modelo 2&#39;</span>, <span class="st">&#39;Modelo 3&#39;</span>, <span class="st">&#39;Modelo 4&#39;</span>, <span class="st">&#39;modelo 5&#39;</span>),</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">           Acurá<span class="dt">cia  =</span> <span class="kw">c</span>(ac1, ac2, ac3, ac4, ac5), <span class="dt">Sensibilidade =</span> <span class="kw">c</span>(s1, s2, s3, s4, s5),</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">           <span class="dt">Especificidade =</span> <span class="kw">c</span>(e1, e2, e3, e4, e5))</a></code></pre></div>
+<pre><code>##     Modelo Acurácia Sensibilidade Especificidade
+## 1 Modelo 1    0.874     0.8281250      0.9025974
+## 2 Modelo 2    0.875     0.8307292      0.9025974
+## 3 Modelo 3    0.873     0.8255208      0.9025974
+## 4 Modelo 4    0.873     0.8307292      0.8993506
+## 5 modelo 5    0.850     0.7708333      0.8993506</code></pre>
+</div>
+<div id="análise-via-curva-roc" class="section level2">
+<h2>Análise via curva ROC</h2>
+<p>Procurando as regras de classificação (pontos de corte) ótimos.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">predroc1 &lt;-<span class="st"> </span><span class="kw">roc</span>(spam_predict<span class="op">$</span>type, pred1, <span class="dt">percent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Setting levels: control = nonspam, case = spam</code></pre>
+<pre><code>## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">predroc1<span class="op">$</span>auc</a></code></pre></div>
+<pre><code>## Area under the curve: 93.8%</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">plot</span>(predroc1, <span class="dt">print.thres =</span> <span class="kw">seq</span>(<span class="fl">0.1</span>,<span class="fl">0.95</span>,<span class="fl">0.05</span>), <span class="dt">print.thres.pattern.cex =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<p><img src="base_mod12_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">c1 &lt;-<span class="st"> </span><span class="kw">coords</span>(predroc1, <span class="st">&#39;best&#39;</span>); c1 </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4306366  87.9870130  88.0208333</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">predroc2 &lt;-<span class="st"> </span><span class="kw">roc</span>(spam_predict<span class="op">$</span>type, pred2, <span class="dt">percent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Setting levels: control = nonspam, case = spam
+## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">predroc2<span class="op">$</span>auc</a></code></pre></div>
+<pre><code>## Area under the curve: 93.79%</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">c2 &lt;-<span class="st"> </span><span class="kw">coords</span>(predroc2, <span class="st">&#39;best&#39;</span>); c2 </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4387975  88.1493506  87.7604167</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">predroc3 &lt;-<span class="st"> </span><span class="kw">roc</span>(spam_predict<span class="op">$</span>type, pred3, <span class="dt">percent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Setting levels: control = nonspam, case = spam
+## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">predroc3<span class="op">$</span>auc</a></code></pre></div>
+<pre><code>## Area under the curve: 93.67%</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">c3 &lt;-<span class="st"> </span><span class="kw">coords</span>(predroc3, <span class="st">&#39;best&#39;</span>); c3 </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4127096  87.0129870  87.5000000</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">predroc4 &lt;-<span class="st"> </span><span class="kw">roc</span>(spam_predict<span class="op">$</span>type, <span class="kw">as.numeric</span>(pred4), <span class="dt">percent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Setting levels: control = nonspam, case = spam
+## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">predroc4<span class="op">$</span>auc</a></code></pre></div>
+<pre><code>## Area under the curve: 93.61%</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">c4 &lt;-<span class="st"> </span><span class="kw">coords</span>(predroc4, <span class="st">&#39;best&#39;</span>); c4 </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4214727  87.1753247  87.5000000</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">predroc5 &lt;-<span class="st"> </span><span class="kw">roc</span>(spam_predict<span class="op">$</span>type, <span class="kw">as.numeric</span>(pred5), <span class="dt">percent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Setting levels: control = nonspam, case = spam
+## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">predroc5<span class="op">$</span>auc</a></code></pre></div>
+<pre><code>## Area under the curve: 91.67%</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">c5 &lt;-<span class="st"> </span><span class="kw">coords</span>(predroc5, <span class="st">&#39;best&#39;</span>); c5 </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4217696  85.5519481  84.6354167</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">data.frame</span>(<span class="dt">Modelo =</span> <span class="kw">c</span>(<span class="st">&#39;Modelo 1&#39;</span>, <span class="st">&#39;Modelo 2&#39;</span>, <span class="st">&#39;Modelo 3&#39;</span>, <span class="st">&#39;Modelo 4&#39;</span>, <span class="st">&#39;modelo 5&#39;</span>),</a>
+<a class="sourceLine" id="cb95-2" data-line-number="2">           <span class="kw">rbind</span>(c1, c2, c3, c4, c5))</a></code></pre></div>
+<pre><code>##      Modelo threshold specificity sensitivity
+## c1 Modelo 1 0.4306366    87.98701    88.02083
+## c2 Modelo 2 0.4387975    88.14935    87.76042
+## c3 Modelo 3 0.4127096    87.01299    87.50000
+## c4 Modelo 4 0.4214727    87.17532    87.50000
+## c5 modelo 5 0.4217696    85.55195    84.63542</code></pre>
+</div>
+<div id="incorporando-custos-de-má-classificação" class="section level2">
+<h2>Incorporando custos de má-classificação</h2>
+<p>Custos de má-classificação podem ser incorporados na seleção da melhor regra de classificação. A função coords, por default, identifica o ponto de corte tal que a soma sensibilidade + especificidade seja máxima. Podemos modificar este critério através da função best werights, em que declaramos:</p>
+<p>1 - O custo relativo de um falso negativo quando comparado a um falso positivo;</p>
+<p>2 - A prevalência ou proporção de casos (spams) na população.</p>
+<p>Vamos considerar alguns cenários. Em todos os casos, Cn|s é o custo de classificar um spam como não spam, Cs|n o de classificar como spam um não spam e Ps é a prevalência de spams.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="co"># Cenário 1 - Cn|s = 0.5*Cs|n, Ps = 1/3.</span></a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)) </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.6343966  94.6428571  75.0000000</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="co"># Cenário 2 - Cn|s = Cs|n, Ps = 1/3.</span></a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.5668292  93.1818182  78.9062500</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co"># Cenário 3 - Cn|s = Cs|n, Ps = 1/2.</span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4306366  87.9870130  88.0208333</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="co"># Cenário 4 - Cn|s = Cs|n, Ps = 1/20.</span></a>
+<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">20</span>))</a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.9200617  99.0259740  36.7187500</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="co"># Cenário 5 - Cn|s = 2*Cs|n, Ps = 1/3.</span></a>
+<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.4306366  87.9870130  88.0208333</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="co"># Cenário 6 - Cn|s = 5*Cs|n, Ps = 1/3.</span></a>
+<a class="sourceLine" id="cb107-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.2287856  71.2662338  95.8333333</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="co"># Cenário 7 - Cn|s = 10*Cs|n, Ps = 1/3.</span></a>
+<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="kw">coords</span>(predroc1, <span class="dt">x =</span> <span class="st">&#39;best&#39;</span>, <span class="dt">best.weights =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)) </a></code></pre></div>
+<pre><code>##   threshold specificity sensitivity 
+##   0.2030385  68.8311688  96.6145833</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

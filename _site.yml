@@ -1,7 +1,74 @@
-name: "my-website"
+
+name: "Gian Lima"
 output_dir: "docs"
 navbar:
-  title: "My Website"
-left:
-  - text: "Home"
-href: index.html
+  title: "Gian Lima"
+  left:
+    - text: "Home"
+      href: https://gianlima.github.io/
+    - text: "GLM 1-10"
+      menu:
+      - text: "Conteúdo de GLM"
+      - text: "Módulo 2 - Revisão de modelos lineares"
+      - text: "Reação química + tipos de embalagens (Modelo com erros normais)"
+        href: reacao_mod2.html
+      - text: "Vendas de cosméticos (Modelo com erros normais)"
+        href: venda_cos_mod2.html
+      - text: "Módulo 3 - Modelo linear com erros heterocedásticos"
+        href: min_qua_pon_mod3.html
+      - text: "Módulo 6 - Estimação em modelos lineares generalizados"
+      - text: "Estimação em modelos lineares generalizados"
+        href: estim_glm_mod6.html
+      - text: "Sinistros de Automóveis (Dados de contagens)"
+        href: sini_auto_mod6.html
+      - text: "Módulo 8 - Análise de deviance"
+        href: aval_qua_mod8.html
+      - text: "Módulo 9 - Seleção de covariáveis"
+        href: sel_var_mod9.html
+      - text: "Módulo 10 - Diagnóstico do ajuste de MLGs"
+        href: diag_mod10.html
+      - text: "Módulo 11 - Regressão para dados binários"
+      - text: "Auditoria"
+    - text: "GLM 11-15"
+      menu:
+        href: besouro_mod11.html
+      - text: "Besouro da Farinha"
+        href: besouro_mod11.html
+      - text: "Estimação em MLG usando bootstrap"
+        href: estimacao_mod11.html
+      - text: "Plebiscito no Chile"
+        href: plebis_mod11.html
+      - text: "Módulo 12 - Regressão para dados binários - predição"
+      - text: "Análise de risco de crédito"
+        href: credito_mod12.html
+      - text: "Base de dados sobre spams"
+        href: base_mod12.html
+      - text: "Módulo 13 - Regressão para dados de contagens"
+      - text: "Quedas de idosos"
+        href: queda_idoso_mod13.html
+      - text: "Cromossomos anormais (Regressão Poisson com termo offset)"
+        href: cromo_mod13.html
+      - text: "Módulo 14 - Regressão para dados de contagens com super dispersão"
+      - text: "superdispersão (simulação)"
+        href: super_disp_mod14.html
+      - text: "Executivos compartilhados"
+        href: exe_comp_mod14.html
+      - text: "Número de consultas ao médico (Austrália)"
+        href: Consulta_mod14.html
+      - text: "Suplementação de ferro em ratos"
+        href: ratos_mod14.html
+      - text: "Doença da cevada"
+        href: cevada_mod14.html
+      - text: "Módulo 15 - Regressão para dados contínuos assimétricos"
+      - text: "Tempo de vida de turbinas de avião"
+        href: turbina_mod15.html
+      - text: "Valor de sinistros"
+        href: tweedie_valor_sin_mod15.html
+  right:
+    - text: GitHub
+      icon: fa-github fa-lg
+      href: https://github.com/gianlima/r-exams-tutorial
+output:
+  html_document:
+    theme: flatly
+    highlight: pygments

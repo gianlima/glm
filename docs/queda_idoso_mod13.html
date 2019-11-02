@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Quedas de idosos</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Quedas de idosos</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<p>Análise dos dados de quedas de idosos, disponível no arquivo geriatra.dat da página do professor Gilberto de Paula e no pacote labestData.</p>
+<p>Objetivo - analisar o efeito de duas diferentes intervenções na prevenção de quedas de idosos, ajustando o efeito de outras covariáveis.</p>
+<p>Pacotes necessários</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(car)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">require</span>(lmtest)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">require</span>(effects)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">require</span>(statmod)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">require</span>(labestData)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">require</span>(hnp)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">require</span>(coefplot)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">require</span>(latticeExtra)</a></code></pre></div>
+<p>Carregando os dados e análise descritiva.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">geriatra &lt;-<span class="st"> </span>PaulaEx4.<span class="fl">6.5</span>  <span class="co"># Leitura dos dados.</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">help</span>(PaulaEx4.<span class="fl">6.5</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">names</span>(geriatra) <span class="co"># Listando os nomes das variáveis</span></a></code></pre></div>
+<pre><code>## [1] &quot;nquedas&quot; &quot;interv&quot;  &quot;sexo&quot;    &quot;balan&quot;   &quot;forca&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">head</span>(geriatra,<span class="dv">10</span>) <span class="co"># Visualizando as 10 primeiras linhas da base.</span></a></code></pre></div>
+<pre><code>##    nquedas interv sexo balan forca
+## 1        1     EF    F    45    70
+## 2        1     EF    F    62    66
+## 3        2     EF    M    43    64
+## 4        0     EF    M    76    48
+## 5        2     EF    F    51    72
+## 6        1     EF    M    73    39
+## 7        0     EF    M    40    54
+## 8        0     EF    F    66    37
+## 9        2     EF    M    80    81
+## 10       2     EF    M    56    60</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">summary</span>(geriatra) <span class="co"># Breve sumário.</span></a></code></pre></div>
+<pre><code>##     nquedas      interv  sexo       balan          forca     
+##  Min.   : 0.00   E :50   F:47   Min.   :13.0   Min.   :18.0  
+##  1st Qu.: 1.00   EF:50   M:53   1st Qu.:39.0   1st Qu.:52.0  
+##  Median : 3.00                  Median :51.5   Median :60.0  
+##  Mean   : 3.04                  Mean   :52.8   Mean   :60.8  
+##  3rd Qu.: 4.00                  3rd Qu.:66.2   3rd Qu.:70.2  
+##  Max.   :11.00                  Max.   :98.0   Max.   :90.0</code></pre>
+<p>As próximas linhas de comandos declaram sexo e intervenção como fatores, e renomeiam seus níveis.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">geriatra<span class="op">$</span>interv &lt;-<span class="st"> </span><span class="kw">factor</span>(geriatra<span class="op">$</span>interv)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">geriatra<span class="op">$</span>sexo &lt;-<span class="st"> </span><span class="kw">factor</span>(geriatra<span class="op">$</span>sexo)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">levels</span>(geriatra<span class="op">$</span>interv) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Educ&#39;</span>,<span class="st">&#39;Educ+Exerc&#39;</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">levels</span>(geriatra<span class="op">$</span>sexo) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Fem&#39;</span>,<span class="st">&#39;Masc&#39;</span>)</a></code></pre></div>
+<p>Vamos calcular o número médio de quedas e a variância para os idosos separados por intervenção.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">tapply</span>(geriatra<span class="op">$</span>nquedas,geriatra<span class="op">$</span>interv,mean)</a></code></pre></div>
+<pre><code>##       Educ Educ+Exerc 
+##       4.52       1.56</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">tapply</span>(geriatra<span class="op">$</span>nquedas,geriatra<span class="op">$</span>interv,var)</a></code></pre></div>
+<pre><code>##       Educ Educ+Exerc 
+##      5.765      1.762</code></pre>
+<p>Gráficos para a distribuição de frequências para o número de quedas.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">cex=</span><span class="fl">1.4</span>,<span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">barplot</span>(<span class="kw">table</span>(geriatra<span class="op">$</span>nquedas),<span class="dt">col=</span><span class="st">&#39;red&#39;</span>,<span class="dt">xlab=</span><span class="st">&#39;Número de quedas&#39;</span>,<span class="dt">ylab=</span><span class="st">&#39;Frequência&#39;)</span></a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">barplot</span>(<span class="kw">table</span>(geriatra<span class="op">$</span>nquedas[<span class="kw">which</span>(geriatra<span class="op">$</span>interv<span class="op">==</span><span class="st">&#39;Educ&#39;</span>)]),<span class="dt">col=</span><span class="st">&#39;red&#39;</span>,</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">        <span class="dt">xlab=</span><span class="st">&#39;Número de quedas&#39;</span>,<span class="dt">ylab=</span><span class="st">&#39;Frequência&#39;,xlim=c(0,12),main=&#39;</span>Educação<span class="st">&#39;)</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">barplot(table(geriatra$nquedas[which(geriatra$interv==&#39;</span>Educ<span class="op">+</span>Exerc<span class="st">&#39;)]),col=&#39;</span>blue<span class="st">&#39;,</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">        xlab=&#39;</span>Número de quedas<span class="st">&#39;,ylab=&#39;</span>Frequência&#39;,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="dt">main=</span><span class="st">&#39;Educação + Exercícios&#39;</span>)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<p>Antes de ajustar um glm, vamos ver como ficaria um modelo linear normal ajustado a este problema.</p>
+<div id="modelo-normal" class="section level2">
+<h2>Modelo Normal</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ajuste &lt;-<span class="st"> </span><span class="kw">lm</span>(nquedas<span class="op">~</span>.,<span class="dt">data=</span>geriatra)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">plot</span>(ajuste)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Repare, no gráfico do canto superior direito, a falta de normalidade dos resíduos e, no gráfico do canto inferior esquerdo, como a dispersão dos resíduos aumenta conforme a média, claro indicativo de que a variância dos erros não é constante.</p>
+</div>
+<div id="modelo-log-linear-poisson" class="section level2">
+<h2>Modelo log-linear Poisson</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ajuste &lt;-<span class="st"> </span><span class="kw">glm</span>(nquedas<span class="op">~</span>., <span class="dt">family=</span>poisson, <span class="dt">data=</span>geriatra) </a></code></pre></div>
+<p>Modelo com todas as covariáveis, sem interações.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">summary</span>(ajuste)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = nquedas ~ ., family = poisson, data = geriatra)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.185  -0.782  -0.256   0.545   2.362  
+## 
+## Coefficients:
+##                  Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)       0.48947    0.33687    1.45   0.1462    
+## intervEduc+Exerc -1.06940    0.13315   -8.03  9.6e-16 ***
+## sexoMasc         -0.04661    0.11997   -0.39   0.6977    
+## balan             0.00947    0.00295    3.21   0.0013 ** 
+## forca             0.00857    0.00431    1.99   0.0470 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 199.19  on 99  degrees of freedom
+## Residual deviance: 108.79  on 95  degrees of freedom
+## AIC: 377.3
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+<div id="efeito-de-interação" class="section level2">
+<h2>Efeito de interação</h2>
+<p>Vamos verificar se alguma interação envolvendo o efeito de intervenção é necessária.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">ajusteint1 &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste, <span class="op">~</span>.<span class="op">+</span>interv<span class="op">:</span>balan)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">ajusteint2 &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste, <span class="op">~</span>.<span class="op">+</span>interv<span class="op">:</span>forca)</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">ajusteint3 &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste, <span class="op">~</span>.<span class="op">+</span>interv<span class="op">:</span>sexo)</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="kw">anova</span>(ajuste, ajusteint1, <span class="dt">test=</span><span class="st">&#39;Chisq&#39;</span>)</a></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: nquedas ~ interv + sexo + balan + forca
+## Model 2: nquedas ~ interv + sexo + balan + forca + interv:balan
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1        95        109                     
+## 2        94        107  1     1.37     0.24</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">anova</span>(ajuste, ajusteint2, <span class="dt">test=</span><span class="st">&#39;Chisq&#39;</span>)</a></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: nquedas ~ interv + sexo + balan + forca
+## Model 2: nquedas ~ interv + sexo + balan + forca + interv:forca
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1        95        109                     
+## 2        94        109  1   0.0493     0.82</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">anova</span>(ajuste, ajusteint3, <span class="dt">test=</span><span class="st">&#39;Chisq&#39;</span>)</a></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: nquedas ~ interv + sexo + balan + forca
+## Model 2: nquedas ~ interv + sexo + balan + forca + interv:sexo
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1        95        109                     
+## 2        94        109  1   0.0652      0.8</code></pre>
+<p>O que vocês dizem?</p>
+<p>Vamos investigar a necessidade de incluir o efeito quadrático das covariáveis numéricas.</p>
+</div>
+<div id="efeito-quadrático" class="section level2">
+<h2>Efeito quadrático</h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">ajustequad1 &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste, <span class="op">~</span>. <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(balan<span class="op">**</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">ajustequad2 &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste, <span class="op">~</span>. <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(forca<span class="op">**</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="kw">anova</span>(ajuste,ajustequad1,<span class="dt">test=</span><span class="st">&#39;Chisq&#39;</span>)</a></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: nquedas ~ interv + sexo + balan + forca
+## Model 2: nquedas ~ interv + sexo + balan + forca + I(balan^2)
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1        95        109                     
+## 2        94        109  1   0.0793     0.78</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">anova</span>(ajuste,ajustequad2,<span class="dt">test=</span><span class="st">&#39;Chisq&#39;</span>)</a></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: nquedas ~ interv + sexo + balan + forca
+## Model 2: nquedas ~ interv + sexo + balan + forca + I(forca^2)
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1        95        109                     
+## 2        94        108  1     1.26     0.26</code></pre>
+<p>Não há necessidade de inclusão dos termos quadráticos.</p>
+<p>Assim, vamos optar pelo modelo original, mas excluindo o efeito de sexo, que não se mostrou significativo.</p>
+</div>
+<div id="modelo-poisson-sem-a-var.-sexo" class="section level2">
+<h2>Modelo Poisson sem a var. “sexo”</h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">ajuste2 &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste, <span class="op">~</span>.<span class="op">-</span>sexo)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">summary</span>(ajuste2)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = nquedas ~ interv + balan + forca, family = poisson, 
+##     data = geriatra)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.215  -0.751  -0.259   0.583   2.289  
+## 
+## Coefficients:
+##                  Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)       0.44389    0.31729    1.40   0.1618    
+## intervEduc+Exerc -1.07777    0.13142   -8.20  2.4e-16 ***
+## balan             0.00947    0.00296    3.20   0.0014 ** 
+## forca             0.00898    0.00419    2.14   0.0321 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 199.19  on 99  degrees of freedom
+## Residual deviance: 108.94  on 96  degrees of freedom
+## AIC: 375.4
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>INTERPRETAÇÔES!!!</p>
+</div>
+<div id="diagnóstico-do-ajuste" class="section level2">
+<h2>Diagnóstico do ajuste</h2>
+<p>Gráficos padrão para a função glm</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">plot</span>(ajuste2, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Não há indicativos sérios de falta de ajuste. Os resíduos têm variância aprox. constante, distribuição próxima da Normal, não parece haver outliers.</p>
+<p>Gráfico dos resíduos da deviance com envelope simulado.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">hnp</span>(ajuste2)</a></code></pre></div>
+<pre><code>## Poisson model</code></pre>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>No geral, os pontos se distribuem no interior do envelope.</p>
+<p>Análise dos resíduos quantílicos aleatorizados.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">resquant &lt;-<span class="st"> </span><span class="kw">qres.pois</span>(ajuste2)</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">qqnorm</span>(resquant)</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="kw">qqline</span>(resquant)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Aproximação satisfatória à distribuição Normal, ligeiro desajuste na cauda à direita.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">shapiro.test</span>(resquant) </a></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resquant
+## W = 0.98, p-value = 0.2</code></pre>
+<p>Não se rejeita a hipótese de normalidade.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">influenceIndexPlot</span>(ajuste,<span class="dt">vars=</span><span class="kw">c</span>(<span class="st">&#39;Studentized&#39;</span>,<span class="st">&#39;Cook&#39;</span>,<span class="st">&#39;Hat&#39;</span>),<span class="dt">id.n=</span><span class="dv">3</span>)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Vamos avaliar algumas observações destacadas no diagnóstico do modelo.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">summary</span>(geriatra)</a></code></pre></div>
+<pre><code>##     nquedas             interv     sexo        balan          forca     
+##  Min.   : 0.00   Educ      :50   Fem :47   Min.   :13.0   Min.   :18.0  
+##  1st Qu.: 1.00   Educ+Exerc:50   Masc:53   1st Qu.:39.0   1st Qu.:52.0  
+##  Median : 3.00                             Median :51.5   Median :60.0  
+##  Mean   : 3.04                             Mean   :52.8   Mean   :60.8  
+##  3rd Qu.: 4.00                             3rd Qu.:66.2   3rd Qu.:70.2  
+##  Max.   :11.00                             Max.   :98.0   Max.   :90.0</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">geriatra[<span class="kw">c</span>(<span class="dv">52</span>,<span class="dv">62</span>,<span class="dv">93</span>),]</a></code></pre></div>
+<pre><code>##    nquedas interv sexo balan forca
+## 52      11   Educ  Fem    45    87
+## 62       7   Educ Masc    98    49
+## 93      10   Educ Masc    43    70</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">plot</span>(geriatra<span class="op">$</span>balan, geriatra<span class="op">$</span>forca)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Os indivíduos 52 e 93 apresentaram os maiores números de quedas na amostra (11 e 10, respectivamente). O de número 62 se destaca pelo maior escore de balanço, com escore de força abaixo do 1º quartil.</p>
+<p>Vamos reajustar o modelo sem esses indivíduos.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">ajuste2alt &lt;-<span class="st"> </span><span class="kw">update</span>(ajuste2,<span class="dt">subset=</span><span class="op">-</span><span class="kw">c</span>(<span class="dv">52</span>,<span class="dv">62</span>,<span class="dv">93</span>)) </a></code></pre></div>
+<p>Atualizando o modelo, excluindo as três observações.</p>
+<p>Vamos comparar os ajustes.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">compareCoefs</span>(ajuste2,ajuste2alt) </a></code></pre></div>
+<pre><code>## Calls:
+## 1: glm(formula = nquedas ~ interv + balan + forca, family = poisson, 
+##   data = geriatra)
+## 2: glm(formula = nquedas ~ interv + balan + forca, family = poisson, 
+##   data = geriatra, subset = -c(52, 62, 93))
+## 
+##                  Model 1 Model 2
+## (Intercept)        0.444   0.550
+## SE                 0.317   0.324
+##                                 
+## intervEduc+Exerc  -1.078  -1.014
+## SE                 0.131   0.134
+##                                 
+## balan            0.00947 0.01059
+## SE               0.00296 0.00321
+##                                 
+## forca            0.00898 0.00527
+## SE               0.00419 0.00447
+## </code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">multiplot</span>(ajuste2, ajuste2alt) <span class="co"># Pacote coefplot</span></a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">summary</span>(ajuste2alt)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = nquedas ~ interv + balan + forca, family = poisson, 
+##     data = geriatra, subset = -c(52, 62, 93))
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.165  -0.726  -0.220   0.487   2.298  
+## 
+## Coefficients:
+##                  Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)       0.54964    0.32397    1.70  0.08978 .  
+## intervEduc+Exerc -1.01394    0.13387   -7.57  3.6e-14 ***
+## balan             0.01059    0.00321    3.30  0.00098 ***
+## forca             0.00527    0.00447    1.18  0.23856    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 171.934  on 96  degrees of freedom
+## Residual deviance:  97.222  on 93  degrees of freedom
+## AIC: 351.5
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>A única mudança substancial corresponde ao efeito do escore de força que, mediante exclusão das três observações, perde sua significância. O efeito da intervenção (e decorrentes conclusões) não são alteradas.</p>
+<p>Vamos explorar um pouco mais os resultados.</p>
+</div>
+<div id="intervalos-de-confiança" class="section level2">
+<h2>Intervalos de confiança</h2>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">confint.default</span>(ajuste2)</a></code></pre></div>
+<pre><code>##                       2.5 %   97.5 %
+## (Intercept)      -0.1779846  1.06577
+## intervEduc+Exerc -1.3353394 -0.82020
+## balan             0.0036747  0.01527
+## forca             0.0007679  0.01719</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">exp</span>(<span class="kw">confint.default</span>(ajuste2))</a></code></pre></div>
+<pre><code>##                   2.5 % 97.5 %
+## (Intercept)      0.8370 2.9031
+## intervEduc+Exerc 0.2631 0.4403
+## balan            1.0037 1.0154
+## forca            1.0008 1.0173</code></pre>
+<p>Intervalos de confiança baseados na normalidade assintótica dos estimadores.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">confint</span>(ajuste2)</a></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                       2.5 %   97.5 %
+## (Intercept)      -0.1871313  1.05603
+## intervEduc+Exerc -1.3411097 -0.82520
+## balan             0.0036752  0.01527
+## forca             0.0007734  0.01720</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">exp</span>(<span class="kw">confint</span>(ajuste2))</a></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                   2.5 % 97.5 %
+## (Intercept)      0.8293 2.8749
+## intervEduc+Exerc 0.2616 0.4381
+## balan            1.0037 1.0154
+## forca            1.0008 1.0173</code></pre>
+<p>Intervalos de confiança baseados nos perfis da verossimilhança.</p>
+<p>Explorando um pouco mais os efeitos das variáveis explicativas (consultar a documentação da função effect, pacote effects).</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">allEffects</span>(ajuste2)) </a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">allEffects</span>(ajuste2), <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+</div>
+<div id="predição" class="section level2">
+<h2>Predição</h2>
+<p>Um pouco de predição. Vamos estimar o número médio de quedas para indivíduos com dois perfis distintos, submetidos a cada uma das intervenções.</p>
+<p>Perfil 1 - Balanço=30, força=50; Perfil 2- Balanço=70, força=80.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">novosdados &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">interv=</span><span class="kw">c</span>(<span class="st">&#39;Educ&#39;</span>,<span class="st">&#39;Educ+Exerc&#39;</span>,<span class="st">&#39;Educ&#39;</span>,<span class="st">&#39;Educ+Exerc&#39;</span>),</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">                         <span class="dt">balan=</span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">30</span>,<span class="dv">50</span>,<span class="dv">50</span>),</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">                         <span class="dt">forca=</span><span class="kw">c</span>(<span class="dv">70</span>,<span class="dv">70</span>,<span class="dv">80</span>,<span class="dv">80</span>))</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4">novosdados</a></code></pre></div>
+<pre><code>##       interv balan forca
+## 1       Educ    30    70
+## 2 Educ+Exerc    30    70
+## 3       Educ    50    80
+## 4 Educ+Exerc    50    80</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">estimativas &lt;-<span class="st"> </span><span class="kw">predict</span>(ajuste2,novosdados,<span class="dt">type=</span><span class="st">&#39;response&#39;</span>); estimativas</a></code></pre></div>
+<pre><code>##     1     2     3     4 
+## 3.883 1.322 5.133 1.747</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">data.frame</span>(novosdados,estimativas)</a></code></pre></div>
+<pre><code>##       interv balan forca estimativas
+## 1       Educ    30    70       3.883
+## 2 Educ+Exerc    30    70       1.322
+## 3       Educ    50    80       5.133
+## 4 Educ+Exerc    50    80       1.747</code></pre>
+<p>Vamos olhar para as distribuições ajustadas para os números de quedas dois perfis, sob cada intervenção.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">cex=</span><span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,<span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,estimativas[<span class="dv">1</span>]),<span class="dt">type=</span><span class="st">&#39;h&#39;</span>,<span class="dt">xlab=</span><span class="st">&#39;Número de quedas&#39;</span>,</a>
+<a class="sourceLine" id="cb67-3" data-line-number="3">     <span class="dt">ylab=</span><span class="st">&#39;Probabilidade estimada&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Perfil 1, Educ&#39;</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb67-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,<span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,estimativas[<span class="dv">2</span>]),<span class="dt">type=</span><span class="st">&#39;h&#39;</span>,<span class="dt">xlab=</span><span class="st">&#39;Número de quedas&#39;</span>,</a>
+<a class="sourceLine" id="cb67-6" data-line-number="6">     <span class="dt">ylab=</span><span class="st">&#39;Probabilidade estimada&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Perfil 1, Educ + Exerc&#39;</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb67-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb67-8" data-line-number="8"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,<span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,estimativas[<span class="dv">3</span>]),<span class="dt">type=</span><span class="st">&#39;h&#39;</span>,<span class="dt">xlab=</span><span class="st">&#39;Número de quedas&#39;</span>,</a>
+<a class="sourceLine" id="cb67-9" data-line-number="9">     <span class="dt">ylab=</span><span class="st">&#39;Probabilidade estimada&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Perfil 2, Educ&#39;</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb67-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb67-11" data-line-number="11"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,<span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,estimativas[<span class="dv">4</span>]),<span class="dt">type=</span><span class="st">&#39;h&#39;</span>,<span class="dt">xlab=</span><span class="st">&#39;Número de quedas&#39;</span>,</a>
+<a class="sourceLine" id="cb67-12" data-line-number="12">     <span class="dt">ylab=</span><span class="st">&#39;Probabilidade estimada&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Perfil 2, Educ + Exerc&#39;</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>Vamos estimar, para cada perfil, a probabilidade de haver alguma queda no período</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">ppois</span>(<span class="dv">0</span>, estimativas[<span class="dv">1</span>], <span class="dt">lower.tail=</span>F) <span class="co"># P(Y&gt;1|mu=estimativa[1])</span></a></code></pre></div>
+<pre><code>## [1] 0.9794</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">ppois</span>(<span class="dv">0</span>, estimativas[<span class="dv">2</span>], <span class="dt">lower.tail=</span>F) <span class="co"># P(Y&gt;1|mu=estimativa[2])</span></a></code></pre></div>
+<pre><code>## [1] 0.7333</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">ppois</span>(<span class="dv">0</span>, estimativas[<span class="dv">3</span>], <span class="dt">lower.tail=</span>F) <span class="co"># P(Y&gt;1|mu=estimativa[3])</span></a></code></pre></div>
+<pre><code>## [1] 0.9941</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">ppois</span>(<span class="dv">0</span>, estimativas[<span class="dv">4</span>], <span class="dt">lower.tail=</span>F) <span class="co"># P(Y&gt;1|mu=estimativa[4])</span></a></code></pre></div>
+<pre><code>## [1] 0.8257</code></pre>
+</div>
+<div id="simulação" class="section level2">
+<h2>Simulação</h2>
+<p>Vamos trabalhar um pouco com simulação Podemos utilizar simulação (bootstrap) como alternativa ao uso da teoria assintótica para avaliação dos erros das estimativas. Vamos usar a função Boot do pacote car.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">ajusteboot &lt;-<span class="st"> </span><span class="kw">Boot</span>(ajuste2, <span class="dt">R=</span><span class="dv">999</span>)</a></code></pre></div>
+<p>Armazenamos em ajusteboot 999 os resultados dos R=999 ajustes do glm proposto para 999 re-amostras de tamanho n=100 geradas com reposição da base original.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">summary</span>(ajusteboot)</a></code></pre></div>
+<pre><code>## 
+## Number of bootstrap replications R = 999 
+##                  original  bootBias  bootSE  bootMed
+## (Intercept)       0.44389 -2.11e-02 0.31639  0.43468
+## intervEduc+Exerc -1.07777 -3.47e-03 0.14121 -1.07635
+## balan             0.00947 -2.02e-05 0.00288  0.00960
+## forca             0.00898  2.56e-04 0.00449  0.00907</code></pre>
+<p>Repare que as estimativas bootstrap (em bootMed) e os erros padrões (em bootSE) são bem similares às obtidas originalmente, baseadas na teoria assintótica. Além disso, o viés é bastante pequeno (desprezível).</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">hist</span>(ajusteboot) </a></code></pre></div>
+<p><img src="queda_idoso_mod13_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Podemos verificar que a distribuição dos estimadores, obtida via simulação, se aproxima bastante da distribuição Normal.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">confint</span>(ajusteboot)</a></code></pre></div>
+<pre><code>## Bootstrap bca confidence intervals
+## 
+##                       2.5 %   97.5 %
+## (Intercept)      -0.2172451  1.03802
+## intervEduc+Exerc -1.3514232 -0.81707
+## balan             0.0028504  0.01449
+## forca             0.0007263  0.01869</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">confint</span>(ajuste2) </a></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                       2.5 %   97.5 %
+## (Intercept)      -0.1871313  1.05603
+## intervEduc+Exerc -1.3411097 -0.82520
+## balan             0.0036752  0.01527
+## forca             0.0007734  0.01720</code></pre>
+<p>Intervalos de confiança obtidos das duas formas são bastante próximos.</p>
+<p>Exercício - testar a qualidade do ajuste com base nas estatísticas da deviance e X2 de Pearson.</p>
+<p>Exercício - Obter intervalos de confiança (95%) para o número médio de quedas de idosos com os dois perfis apresentados.</p>
+<p>Exercício - Avaliar o efeito das três observações destacadas no diagnóstico tirando uma a uma do ajuste do modelo e checar a alteração nos resultados.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

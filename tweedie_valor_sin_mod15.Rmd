@@ -1,0 +1,229 @@
+---
+title: "Tweedie - Valor de sinistros"
+author: "Cesar Taconeli"
+output:
+  html_document:
+    theme: flatly
+    highlight: pygments
+    toc_depth: 5
+    # code_download: true
+    # code_folding: show
+    toc: true
+    toc_float:
+      collapsed: false
+    # df_print: kable
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GLMs com distribuição Tweedie
+
+```{r, message = F}
+require(statmod)
+require(tweedie)
+require(gamlss)
+```
+
+O ajuste de modelos com distribuição **Tweedie** pode ser feito, por exemplo,
+usando a biblioteca **statmod.** Segue um exemplo, em dados simulados.
+
+```{r}
+x <- rnorm(100) # Variável explicativa.
+y <- rGA(100, mu = exp(2*x-1), sigma = 1)
+```
+
+A resposta tem distribuição $\gamma(log(\mu)=2x-1, \sigma=1)$.
+
+```{r}
+mod0 <- glm(y~x,family=tweedie(var.power=2, link.power=0))
+```
+
+var.power é o parâmetro de potência para a média, na função de variância.
+**link.power** define a função de ligação. link.power=0 corresponde à ligação
+logarítmica. Para mais detalhes, consultar a documentação da função.
+
+```{r}
+summary(mod0)
+```
+
+Usando a função **tweedie.profile**, do pacote **tweedie**, vamos analisar o perfil
+de verossimilhança do parâmetro de potência
+
+```{r}
+tweedie.profile(y ~ x, p.vec = c(0, seq(1.1, 2.5, length.out = 20)),
+                link.power = 0,
+                do.plot = T,
+                do.smooth = F)
+```
+
+A verossimilhança é maximizada em torno de $p=2$, indicando que a distribuição
+gama, para a resposta, é indicada (como já se esperava).
+
+## Regressão Tweedie - modelo Poisson-gama composto
+
+Vamos usar o pacote  cplm
+
+```{r, message = F}
+require(cplm)
+data(AutoClaim)
+help(AutoClaim)
+```
+
+Dados sobre seguros de automóveis. Vamos modelar o valor dos sinistros 
+nos últimos cinco anos em função de covariáveis.
+
+```{r}
+dados <- subset(AutoClaim, IN_YY == TRUE)
+```
+
+Selecionando para análise apenas os dados usados no artigo de Yip e Yau (2005)
+
+```{r}
+dados$CLM_AMT5 <- dados$CLM_AMT5/1000
+dados$INCOME <- dados$INCOME/1000
+```
+
+Convertendo a escala das variáveis para milhares de dólares.
+
+```{r}
+table(dados$CLM_FREQ5)
+```
+
+Distribuição de frequências para os números de sinistros registrados
+por cada segurado. Observe que 1706 deles não registraram qualquer 
+sinistro. Para esses casos, o valor da resposta será exatamente igual 
+a zero.
+
+```{r}
+par(las = 1, cex = 1.2, mar = c(4,4,2,2))
+hist(dados$CLM_AMT5, breaks = 25, main = '', col = 'lightblue', xlab = 'Valor',
+     ylab = 'Frequência')
+```
+
+
+Para a análise, vamos considerar apenas algumas das variáveis disponíveis
+
+```{r}
+dados <- dados[,c('CLM_AMT5', 'CAR_USE', 'MARRIED', 'AREA', 'MVR_PTS', 'INCOME')]
+mod1 <- cpglm(CLM_AMT5 ~ CAR_USE + MARRIED + AREA + MVR_PTS, data = dados)
+mod1
+
+head(fitted(mod1)) # Médias ajustadas.
+mod1$phi # Estimativa do parâmetro de dispersão.
+mod1$p # Estimativa da potência de mu, na função de variância.
+```
+
+
+Vamos plotar a distribuição ajustada para dois vetores de covariáveis
+da base. Adicionalmente, vamos estimar as respectivas medianas e P(y>0).
+
+**Perfil 1**
+
+```{r}
+dados[1,]
+```
+
+**Gráfico**
+
+```{r}
+curve(dtweedie(x, mu = fitted(mod1)[1], phi = mod1$phi, power = mod1$p),
+      from = 0, to = 60, col = 'red', lwd = 2, xlab = 'y', ylab = 'f(y)')
+```
+
+**Mediana**
+
+```{r}
+qtweedie(p = 0.5, mu = fitted(mod1)[1], phi = mod1$phi, power = mod1$p)
+```
+
+$P(y>0)$
+
+```{r}
+1-ptweedie(q = 0, mu = fitted(mod1)[1], phi = mod1$phi, power = mod1$p)
+```
+
+
+**Perfil 2**
+
+```{r}
+dados[6,]
+curve(dtweedie(x, mu = fitted(mod1)[6], phi = mod1$phi, power = mod1$p),
+      from = 0, to = 60, col = 'red', lwd = 2, xlab = 'y', ylab = 'f(y)')
+qtweedie(p = 0.5, mu = fitted(mod1)[6], phi = mod1$phi, power = mod1$p)
+1-ptweedie(q = 0, mu = fitted(mod1)[6], phi = mod1$phi, power = mod1$p)
+```
+
+
+Vamos calcular os resíduos quantílicos aleatorizados
+
+```{r}
+y <- dados$CLM_AMT5
+mu <- fitted(mod1)
+p <- ptweedie(q = y, mu = mu, phi = mod1$phi, power = mod1$p)
+```
+
+Probabilidades acumuladas (segundo o modelo ajustado).
+
+```{r}
+p0 <- which(y==0)
+p[p0] <- runif(length(p0), 0, p[p0])
+```
+
+Aleatorizando os resíduos correspondentes a y=0.
+
+```{r}
+residuo <- qnorm(p, 0, 1)
+qqnorm(residuo)
+qqline(residuo)
+```
+
+Resíduo quantílico aleatorizado.
+
+
+Vamos tentar o ajuste de uma poisson-gama composta com inflação de zeros
+
+```{r}
+mod2 <- zcpglm(CLM_AMT5 ~ CAR_USE + MARRIED + AREA + MVR_PTS||
+                   MVR_PTS + INCOME, data = dados)
+```
+
+Neste caso temos dois preditores. O primeiro, para a média da Poisson-gama
+composta (ligação log). O segundo, para a inflação de zeros (ligação
+logito). As covariáveis inseridas nos preditores estão de acordo com o
+artigo de referência. Apresente suas conclusões!
+
+Para o modelo com inflação de zeros, temos três tipos de predições:
+
+```{r}
+dados[1:5,]
+predict(mod2, dados, type = 'zero')[1:5]
+```
+
+Probabilidade estimada referente à inflação de zeros.
+
+```{r}
+predict(mod2, dados, type = 'tweedie')[1:5]
+```
+
+Média estimada referente à parte da Poisson-gama composta.
+
+```{r}
+predict(mod2, dados, type = 'response')[1:5]
+```
+
+Média estimada (geral).
+
+Vamos comparar os AICs dos dois modelos para comparação dos ajustes.
+
+```{r}
+AIC(mod1) # Modelo 1.
+
+n <- length(mod2$y)
+df2 <- mod2$df.residual
+-2*mod2$llik + 2*(n-df2) # Modelo 2.
+```
+
+O AIC do modelo 2 é bem menor, indicando melhor ajuste do modelo com inflação de zeros.

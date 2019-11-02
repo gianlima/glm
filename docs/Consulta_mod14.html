@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Número de consultas ao médico</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Número de consultas ao médico</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<div id="modelos-para-dados-com-excesso-de-zeros" class="section level2">
+<h2>Modelos para dados com excesso de zeros</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(<span class="st">&quot;faraway&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">require</span>(<span class="st">&quot;gamlss&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">help</span>(dvisits)</a></code></pre></div>
+<p>Vamos modelar o número de visitas ao médico nas duas últimas semanas (doctorco) em função de algumas das covariáveis disponíveis na base</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dvisits &lt;-<span class="st"> </span>dvisits[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dvisits)),]</a></code></pre></div>
+<p>Apenas ordenando as linhas da base de forma aleatória (estavam dispostas de forma sistemática).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dvisits<span class="op">$</span>sex &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dvisits<span class="op">$</span>sex)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">levels</span>(dvisits<span class="op">$</span>sex) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Masculino&#39;</span>, <span class="st">&#39;Feminino&#39;</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">dvisits<span class="op">$</span>levyplus &lt;-<span class="st"> </span><span class="kw">factor</span>(dvisits<span class="op">$</span>levyplus)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">levels</span>(dvisits<span class="op">$</span>levyplus) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Publico&#39;</span>, <span class="st">&#39;Particular&#39;</span>)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">dvisits<span class="op">$</span>chcond1 &lt;-<span class="st"> </span><span class="kw">factor</span>(dvisits<span class="op">$</span>chcond1)</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">levels</span>(dvisits<span class="op">$</span>chcond1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Nao cronico&#39;</span>, <span class="st">&#39;Cronico&#39;</span>)</a></code></pre></div>
+<p>Convertendo algumas das variáveis para fator e renomeando os níveis.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">tabela &lt;-<span class="st"> </span><span class="kw">table</span>(dvisits<span class="op">$</span>doctorco)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">barplot</span>(tabela)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>O gráfico de barras evidencia uma grande freqência de indivíduos com zero consultas.</p>
+<p>Todos os ajustes na sequência foram realizados usando a biblioteca gamlss (mesmo aqueles que poderiam ser feitos usando a função glm, para fins de padronização).</p>
+<p>Vamos avaliar os ajustes de seis modelos distintos:</p>
+</div>
+<div id="modelo-1-poisson" class="section level2">
+<h2>Modelo 1: Poisson</h2>
+<p><strong>(sem inflação de zeros)</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">modelo1 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq </a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">                  <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span>illness <span class="op">+</span><span class="st"> </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                  <span class="op">+</span><span class="st"> </span>medicine, <span class="dt">family =</span> PO, <span class="dt">data =</span> dvisits)</a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6628.372 
+## GAMLSS-RS iteration 2: Global Deviance = 6628.372</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">plot</span>(modelo1)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  -0.004735209 
+##                        variance   =  1.063899 
+##                coef. of skewness  =  0.3654912 
+##                coef. of kurtosis  =  4.383663 
+## Filliben correlation coefficient  =  0.9935205 
+## ******************************************************************</code></pre>
+<p>A biblioteca gamlss tem como padrão os resíduos quantílicos aleatorizados. O qqplot indica a não normalidade dos resíduos e, consequentemente, o desajuste do modelo.</p>
+</div>
+<div id="modelo-2-binomial-negativa" class="section level2">
+<h2>Modelo 2: Binomial negativa</h2>
+<p><strong>(sem inflação de zeros)</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">modelo2 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span>illness <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">                      </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine, <span class="dt">family =</span> NBI, </a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">                  <span class="dt">data =</span> dvisits)</a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6370.117 
+## GAMLSS-RS iteration 2: Global Deviance = 6357.454 
+## GAMLSS-RS iteration 3: Global Deviance = 6357.372 
+## GAMLSS-RS iteration 4: Global Deviance = 6357.372</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>(modelo2)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  0.01253109 
+##                        variance   =  0.9658382 
+##                coef. of skewness  =  0.01900208 
+##                coef. of kurtosis  =  3.195999 
+## Filliben correlation coefficient  =  0.9991059 
+## ******************************************************************</code></pre>
+<p>A análise de resíduos indica melhor ajuste em relação ao modelo de Poisson. Mas ainda se observa algum desajuste.</p>
+<p>##Modelo 3: Poisson com inflação de zeros</p>
+<p><strong>(mas sem covariáveis para o componente do excesso de zeros)</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">help</span>(<span class="st">&quot;ZIP&quot;</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">modelo3 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span>illness <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">                      </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">                  <span class="dt">family =</span> ZIP, <span class="dt">data =</span> dvisits) </a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6535.095 
+## GAMLSS-RS iteration 2: Global Deviance = 6522.272 
+## GAMLSS-RS iteration 3: Global Deviance = 6517.939 
+## GAMLSS-RS iteration 4: Global Deviance = 6516.39 
+## GAMLSS-RS iteration 5: Global Deviance = 6515.82 
+## GAMLSS-RS iteration 6: Global Deviance = 6515.607 
+## GAMLSS-RS iteration 7: Global Deviance = 6515.527 
+## GAMLSS-RS iteration 8: Global Deviance = 6515.495 
+## GAMLSS-RS iteration 9: Global Deviance = 6515.482 
+## GAMLSS-RS iteration 10: Global Deviance = 6515.477 
+## GAMLSS-RS iteration 11: Global Deviance = 6515.475 
+## GAMLSS-RS iteration 12: Global Deviance = 6515.474</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">plot</span>(modelo3)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  -0.01944443 
+##                        variance   =  1.055439 
+##                coef. of skewness  =  0.2321606 
+##                coef. of kurtosis  =  3.886979 
+## Filliben correlation coefficient  =  0.9963863 
+## ******************************************************************</code></pre>
+<p>Problemas de ajuste semelhantes ao modelo de Poisson sem inflação.</p>
+</div>
+<div id="modelo-4-binomial-negativa-com-inflação-de-zeros" class="section level2">
+<h2>Modelo 4: Binomial negativa com inflação de zeros</h2>
+<p><strong>(mas sem covariáveis para o componente do excesso de zeros)</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">help</span>(<span class="st">&quot;ZINBI&quot;</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">modelo4 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span>illness <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">                      </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">                  <span class="dt">family =</span> ZINBI, <span class="dt">data =</span> dvisits) </a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6434.662 
+## GAMLSS-RS iteration 2: Global Deviance = 6394.963 
+## GAMLSS-RS iteration 3: Global Deviance = 6379.93 
+## GAMLSS-RS iteration 4: Global Deviance = 6370.846 
+## GAMLSS-RS iteration 5: Global Deviance = 6365.247 
+## GAMLSS-RS iteration 6: Global Deviance = 6361.725 
+## GAMLSS-RS iteration 7: Global Deviance = 6359.463 
+## GAMLSS-RS iteration 8: Global Deviance = 6357.991 
+## GAMLSS-RS iteration 9: Global Deviance = 6357.387 
+## GAMLSS-RS iteration 10: Global Deviance = 6357.372 
+## GAMLSS-RS iteration 11: Global Deviance = 6357.372</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">plot</span>(modelo4)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  0.006675355 
+##                        variance   =  0.9929617 
+##                coef. of skewness  =  -0.00746178 
+##                coef. of kurtosis  =  3.306128 
+## Filliben correlation coefficient  =  0.9992312 
+## ******************************************************************</code></pre>
+</div>
+<div id="modelo-5-poisson-com-inflação-de-zeros" class="section level2">
+<h2>Modelo 5: Poisson com inflação de zeros</h2>
+<p><strong>(incluindo as covariáveis também na modelagem do componente do excesso de zeros)</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">modelo5 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span>illness <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">                      </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">                     <span class="dt">sigma.formula =</span> <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="st">                      </span>illness <span class="op">+</span><span class="st"> </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine, </a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">                     <span class="dt">family =</span> ZIP, <span class="dt">data =</span> dvisits) </a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6510.456 
+## GAMLSS-RS iteration 2: Global Deviance = 6384.869 
+## GAMLSS-RS iteration 3: Global Deviance = 6292.056 
+## GAMLSS-RS iteration 4: Global Deviance = 6266.655 
+## GAMLSS-RS iteration 5: Global Deviance = 6256.481 
+## GAMLSS-RS iteration 6: Global Deviance = 6252.43 
+## GAMLSS-RS iteration 7: Global Deviance = 6250.854 
+## GAMLSS-RS iteration 8: Global Deviance = 6250.253 
+## GAMLSS-RS iteration 9: Global Deviance = 6250.026 
+## GAMLSS-RS iteration 10: Global Deviance = 6249.942 
+## GAMLSS-RS iteration 11: Global Deviance = 6249.911 
+## GAMLSS-RS iteration 12: Global Deviance = 6249.899 
+## GAMLSS-RS iteration 13: Global Deviance = 6249.894 
+## GAMLSS-RS iteration 14: Global Deviance = 6249.892 
+## GAMLSS-RS iteration 15: Global Deviance = 6249.891</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">plot</span>(modelo5)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  -0.001643474 
+##                        variance   =  1.056911 
+##                coef. of skewness  =  0.1074494 
+##                coef. of kurtosis  =  3.393902 
+## Filliben correlation coefficient  =  0.9986883 
+## ******************************************************************</code></pre>
+<p>Observe que para incluir covariáveis na modelagem do parâmetro do excesso de zeros, tivemos que declarar uma segunda fórmula em “sigma.formula = ~ …”</p>
+</div>
+<div id="modelo-6-binomial-negativa-com-inflação-de-zeros" class="section level2">
+<h2>Modelo 6: Binomial negativa com inflação de zeros</h2>
+<p><strong>(incluindo as covariáveis também na modelagem do componente do excesso de zeros)</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">modelo6 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span>illness <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">                      </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">                  <span class="dt">nu.formula =</span> <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>levyplus <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">                      </span>illness <span class="op">+</span><span class="st"> </span>actdays <span class="op">+</span><span class="st"> </span>chcond1 <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">                  <span class="dt">family =</span> ZINBI, <span class="dt">data =</span> dvisits) </a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6390.986 
+## GAMLSS-RS iteration 2: Global Deviance = 6196.292 
+## GAMLSS-RS iteration 3: Global Deviance = 6152.73 
+## GAMLSS-RS iteration 4: Global Deviance = 6146.837 
+## GAMLSS-RS iteration 5: Global Deviance = 6145.174 
+## GAMLSS-RS iteration 6: Global Deviance = 6144.508 
+## GAMLSS-RS iteration 7: Global Deviance = 6144.202 
+## GAMLSS-RS iteration 8: Global Deviance = 6144.055 
+## GAMLSS-RS iteration 9: Global Deviance = 6143.983 
+## GAMLSS-RS iteration 10: Global Deviance = 6143.951 
+## GAMLSS-RS iteration 11: Global Deviance = 6143.934 
+## GAMLSS-RS iteration 12: Global Deviance = 6143.926 
+## GAMLSS-RS iteration 13: Global Deviance = 6143.921 
+## GAMLSS-RS iteration 14: Global Deviance = 6143.919 
+## GAMLSS-RS iteration 15: Global Deviance = 6143.917 
+## GAMLSS-RS iteration 16: Global Deviance = 6143.917</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">plot</span>(modelo6)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  -0.003352731 
+##                        variance   =  1.003999 
+##                coef. of skewness  =  -0.04096202 
+##                coef. of kurtosis  =  3.083735 
+## Filliben correlation coefficient  =  0.9997122 
+## ******************************************************************</code></pre>
+<p>No caso da binomial negativa, para incluir covariáveis na modelagem do parâmetro do excesso de zeros, tivemos que declarar uma segunda fórmula em “nu.formula = ~ …”. Isso porque, para a ZINB, o gamlss identifica sigma como o parâmetro de dispersão.</p>
+<p>Vamos comparar os modelos pelos respectivos AICs.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">AIC</span>(modelo1, modelo2, modelo3, modelo4, modelo5, modelo6)</a></code></pre></div>
+<pre><code>##         df      AIC
+## modelo6 23 6189.917
+## modelo5 22 6293.891
+## modelo2 12 6381.371
+## modelo4 13 6383.371
+## modelo3 12 6539.474
+## modelo1 11 6650.372</code></pre>
+<p>Observe que o modelo 6 (ZIBN com covariáveis para o excesso de zeros) foi aquele que produziu menor AIC. Pelos gráficos de resíduos, adicionalmente, fica claro que é o que proporciona melhor ajuste. Vamos explorar um pouco mais ele.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">summary</span>(modelo6)</a></code></pre></div>
+<pre><code>## ******************************************************************
+## Family:  c(&quot;ZINBI&quot;, &quot;Zero inflated negative binomial type I&quot;) 
+## 
+## Call:  gamlss(formula = doctorco ~ sex + age + agesq + income +  
+##     levyplus + illness + actdays + chcond1 + hospadmi +  
+##     medicine, nu.formula = ~sex + age + agesq + income +  
+##     levyplus + illness + actdays + chcond1 + hospadmi +  
+##     medicine, family = ZINBI, data = dvisits) 
+## 
+## Fitting method: RS() 
+## 
+## ------------------------------------------------------------------
+## Mu link function:  log
+## Mu Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        -0.987495   0.282509  -3.495 0.000477 ***
+## sexFeminino        -0.031482   0.081265  -0.387 0.698471    
+## age                 0.573766   1.451491   0.395 0.692642    
+## agesq              -0.890723   1.567536  -0.568 0.569903    
+## income             -0.108776   0.126754  -0.858 0.390840    
+## levyplusParticular -0.033365   0.079749  -0.418 0.675688    
+## illness             0.024569   0.029703   0.827 0.408193    
+## actdays             0.089471   0.007236  12.364  &lt; 2e-16 ***
+## chcond1Cronico     -0.025228   0.080358  -0.314 0.753575    
+## hospadmi            0.201647   0.043833   4.600 4.32e-06 ***
+## medicine            0.063351   0.022732   2.787 0.005341 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## ------------------------------------------------------------------
+## Sigma link function:  log
+## Sigma Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.7149     0.1459  -4.899 9.94e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## ------------------------------------------------------------------
+## Nu link function:  logit 
+## Nu Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         1.35894    0.71789   1.893  0.05842 .  
+## sexFeminino        -0.42549    0.21641  -1.966  0.04934 *  
+## age                 5.47141    4.20976   1.300  0.19376    
+## agesq              -8.80309    4.81515  -1.828  0.06758 .  
+## income             -0.04045    0.33542  -0.121  0.90402    
+## levyplusParticular -0.31691    0.22369  -1.417  0.15662    
+## illness            -0.57184    0.12925  -4.424 9.87e-06 ***
+## actdays            -1.55892    0.52896  -2.947  0.00322 ** 
+## chcond1Cronico      0.12111    0.23266   0.521  0.60270    
+## hospadmi           -0.35096    0.21280  -1.649  0.09916 .  
+## medicine           -0.56346    0.12364  -4.557 5.30e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## ------------------------------------------------------------------
+## No. of observations in the fit:  5190 
+## Degrees of Freedom for the fit:  23
+##       Residual Deg. of Freedom:  5167 
+##                       at cycle:  16 
+##  
+## Global Deviance:     6143.917 
+##             AIC:     6189.917 
+##             SBC:     6340.67 
+## ******************************************************************</code></pre>
+<p>Observe que o resumo do modelo é separado em duas partes: a primeira para a média da binomial negativa e a segunda para a probabilidade de zeros excedentes.</p>
+<p>Podemos observar que a probabilidade associada ao excesso de zeros é menor para pacientes do sexo feminino; diminui conforme o número de enfermidades nas últimas duas semanas (illness); diminui conforme o número de dias inativos nas últimas duas semanas (actdays); diminui conforme o número de medicações prescritas nas últimas duas semanas (medicine).</p>
+<p>Ao olhar para a parte da binomial negativa, verificamos que a frequência de consultas, em média, aumenta conforme o número de dias inativos (actdays); aumenta conforme o número de noites internado (hospadmi) e aumenta conforme o número de medicações prescritas (medicine).</p>
+<p>Deixo como tarefa escrever as expressões dos modelos ajustados e explorar os efeitos.</p>
+<p>Apenas para fins de ilustração, vamos ajustar um modelo apenas com as variáveis com efeito marginalmente significativo ao nível de 5% (além da idade, para o componente do excesso de zeros).</p>
+</div>
+<div id="modelo-7" class="section level2">
+<h2>Modelo 7</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">modelo7 &lt;-<span class="st"> </span><span class="kw">gamlss</span>(doctorco <span class="op">~</span><span class="st"> </span>actdays <span class="op">+</span><span class="st"> </span>hospadmi <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">                  <span class="dt">nu.formula =</span> <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>agesq <span class="op">+</span>illness <span class="op">+</span><span class="st"> </span>actdays <span class="op">+</span><span class="st"> </span>medicine,</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">                  <span class="dt">family =</span> ZINBI, <span class="dt">data =</span> dvisits)</a></code></pre></div>
+<pre><code>## GAMLSS-RS iteration 1: Global Deviance = 6306.03 
+## GAMLSS-RS iteration 2: Global Deviance = 6163.858 
+## GAMLSS-RS iteration 3: Global Deviance = 6158.019 
+## GAMLSS-RS iteration 4: Global Deviance = 6155.61 
+## GAMLSS-RS iteration 5: Global Deviance = 6154.486 
+## GAMLSS-RS iteration 6: Global Deviance = 6153.968 
+## GAMLSS-RS iteration 7: Global Deviance = 6153.731 
+## GAMLSS-RS iteration 8: Global Deviance = 6153.623 
+## GAMLSS-RS iteration 9: Global Deviance = 6153.575 
+## GAMLSS-RS iteration 10: Global Deviance = 6153.553 
+## GAMLSS-RS iteration 11: Global Deviance = 6153.542 
+## GAMLSS-RS iteration 12: Global Deviance = 6153.538 
+## GAMLSS-RS iteration 13: Global Deviance = 6153.535 
+## GAMLSS-RS iteration 14: Global Deviance = 6153.534 
+## GAMLSS-RS iteration 15: Global Deviance = 6153.534</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">LR.test</span>(modelo7, modelo6) <span class="co">### Comparando os modelos via teste da razão de verossimilhanças.</span></a></code></pre></div>
+<pre><code>##  Likelihood Ratio Test for nested GAMLSS models. 
+##  (No check whether the models are nested is performed). 
+##  
+##        Null model: deviance= 6153.534 with  12 deg. of freedom 
+##  Altenative model: deviance= 6143.917 with  23 deg. of freedom 
+##  
+##  LRT = 9.617128 with 11 deg. of freedom and p-value= 0.5651195</code></pre>
+<p>Os ajustes não diferem significativamente. Podemos adotar o modelo 7, portanto.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">plot</span>(modelo7)</a></code></pre></div>
+<p><img src="Consulta_mod14_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre><code>## ******************************************************************
+##   Summary of the Randomised Quantile Residuals
+##                            mean   =  -0.0001283558 
+##                        variance   =  1.001868 
+##                coef. of skewness  =  -0.008838728 
+##                coef. of kurtosis  =  2.989365 
+## Filliben correlation coefficient  =  0.999719 
+## ******************************************************************</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">summary</span>(modelo7)</a></code></pre></div>
+<pre><code>## ******************************************************************
+## Family:  c(&quot;ZINBI&quot;, &quot;Zero inflated negative binomial type I&quot;) 
+## 
+## Call:  gamlss(formula = doctorco ~ actdays + hospadmi + medicine,  
+##     nu.formula = ~sex + age + agesq + illness + actdays +  
+##         medicine, family = ZINBI, data = dvisits) 
+## 
+## Fitting method: RS() 
+## 
+## ------------------------------------------------------------------
+## Mu link function:  log
+## Mu Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -1.009562   0.076839  -13.14  &lt; 2e-16 ***
+## actdays      0.089786   0.007152   12.55  &lt; 2e-16 ***
+## hospadmi     0.229396   0.041407    5.54 3.17e-08 ***
+## medicine     0.060010   0.018755    3.20  0.00138 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## ------------------------------------------------------------------
+## Sigma link function:  log
+## Sigma Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.7084     0.1432  -4.948 7.75e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## ------------------------------------------------------------------
+## Nu link function:  logit 
+## Nu Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.2947     0.5933   2.182  0.02914 *  
+## sexFeminino  -0.3999     0.1734  -2.306  0.02114 *  
+## age           4.4765     3.1797   1.408  0.15923    
+## agesq        -7.1446     3.5822  -1.994  0.04616 *  
+## illness      -0.5974     0.1078  -5.540 3.17e-08 ***
+## actdays      -1.7479     0.6220  -2.810  0.00497 ** 
+## medicine     -0.5831     0.1124  -5.189 2.20e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## ------------------------------------------------------------------
+## No. of observations in the fit:  5190 
+## Degrees of Freedom for the fit:  12
+##       Residual Deg. of Freedom:  5178 
+##                       at cycle:  15 
+##  
+## Global Deviance:     6153.534 
+##             AIC:     6177.534 
+##             SBC:     6256.188 
+## ******************************************************************</code></pre>
+<p>Embora as estimativas, numericamente, tenham sido alteradas, as conclusões apresentadas anteriormente se mantém.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">confint</span>(modelo7, <span class="dt">what =</span> <span class="st">&#39;mu&#39;</span>)</a></code></pre></div>
+<pre><code>##                   2.5 %      97.5 %
+## (Intercept) -1.16016348 -0.85896040
+## actdays      0.07576936  0.10380296
+## hospadmi     0.14823957  0.31055327
+## medicine     0.02325016  0.09676993</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">confint</span>(modelo7, <span class="dt">what =</span> <span class="st">&#39;nu&#39;</span>)</a></code></pre></div>
+<pre><code>##                   2.5 %      97.5 %
+## (Intercept)   1.1440569  1.44525995
+## sexFeminino  -0.7396899 -0.06004108
+## age          -1.7555109 10.70859993
+## agesq       -14.1656515 -0.12352664
+## illness      -0.8086798 -0.38604047
+## actdays      -1.7619162 -1.73388261
+## medicine     -0.6198519 -0.54633217</code></pre>
+<p>Intervalos de confiança.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">pmu &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo7, <span class="dt">what =</span> <span class="st">&#39;mu&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p>Valores ajustados para a média da binomial negativa para cada linha da base.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">pnu &lt;-<span class="st"> </span><span class="kw">predict</span>(modelo7, <span class="dt">what =</span> <span class="st">&#39;nu&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;response&#39;</span>)</a></code></pre></div>
+<p>Valores ajustados para a probabilidade de zero excedente para cada linha da base.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">valores &lt;-<span class="st"> </span>pmu <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>pnu)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">head</span>(valores)</a></code></pre></div>
+<pre><code>##       2096       2434       4314        931       4698       1968 
+## 0.22980636 0.38092510 0.04793570 0.32713137 0.11978515 0.08701931</code></pre>
+<p>Valores ajustados para o número esperado de consultas para cada linha da base.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -6,3 +6,10 @@ title: "index"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+<div class="panel panel-primary">
+  <div class="panel-heading">Observações</div>
+  <div class="panel-body">
+O presente material foi preparado pelo professor [Cesar Taconeli](https://docs.ufpr.br/~taconeli/).   
+Esta página serve apenas como visualização dos códigos da [disciplina](https://docs.ufpr.br/~taconeli/CE22519/CE22519.html). Conferir a outra aba.
+</div>
+</div>

@@ -1,0 +1,3501 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Seleção de covariáveis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Seleção de covariáveis</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<p>Nesta aplicação, vamos usar os dados sobre disagnóstico de diabetes em uma população de mulheres indígenas norte-americanas. O objetivo é predizer o diagnóstico, resultante do teste de glicemia em jejum (type) em função das demais covariáveis. Para maiores informações, consultar a documentação da base.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">require</span>(glmnet)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">pima_dat &lt;-<span class="st"> </span><span class="kw">rbind</span>(Pima.tr, Pima.te)</a></code></pre></div>
+<p>A principio são duas bases, uma para ajuste e outra para validação. Nesta aplicação, no entanto, vamos concatenar as duas bases e proceder uma única análise.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">head</span>(pima_dat, <span class="dv">15</span>)</a></code></pre></div>
+<pre><code>##    npreg glu bp skin  bmi   ped age type
+## 1      5  86 68   28 30.2 0.364  24   No
+## 2      7 195 70   33 25.1 0.163  55  Yes
+## 3      5  77 82   41 35.8 0.156  35   No
+## 4      0 165 76   43 47.9 0.259  26   No
+## 5      0 107 60   25 26.4 0.133  23   No
+## 6      5  97 76   27 35.6 0.378  52  Yes
+## 7      3  83 58   31 34.3 0.336  25   No
+## 8      1 193 50   16 25.9 0.655  24   No
+## 9      3 142 80   15 32.4 0.200  63   No
+## 10     2 128 78   37 43.3 1.224  31  Yes
+## 11     0 137 40   35 43.1 2.288  33  Yes
+## 12     9 154 78   30 30.9 0.164  45   No
+## 13     1 189 60   23 30.1 0.398  59  Yes
+## 14    12  92 62    7 27.6 0.926  44  Yes
+## 15     1  86 66   52 41.3 0.917  29   No</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">summary</span>(pima_dat)</a></code></pre></div>
+<pre><code>##      npreg            glu              bp             skin     
+##  Min.   : 0.00   Min.   : 56.0   Min.   : 24.0   Min.   : 7.0  
+##  1st Qu.: 1.00   1st Qu.: 98.8   1st Qu.: 64.0   1st Qu.:22.0  
+##  Median : 2.00   Median :115.0   Median : 72.0   Median :29.0  
+##  Mean   : 3.52   Mean   :121.0   Mean   : 71.5   Mean   :29.2  
+##  3rd Qu.: 5.00   3rd Qu.:141.2   3rd Qu.: 80.0   3rd Qu.:36.0  
+##  Max.   :17.00   Max.   :199.0   Max.   :110.0   Max.   :99.0  
+##       bmi            ped             age        type    
+##  Min.   :18.2   Min.   :0.085   Min.   :21.0   No :355  
+##  1st Qu.:27.9   1st Qu.:0.259   1st Qu.:23.0   Yes:177  
+##  Median :32.8   Median :0.416   Median :28.0            
+##  Mean   :32.9   Mean   :0.503   Mean   :31.6            
+##  3rd Qu.:36.9   3rd Qu.:0.658   3rd Qu.:38.0            
+##  Max.   :67.1   Max.   :2.420   Max.   :81.0</code></pre>
+<p>Vamos usar um glm com resposta binomial e ligação logito (regressão logística)</p>
+<p>Primeiro, usando todas as covariáveis:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ajuste &lt;-<span class="st"> </span><span class="kw">glm</span>(type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> pima_dat, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">logLik</span>(ajuste)</a></code></pre></div>
+<pre><code>## &#39;log Lik.&#39; -233.2 (df=8)</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">AIC</span>(ajuste)</a></code></pre></div>
+<pre><code>## [1] 482.3</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">BIC</span>(ajuste)</a></code></pre></div>
+<pre><code>## [1] 516.5</code></pre>
+<p>Agora, o modelo nulo, apenas com o intercepto.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ajuste_null &lt;-<span class="st"> </span><span class="kw">glm</span>(type <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> pima_dat, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">logLik</span>(ajuste_null)</a></code></pre></div>
+<pre><code>## &#39;log Lik.&#39; -338.4 (df=1)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">AIC</span>(ajuste_null)</a></code></pre></div>
+<pre><code>## [1] 678.8</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">BIC</span>(ajuste_null)</a></code></pre></div>
+<pre><code>## [1] 683.1</code></pre>
+<div id="métodos-de-seleção-de-covariáveis" class="section level2">
+<h2>Métodos de seleção de covariáveis</h2>
+<p>Seleção de covariáveis - método backward</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">s1a &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste, <span class="dt">direction =</span> <span class="st">&#39;backward&#39;</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=482.3
+## type ~ npreg + glu + bp + skin + bmi + ped + age
+## 
+##         Df Deviance AIC
+## - skin   1      467 481
+## - bp     1      467 481
+## &lt;none&gt;          466 482
+## - age    1      470 484
+## - npreg  1      474 488
+## - bmi    1      479 493
+## - ped    1      480 494
+## - glu    1      553 567
+## 
+## Step:  AIC=480.5
+## type ~ npreg + glu + bp + bmi + ped + age
+## 
+##         Df Deviance AIC
+## - bp     1      467 479
+## &lt;none&gt;          467 481
+## - age    1      470 482
+## - npreg  1      475 487
+## - ped    1      480 492
+## - bmi    1      490 502
+## - glu    1      554 566
+## 
+## Step:  AIC=479.1
+## type ~ npreg + glu + bmi + ped + age
+## 
+##         Df Deviance AIC
+## &lt;none&gt;          467 479
+## - age    1      470 480
+## - npreg  1      475 485
+## - ped    1      481 491
+## - bmi    1      491 501
+## - glu    1      554 564</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">summary</span>(s1a) <span class="co"># Resumo do modelo produzido pelo método backward.</span></a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ npreg + glu + bmi + ped + age, family = &quot;binomial&quot;, 
+##     data = pima_dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.989  -0.653  -0.370   0.644   2.542  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -9.8800     0.9186  -10.76  &lt; 2e-16 ***
+## npreg         0.1239     0.0435    2.85  0.00441 ** 
+## glu           0.0350     0.0042    8.34  &lt; 2e-16 ***
+## bmi           0.0851     0.0181    4.70  2.6e-06 ***
+## ped           1.3216     0.3625    3.65  0.00027 ***
+## age           0.0238     0.0133    1.79  0.07324 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 676.79  on 531  degrees of freedom
+## Residual deviance: 467.08  on 526  degrees of freedom
+## AIC: 479.1
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Cinco covariáveis foram selecionadas para compor o modelo.</p>
+<p>Vamos repetir o algoritmo backward, mas agora trocando a constante de penalização de k = 2 para k = log(n) = 6.27.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">s1b &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste, <span class="dt">direction =</span> <span class="st">&#39;backward&#39;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(pima_dat)))</a></code></pre></div>
+<pre><code>## Start:  AIC=516.5
+## type ~ npreg + glu + bp + skin + bmi + ped + age
+## 
+##         Df Deviance AIC
+## - skin   1      467 510
+## - bp     1      467 511
+## - age    1      470 514
+## &lt;none&gt;          466 517
+## - npreg  1      474 518
+## - bmi    1      479 523
+## - ped    1      480 524
+## - glu    1      553 597
+## 
+## Step:  AIC=510.5
+## type ~ npreg + glu + bp + bmi + ped + age
+## 
+##         Df Deviance AIC
+## - bp     1      467 505
+## - age    1      470 508
+## &lt;none&gt;          467 510
+## - npreg  1      475 512
+## - ped    1      480 518
+## - bmi    1      490 528
+## - glu    1      554 591
+## 
+## Step:  AIC=504.7
+## type ~ npreg + glu + bmi + ped + age
+## 
+##         Df Deviance AIC
+## - age    1      470 502
+## &lt;none&gt;          467 505
+## - npreg  1      475 507
+## - ped    1      481 513
+## - bmi    1      491 523
+## - glu    1      554 585
+## 
+## Step:  AIC=501.7
+## type ~ npreg + glu + bmi + ped
+## 
+##         Df Deviance AIC
+## &lt;none&gt;          470 502
+## - ped    1      485 510
+## - bmi    1      494 519
+## - npreg  1      497 522
+## - glu    1      569 595</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">summary</span>(s1b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ npreg + glu + bmi + ped, family = &quot;binomial&quot;, 
+##     data = pima_dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -3.066  -0.661  -0.379   0.628   2.521  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -9.44941    0.87487  -10.80  &lt; 2e-16 ***
+## npreg        0.17288    0.03447    5.01  5.3e-07 ***
+## glu          0.03648    0.00414    8.82  &lt; 2e-16 ***
+## bmi          0.08423    0.01809    4.66  3.2e-06 ***
+## ped          1.36175    0.36159    3.77  0.00017 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 676.79  on 531  degrees of freedom
+## Residual deviance: 470.30  on 527  degrees of freedom
+## AIC: 480.3
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Neste caso, quatro covariáveis foram selecionadas para compor o modelo. A variável age é selecionada quando k = 2, mas não para k = log(n).</p>
+<p>Seleção de covariáveis - método forward. Para o método forward, o modelo de partida é o modelo nulo, e precisamos definir o escopo, referente às variáveis consideradas para inclusão.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">s2a &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste_null, <span class="dt">scope =</span> <span class="kw">formula</span>(ajuste), <span class="dt">direction =</span> <span class="st">&#39;forward&#39;</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=678.8
+## type ~ 1
+## 
+##         Df Deviance AIC
+## + glu    1      534 538
+## + age    1      625 629
+## + bmi    1      627 631
+## + skin   1      641 645
+## + npreg  1      644 648
+## + ped    1      649 653
+## + bp     1      659 663
+## &lt;none&gt;          677 679
+## 
+## Step:  AIC=538.2
+## type ~ glu
+## 
+##         Df Deviance AIC
+## + npreg  1      511 517
+## + bmi    1      511 517
+## + age    1      513 519
+## + ped    1      517 523
+## + skin   1      518 524
+## + bp     1      531 537
+## &lt;none&gt;          534 538
+## 
+## Step:  AIC=517.4
+## type ~ glu + npreg
+## 
+##        Df Deviance AIC
+## + bmi   1      485 493
+## + ped   1      494 502
+## + skin  1      498 506
+## + age   1      508 516
+## &lt;none&gt;         511 517
+## + bp    1      510 518
+## 
+## Step:  AIC=493.2
+## type ~ glu + npreg + bmi
+## 
+##        Df Deviance AIC
+## + ped   1      470 480
+## + age   1      481 491
+## &lt;none&gt;         485 493
+## + skin  1      485 495
+## + bp    1      485 495
+## 
+## Step:  AIC=480.3
+## type ~ glu + npreg + bmi + ped
+## 
+##        Df Deviance AIC
+## + age   1      467 479
+## &lt;none&gt;         470 480
+## + skin  1      470 482
+## + bp    1      470 482
+## 
+## Step:  AIC=479.1
+## type ~ glu + npreg + bmi + ped + age
+## 
+##        Df Deviance AIC
+## &lt;none&gt;         467 479
+## + bp    1      467 481
+## + skin  1      467 481</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">summary</span>(s2a)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ glu + npreg + bmi + ped + age, family = &quot;binomial&quot;, 
+##     data = pima_dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.989  -0.653  -0.370   0.644   2.542  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -9.8800     0.9186  -10.76  &lt; 2e-16 ***
+## glu           0.0350     0.0042    8.34  &lt; 2e-16 ***
+## npreg         0.1239     0.0435    2.85  0.00441 ** 
+## bmi           0.0851     0.0181    4.70  2.6e-06 ***
+## ped           1.3216     0.3625    3.65  0.00027 ***
+## age           0.0238     0.0133    1.79  0.07324 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 676.79  on 531  degrees of freedom
+## Residual deviance: 467.08  on 526  degrees of freedom
+## AIC: 479.1
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">s2b &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste_null, <span class="dt">scope =</span> <span class="kw">formula</span>(ajuste), <span class="dt">direction =</span> <span class="st">&#39;forward&#39;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(pima_dat)))</a></code></pre></div>
+<pre><code>## Start:  AIC=683.1
+## type ~ 1
+## 
+##         Df Deviance AIC
+## + glu    1      534 547
+## + age    1      625 638
+## + bmi    1      627 640
+## + skin   1      641 654
+## + npreg  1      644 656
+## + ped    1      649 661
+## + bp     1      659 671
+## &lt;none&gt;          677 683
+## 
+## Step:  AIC=546.7
+## type ~ glu
+## 
+##         Df Deviance AIC
+## + npreg  1      511 530
+## + bmi    1      511 530
+## + age    1      513 532
+## + ped    1      517 536
+## + skin   1      518 537
+## &lt;none&gt;          534 547
+## + bp     1      531 549
+## 
+## Step:  AIC=530.2
+## type ~ glu + npreg
+## 
+##        Df Deviance AIC
+## + bmi   1      485 510
+## + ped   1      494 519
+## + skin  1      498 523
+## &lt;none&gt;         511 530
+## + age   1      508 533
+## + bp    1      510 535
+## 
+## Step:  AIC=510.3
+## type ~ glu + npreg + bmi
+## 
+##        Df Deviance AIC
+## + ped   1      470 502
+## &lt;none&gt;         485 510
+## + age   1      481 513
+## + skin  1      485 516
+## + bp    1      485 516
+## 
+## Step:  AIC=501.7
+## type ~ glu + npreg + bmi + ped
+## 
+##        Df Deviance AIC
+## &lt;none&gt;         470 502
+## + age   1      467 505
+## + skin  1      470 508
+## + bp    1      470 508</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">summary</span>(s2b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ glu + npreg + bmi + ped, family = &quot;binomial&quot;, 
+##     data = pima_dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -3.066  -0.661  -0.379   0.628   2.521  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -9.44941    0.87487  -10.80  &lt; 2e-16 ***
+## glu          0.03648    0.00414    8.82  &lt; 2e-16 ***
+## npreg        0.17288    0.03447    5.01  5.3e-07 ***
+## bmi          0.08423    0.01809    4.66  3.2e-06 ***
+## ped          1.36175    0.36159    3.77  0.00017 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 676.79  on 531  degrees of freedom
+## Residual deviance: 470.30  on 527  degrees of freedom
+## AIC: 480.3
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Novamente, os modelos diferem quanto à inclusão da variável age.</p>
+<p>Finalmente, o método stepwise combinado.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">s3a &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste_null, <span class="dt">scope =</span> <span class="kw">formula</span>(ajuste), <span class="dt">direction =</span> <span class="st">&#39;both&#39;</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=678.8
+## type ~ 1
+## 
+##         Df Deviance AIC
+## + glu    1      534 538
+## + age    1      625 629
+## + bmi    1      627 631
+## + skin   1      641 645
+## + npreg  1      644 648
+## + ped    1      649 653
+## + bp     1      659 663
+## &lt;none&gt;          677 679
+## 
+## Step:  AIC=538.2
+## type ~ glu
+## 
+##         Df Deviance AIC
+## + npreg  1      511 517
+## + bmi    1      511 517
+## + age    1      513 519
+## + ped    1      517 523
+## + skin   1      518 524
+## + bp     1      531 537
+## &lt;none&gt;          534 538
+## - glu    1      677 679
+## 
+## Step:  AIC=517.4
+## type ~ glu + npreg
+## 
+##         Df Deviance AIC
+## + bmi    1      485 493
+## + ped    1      494 502
+## + skin   1      498 506
+## + age    1      508 516
+## &lt;none&gt;          511 517
+## + bp     1      510 518
+## - npreg  1      534 538
+## - glu    1      644 648
+## 
+## Step:  AIC=493.2
+## type ~ glu + npreg + bmi
+## 
+##         Df Deviance AIC
+## + ped    1      470 480
+## + age    1      481 491
+## &lt;none&gt;          485 493
+## + skin   1      485 495
+## + bp     1      485 495
+## - bmi    1      511 517
+## - npreg  1      511 517
+## - glu    1      591 597
+## 
+## Step:  AIC=480.3
+## type ~ glu + npreg + bmi + ped
+## 
+##         Df Deviance AIC
+## + age    1      467 479
+## &lt;none&gt;          470 480
+## + skin   1      470 482
+## + bp     1      470 482
+## - ped    1      485 493
+## - bmi    1      494 502
+## - npreg  1      497 505
+## - glu    1      569 577
+## 
+## Step:  AIC=479.1
+## type ~ glu + npreg + bmi + ped + age
+## 
+##         Df Deviance AIC
+## &lt;none&gt;          467 479
+## - age    1      470 480
+## + bp     1      467 481
+## + skin   1      467 481
+## - npreg  1      475 485
+## - ped    1      481 491
+## - bmi    1      491 501
+## - glu    1      554 564</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">summary</span>(s3a)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ glu + npreg + bmi + ped + age, family = &quot;binomial&quot;, 
+##     data = pima_dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.989  -0.653  -0.370   0.644   2.542  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -9.8800     0.9186  -10.76  &lt; 2e-16 ***
+## glu           0.0350     0.0042    8.34  &lt; 2e-16 ***
+## npreg         0.1239     0.0435    2.85  0.00441 ** 
+## bmi           0.0851     0.0181    4.70  2.6e-06 ***
+## ped           1.3216     0.3625    3.65  0.00027 ***
+## age           0.0238     0.0133    1.79  0.07324 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 676.79  on 531  degrees of freedom
+## Residual deviance: 467.08  on 526  degrees of freedom
+## AIC: 479.1
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">s3b &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste_null, <span class="dt">scope =</span> <span class="kw">formula</span>(ajuste), <span class="dt">direction =</span> <span class="st">&#39;both&#39;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="kw">nrow</span>(pima_dat)))</a></code></pre></div>
+<pre><code>## Start:  AIC=683.1
+## type ~ 1
+## 
+##         Df Deviance AIC
+## + glu    1      534 547
+## + age    1      625 638
+## + bmi    1      627 640
+## + skin   1      641 654
+## + npreg  1      644 656
+## + ped    1      649 661
+## + bp     1      659 671
+## &lt;none&gt;          677 683
+## 
+## Step:  AIC=546.7
+## type ~ glu
+## 
+##         Df Deviance AIC
+## + npreg  1      511 530
+## + bmi    1      511 530
+## + age    1      513 532
+## + ped    1      517 536
+## + skin   1      518 537
+## &lt;none&gt;          534 547
+## + bp     1      531 549
+## - glu    1      677 683
+## 
+## Step:  AIC=530.2
+## type ~ glu + npreg
+## 
+##         Df Deviance AIC
+## + bmi    1      485 510
+## + ped    1      494 519
+## + skin   1      498 523
+## &lt;none&gt;          511 530
+## + age    1      508 533
+## + bp     1      510 535
+## - npreg  1      534 547
+## - glu    1      644 656
+## 
+## Step:  AIC=510.3
+## type ~ glu + npreg + bmi
+## 
+##         Df Deviance AIC
+## + ped    1      470 502
+## &lt;none&gt;          485 510
+## + age    1      481 513
+## + skin   1      485 516
+## + bp     1      485 516
+## - bmi    1      511 530
+## - npreg  1      511 530
+## - glu    1      591 610
+## 
+## Step:  AIC=501.7
+## type ~ glu + npreg + bmi + ped
+## 
+##         Df Deviance AIC
+## &lt;none&gt;          470 502
+## + age    1      467 505
+## + skin   1      470 508
+## + bp     1      470 508
+## - ped    1      485 510
+## - bmi    1      494 519
+## - npreg  1      497 522
+## - glu    1      569 595</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">summary</span>(s3b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ glu + npreg + bmi + ped, family = &quot;binomial&quot;, 
+##     data = pima_dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -3.066  -0.661  -0.379   0.628   2.521  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -9.44941    0.87487  -10.80  &lt; 2e-16 ***
+## glu          0.03648    0.00414    8.82  &lt; 2e-16 ***
+## npreg        0.17288    0.03447    5.01  5.3e-07 ***
+## bmi          0.08423    0.01809    4.66  3.2e-06 ***
+## ped          1.36175    0.36159    3.77  0.00017 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 676.79  on 531  degrees of freedom
+## Residual deviance: 470.30  on 527  degrees of freedom
+## AIC: 480.3
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Os resultados coincidem com os produzidos pelos outros algoritmos.</p>
+</div>
+<div id="métodos-de-regularização---o-conflito-entre-vício-e-variância." class="section level2">
+<h2>Métodos de regularização - o conflito entre vício e variância.</h2>
+<p>Esta simulação tem por objetivo ilustrar o tradeoff (conflito) entre viés e variância, na estimação dos parâmetros do modelo.</p>
+<p>Vamos simular dados de duas covariáveis (X1,X2) com distribuição normal, vetor de médias (0,0), variâncias iguais a 1 e covariância (e correlação) igual a 0.5.</p>
+<p>Condicional aos valores das covariáveis, vamos simular valores de uma resposta binária, segundo o seguinte glm: y|x1,x2 ~ binomial(1, mu_x), com logito(mu_x) = 1 + 0.5<em>x1 - 0.25</em>x2 (regressão logística).</p>
+<p>Essa simulação vai ser repetida 100 vezes. Em cada simulação, vamos extrair as estimativas dos parâmetros do modelo ajustado via regressão ridge. Para isso, uma sequência crescente de valores para o parâmetro de regularização será considerada.</p>
+<p>Ao término da simulação, com base nas 100 rodadas vamos calcular o viés, a variância e o erro quadrático médio das estimativas geradas para beta_1 e para beta_2 sob cada valor de lambda.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># Fixando a semente, para fins de reprodução.</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">100</span>, <span class="dt">mu =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">Sigma =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="kw">head</span>(x, <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##           [,1]     [,2]
+##  [1,] -0.23234 -0.85271
+##  [2,]  0.13798  0.18010
+##  [3,] -0.26821 -1.17914
+##  [4,]  1.30254  1.46057
+##  [5,]  0.61265 -0.04193
+##  [6,] -1.59419  0.17310
+##  [7,]  0.06377  0.78048
+##  [8,]  0.18432  1.09450
+##  [9,]  0.30655  0.69073
+## [10,] -1.10556  0.57661</code></pre>
+<p>Valores simulados das covariáveis, a partir da distribuição normal bivariada.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">colnames</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;x1&#39;</span>, <span class="st">&#39;x2&#39;</span>)</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">eta_x &lt;-<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>x[,<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="fl">0.25</span><span class="op">*</span>x[,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">eta_x</a></code></pre></div>
+<pre><code>##   [1] 1.0970 1.0240 1.1607 1.2861 1.3168 0.1596 0.8368 0.8185 0.9806 0.3031
+##  [11] 1.5657 1.2575 0.3284 0.7645 1.3213 1.1376 1.1165 1.3090 0.9925 1.1951
+##  [21] 1.3887 0.6657 1.0966 0.6366 1.1718 0.7206 0.9939 0.6957 1.1521 1.2121
+##  [31] 1.2716 1.1986 0.8846 1.5577 0.5869 1.4863 1.0275 1.1853 1.4827 1.1866
+##  [41] 1.6823 0.5039 1.7753 1.2943 1.2694 1.1284 0.2962 1.1599 1.4580 1.8060
+##  [51] 0.9174 0.8745 1.1931 1.1040 1.8681 1.8320 0.5455 1.0069 1.6425 0.2698
+##  [61] 1.3606 1.0810 0.7524 0.6737 1.0713 0.2136 0.7049 1.8515 1.0873 1.3926
+##  [71] 0.2375 0.8066 0.9609 0.8267 0.8538 1.0761 0.6087 0.2220 0.6308 0.4194
+##  [81] 1.3386 0.6018 1.1726 1.2204 0.9332 1.1316 0.6809 1.2214 1.2414 1.4051
+##  [91] 0.9490 1.1108 1.5256 0.8402 1.7966 1.5139 0.1832 1.2568 0.5804 1.0404</code></pre>
+<p>Vetor referente ao preditor linear.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">log_lambdas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="fl">-0.5</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)</a></code></pre></div>
+<p>O grid de valores para lambda foi criado na escala de log(lambda). Devido ao comportamento dos resultados para diferentes valores desse parâmetro, a escala logarítmica é uma escolha apropriada.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">beta1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">100</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(log_lambdas))</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">beta2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">100</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(log_lambdas))</a></code></pre></div>
+<p>Matrizes que vão armazenar as 100 estimativas de beta_1 e as 100 estimativas de beta_2 produzidas para cada valor de lambda.</p>
+<p>O laço abaixo repete por 100 vezes a simulação de valores para a resposta (y), o ajuste do glm ridge usando o vetor de respostas simuladas e o armazenamento, nas matrizes criadas, das estimativas de beta_1 e beta_2 para cada valor de lambda no grid criado.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">  y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="kw">exp</span>(eta_x)<span class="op">/</span>(<span class="kw">exp</span>(eta_x)<span class="op">+</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">  mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">  betas &lt;-<span class="st"> </span><span class="kw">coef</span>(mod, <span class="dt">s =</span> <span class="kw">exp</span>(log_lambdas))</a>
+<a class="sourceLine" id="cb48-5" data-line-number="5">  beta1[j,] &lt;-<span class="st"> </span>betas[<span class="dv">2</span>,]</a>
+<a class="sourceLine" id="cb48-6" data-line-number="6">  beta2[j,] &lt;-<span class="st"> </span>betas[<span class="dv">3</span>,]</a>
+<a class="sourceLine" id="cb48-7" data-line-number="7">}</a></code></pre></div>
+<p>As funções abaixo servem para calcular viés, variância e erro quadrático médio com base nos dados simulados.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">bias_beta &lt;-<span class="st"> </span><span class="cf">function</span>(vet_beta, beta)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">  (<span class="kw">mean</span>(vet_beta) <span class="op">-</span><span class="st"> </span>beta)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb49-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">var_beta &lt;-<span class="st"> </span><span class="cf">function</span>(vet_beta)</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">  <span class="kw">var</span>(vet_beta)</a>
+<a class="sourceLine" id="cb49-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb49-7" data-line-number="7">eqm_beta &lt;-<span class="st"> </span><span class="cf">function</span>(vet_beta, beta)</a>
+<a class="sourceLine" id="cb49-8" data-line-number="8">  <span class="kw">mean</span>((vet_beta <span class="op">-</span><span class="st"> </span>beta)<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
+<p>Agora, vamos aplicar as funções criadas para calcular as quantidades de interesse para cada parâmetro do modelo e valor de lambda.</p>
+<p>Para beta_1</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">bias_b1 &lt;-<span class="st"> </span><span class="kw">apply</span>(beta1, <span class="dv">2</span>, bias_beta, <span class="dt">beta =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2">var_b1 &lt;-<span class="st"> </span><span class="kw">apply</span>(beta1, <span class="dv">2</span>, var_beta)</a>
+<a class="sourceLine" id="cb50-3" data-line-number="3">eqm_beta1 &lt;-<span class="st"> </span><span class="kw">apply</span>(beta1, <span class="dv">2</span>, eqm_beta, <span class="dt">beta =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb50-5" data-line-number="5"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="kw">plot</span>(log_lambdas, bias_b1, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)</a>
+<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="kw">lines</span>(log_lambdas, var_b1, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="kw">lines</span>(log_lambdas, eqm_beta1, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="kw">legend</span>(<span class="dt">x =</span> <span class="st">&#39;topleft&#39;</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>),</a>
+<a class="sourceLine" id="cb50-10" data-line-number="10">       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&#39;Viés&#39;</span>, <span class="st">&#39;Variância&#39;</span>, <span class="st">&#39;EQM&#39;</span>))</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Para beta_2</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">bias_b2 &lt;-<span class="st"> </span><span class="kw">apply</span>(beta2, <span class="dv">2</span>, bias_beta, <span class="dt">beta =</span> <span class="fl">-0.25</span>)</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">var_b2 &lt;-<span class="st"> </span><span class="kw">apply</span>(beta2, <span class="dv">2</span>, var_beta)</a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">eqm_beta2 &lt;-<span class="st"> </span><span class="kw">apply</span>(beta2, <span class="dv">2</span>, eqm_beta, <span class="dt">beta =</span> <span class="fl">-0.25</span>)</a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="kw">plot</span>(log_lambdas, bias_b2, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.085</span>))</a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="kw">lines</span>(log_lambdas, var_b2, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="kw">lines</span>(log_lambdas, eqm_beta2, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb51-9" data-line-number="9"><span class="kw">legend</span>(<span class="dt">x =</span> <span class="st">&#39;topleft&#39;</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>),</a>
+<a class="sourceLine" id="cb51-10" data-line-number="10">       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&#39;Viés&#39;</span>, <span class="st">&#39;Variância&#39;</span>, <span class="st">&#39;EQM&#39;</span>))</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Observe que o viés é mínimo quando o parâmetro de regularização (lambda) é pequeno, enquanto a variância é máxima nesse cenário. À medida que aumentamos o valor de lambda, o viés aumenta e a variância vai a zero. Ao analisar o comportamento do erro quadrático médio, observamos que valores intermediários de lambda remetem a menores valores de EQM, ainda que as estimativas geradas apresentem algum grau de viés.</p>
+</div>
+<div id="métodos-de-regularização---aplicação" class="section level2">
+<h2>Métodos de regularização - aplicação</h2>
+<p>Para a aplicação dos métodos de regularização, vamos usar todas as covariáveis, exceto pedigree.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(type <span class="op">~</span><span class="st"> </span>npreg <span class="op">+</span><span class="st"> </span>glu <span class="op">+</span><span class="st"> </span>bp <span class="op">+</span><span class="st"> </span>skin <span class="op">+</span><span class="st"> </span>bmi <span class="op">+</span><span class="st"> </span>age, <span class="dt">data =</span> pima_dat)[, <span class="dv">-1</span>]</a></code></pre></div>
+<p>Matriz de covariáveis. Observe a exclusão da primeira coluna, que corresponde à coluna de uns (referente ao intercepto), que não deve ser incluída.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pima_dat<span class="op">$</span>type <span class="op">==</span><span class="st"> &#39;Yes&#39;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a></code></pre></div>
+<p>Convertendo a variável resposta para um vetor numérico. Será necessário para o processo de validação cruzada.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">g1 &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p>Lasso regression (penalização de primeira ordem)</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">plot</span>(g1, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">label=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>As trajetórias indicam as estimativas dos betas para diferentes valores do termo de penalização. Os valores que identificam as linhas se referem às variáveis, na ordem em que foram declaradas na especificação do modelo. As variáveis três e quatro (“bp” e “skin”) são as primeiras a se igualarem a zero, enquanto a variável “glu” é a última. Vamos ver um gráfico semelhante, mas agora em função de lambda, o parâmetro de penalização.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">plot</span>(g1, <span class="dt">xvar=</span><span class="st">&quot;lambda&quot;</span>, <span class="dt">label=</span><span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">cex =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Vamos ver como ficaria o modelo ajustado para diferentes valores de lambda:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">coef</span>(g1, <span class="dt">s=</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">7</span>)) <span class="co"># Lambda = exp(-7) = 0.0009</span></a></code></pre></div>
+<pre><code>## 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     1
+## (Intercept) -8.883258
+## npreg        0.110788
+## glu          0.035175
+## bp          -0.008221
+## skin         0.008095
+## bmi          0.082246
+## age          0.028638</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">coef</span>(g1, <span class="dt">s=</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">4</span>)) <span class="co"># Lambda = exp(-4) = 0.0183</span></a></code></pre></div>
+<pre><code>## 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     1
+## (Intercept) -7.801995
+## npreg        0.083235
+## glu          0.030928
+## bp           .       
+## skin         0.002717
+## bmi          0.063865
+## age          0.021507</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">coef</span>(g1, <span class="dt">s=</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">2</span>)) <span class="co"># Lambda = exp(-2) = 0.1353</span></a></code></pre></div>
+<pre><code>## 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                   1
+## (Intercept) -2.5176
+## npreg        .     
+## glu          0.0148
+## bp           .     
+## skin         .     
+## bmi          .     
+## age          .</code></pre>
+<p>Usando a função glmnet, vamos determinar o valor de lambda que produz menor deviance, estimado via validação cruzada.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">nfolds =</span> <span class="dv">20</span>) </a></code></pre></div>
+<p>Ao especificar nfolds = 532, estamos usando a estratégia “leave one out”.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">plot</span>(cvfit)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">cvfit<span class="op">$</span>lambda.min </a></code></pre></div>
+<pre><code>## [1] 0.01209</code></pre>
+<p>Lambda ótimo.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">coef</span>(g1, <span class="dt">s=</span>cvfit<span class="op">$</span>lambda.min)</a></code></pre></div>
+<pre><code>## 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                    1
+## (Intercept) -8.27105
+## npreg        0.09246
+## glu          0.03223
+## bp           .      
+## skin         0.00447
+## bmi          0.06875
+## age          0.02293</code></pre>
+<p>Modelo ajustado com o lambda ótimo.</p>
+</div>
+<div id="regressão-ridge" class="section level2">
+<h2>Regressão Ridge</h2>
+<p>Agora, regressão ridge. Para isso, setamos alpha = 0.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">g2 &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb69-4" data-line-number="4"><span class="kw">plot</span>(g2, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">label=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">plot</span>(g2, <span class="dt">xvar=</span><span class="st">&quot;lambda&quot;</span>, <span class="dt">label=</span><span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">cex =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p>Validação cruzada.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">cvfit2 &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">nfolds =</span> <span class="dv">20</span>) </a>
+<a class="sourceLine" id="cb71-2" data-line-number="2"><span class="kw">plot</span>(cvfit2)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">cvfit2<span class="op">$</span>lambda.min </a></code></pre></div>
+<pre><code>## [1] 0.02373</code></pre>
+<p>Lambda ótimo.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">coef</span>(g2, <span class="dt">s=</span>cvfit2<span class="op">$</span>lambda.min)</a></code></pre></div>
+<pre><code>## 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     1
+## (Intercept) -7.984636
+## npreg        0.093178
+## glu          0.029800
+## bp          -0.003856
+## skin         0.012970
+## bmi          0.065615
+## age          0.027278</code></pre>
+<p>Modelo ajustado com o lambda ótimo.</p>
+</div>
+<div id="alpha-0.5" class="section level2">
+<h2>Alpha = 0.5</h2>
+<p>Finalizando, para alpha = 0.5.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">g3 &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb76-4" data-line-number="4"><span class="kw">plot</span>(g3, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">label=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">plot</span>(g3, <span class="dt">xvar=</span><span class="st">&quot;lambda&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">label=</span><span class="ot">TRUE</span>, <span class="dt">cex =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
+<p>Validação cruzada.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">cvfit3 &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">nfolds =</span> <span class="dv">20</span>) </a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="kw">plot</span>(cvfit3)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">cvfit3<span class="op">$</span>lambda.min </a></code></pre></div>
+<pre><code>## [1] 0.01666</code></pre>
+<p>Lambda ótimo.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">coef</span>(g3, <span class="dt">s=</span>cvfit3<span class="op">$</span>lambda.min)</a></code></pre></div>
+<pre><code>## 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     1
+## (Intercept) -8.176902
+## npreg        0.091399
+## glu          0.031105
+## bp           .       
+## skin         0.007805
+## bmi          0.066129
+## age          0.024102</code></pre>
+<p>Modelo ajustado com o lambda ótimo.</p>
+</div>
+<div id="dados-simulados" class="section level2">
+<h2>Dados Simulados</h2>
+<p>Agora, uma aplicação em dados simulados. Primeiramente, vamos simular valores para 20 variáveis explicativas. Vamos considerar distribuição normal para cada uma delas, com média zero e variância 1. Adicionalmente, vamos fixar covariância igual a 0.5 para cada par de variáveis (como as variâncias são iguais a um, então isso equivale a covariâncias iguais a 0.5). A função mvrnorm, do pacote MASS, permite simular amostras da distribuição normal multivariada, como é o caso.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">225</span>)</a></code></pre></div>
+<p>Fixando uma semente, para que os resultados sejam reproduzíveis.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">2018</span></a></code></pre></div>
+<p>Tamanho da amostra.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">mat_cov &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="fl">0.5</span>, <span class="dt">nrow =</span> <span class="dv">20</span>, <span class="dt">ncol =</span> <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="kw">diag</span>(mat_cov) &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">mat_cov</a></code></pre></div>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+##  [1,]  1.0  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##  [2,]  0.5  1.0  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##  [3,]  0.5  0.5  1.0  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##  [4,]  0.5  0.5  0.5  1.0  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##  [5,]  0.5  0.5  0.5  0.5  1.0  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##  [6,]  0.5  0.5  0.5  0.5  0.5  1.0  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##  [7,]  0.5  0.5  0.5  0.5  0.5  0.5  1.0  0.5  0.5   0.5   0.5   0.5   0.5
+##  [8,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  1.0  0.5   0.5   0.5   0.5   0.5
+##  [9,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  1.0   0.5   0.5   0.5   0.5
+## [10,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   1.0   0.5   0.5   0.5
+## [11,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   1.0   0.5   0.5
+## [12,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   1.0   0.5
+## [13,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   1.0
+## [14,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+## [15,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+## [16,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+## [17,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+## [18,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+## [19,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+## [20,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5   0.5
+##       [,14] [,15] [,16] [,17] [,18] [,19] [,20]
+##  [1,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [2,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [3,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [4,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [5,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [6,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [7,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [8,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+##  [9,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+## [10,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+## [11,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+## [12,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+## [13,]   0.5   0.5   0.5   0.5   0.5   0.5   0.5
+## [14,]   1.0   0.5   0.5   0.5   0.5   0.5   0.5
+## [15,]   0.5   1.0   0.5   0.5   0.5   0.5   0.5
+## [16,]   0.5   0.5   1.0   0.5   0.5   0.5   0.5
+## [17,]   0.5   0.5   0.5   1.0   0.5   0.5   0.5
+## [18,]   0.5   0.5   0.5   0.5   1.0   0.5   0.5
+## [19,]   0.5   0.5   0.5   0.5   0.5   1.0   0.5
+## [20,]   0.5   0.5   0.5   0.5   0.5   0.5   1.0</code></pre>
+<p>Matriz de variâncias e covariâncias.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">medias &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">20</span>)</a></code></pre></div>
+<p>Vetor de médias.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">mvrnorm</span>(n, <span class="dt">mu =</span> medias, <span class="dt">Sigma =</span> mat_cov))</a>
+<a class="sourceLine" id="cb88-2" data-line-number="2">dados_simul &lt;-<span class="st"> </span><span class="kw">round</span>(x,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="kw">names</span>(dados_simul) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&#39;x&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</a></code></pre></div>
+<p>Dados simulados para as 20 variáveis explicativas.</p>
+<p>Agora, condicional aos valores simulados para as variáveis explicativas, vamos simular resultados de uma variável resposta binária, conforme a seguinte especificação:</p>
+<p>y|x ~ binomial(m = 1, pi = mu_x) logito(mu_x) = eta_x = x1 + 0.4<em>x3 - 0.5</em>x7 + 0.25<em>x10 + 0.25</em>x19, de forma que mu_x = exp(eta_x)/(exp(eta_x)+1).</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">eta_x &lt;-<span class="st"> </span><span class="kw">with</span>(dados_simul, <span class="fl">0.5</span><span class="op">*</span>x1 <span class="op">+</span><span class="st"> </span><span class="fl">0.3</span><span class="op">*</span>x3 <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>x7 <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>x10 <span class="op">+</span><span class="st"> </span><span class="fl">0.3</span><span class="op">*</span>x19)</a>
+<a class="sourceLine" id="cb89-2" data-line-number="2">mu_x &lt;-<span class="st"> </span><span class="kw">exp</span>(eta_x)<span class="op">/</span>(<span class="kw">exp</span>(eta_x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3">dados_simul<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">1</span>, mu_x)</a>
+<a class="sourceLine" id="cb89-4" data-line-number="4">dados_simul<span class="op">$</span>y</a></code></pre></div>
+<pre><code>##    [1] 1 1 0 0 1 1 1 1 0 0 1 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 1 0 0 0 1 1 0
+##   [35] 0 0 1 1 1 1 0 0 0 0 1 0 1 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 1 1 1 1 1
+##   [69] 1 0 0 0 0 0 0 1 1 0 1 0 0 0 1 0 1 1 1 0 1 0 0 0 1 1 1 1 1 1 1 0 1 0
+##  [103] 0 1 1 0 1 1 1 1 0 1 1 0 1 0 0 1 1 0 0 0 1 1 0 0 0 1 0 1 0 0 0 1 0 1
+##  [137] 1 0 1 0 0 0 0 0 1 1 1 0 1 0 1 1 1 1 1 0 1 1 1 0 1 0 1 0 1 0 0 0 1 1
+##  [171] 0 1 0 0 1 1 0 0 0 0 0 1 0 1 0 1 0 0 1 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1
+##  [205] 1 0 1 1 0 1 0 0 1 1 1 0 1 0 0 1 0 1 1 0 1 1 1 0 1 1 0 1 1 0 0 0 0 1
+##  [239] 1 1 1 1 0 0 1 0 0 0 1 1 0 0 0 0 0 1 0 1 0 0 0 1 1 1 0 0 0 1 0 1 0 0
+##  [273] 0 0 0 1 0 1 1 1 0 1 0 0 1 0 1 0 0 1 0 1 1 1 0 0 0 0 0 1 0 1 0 0 0 1
+##  [307] 0 0 1 1 0 1 0 1 1 1 1 1 1 1 1 0 1 1 1 0 1 1 0 0 1 0 0 0 0 1 1 1 1 0
+##  [341] 0 1 0 1 1 0 1 1 1 1 0 1 1 1 1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1 1 0 0 1
+##  [375] 1 0 0 0 0 1 1 0 0 0 1 0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0
+##  [409] 1 1 1 0 1 0 1 1 0 1 0 1 1 0 0 0 0 0 1 0 1 1 1 1 0 1 1 0 1 0 0 0 1 1
+##  [443] 0 1 1 0 1 1 1 1 1 1 0 0 1 1 1 1 0 0 1 1 1 0 1 0 0 1 1 0 1 0 1 1 1 0
+##  [477] 1 1 1 1 0 0 1 0 0 1 0 1 0 0 0 1 0 1 0 1 0 0 1 0 1 0 1 0 0 0 0 1 0 0
+##  [511] 1 0 1 0 1 1 1 0 0 0 1 0 1 0 0 1 0 1 0 1 1 0 1 0 1 0 0 1 0 0 0 1 0 1
+##  [545] 0 1 1 1 1 1 0 0 0 1 0 1 0 0 0 1 0 1 1 1 0 1 0 0 0 0 0 1 1 1 0 1 1 1
+##  [579] 1 0 0 1 1 0 1 1 0 0 0 1 0 0 1 1 0 0 1 0 1 0 1 1 0 1 0 0 0 0 0 0 0 1
+##  [613] 0 0 1 1 1 1 0 1 0 0 1 1 1 0 0 1 1 1 1 1 0 1 0 0 1 0 1 0 0 1 0 1 1 0
+##  [647] 1 0 1 1 0 1 0 1 1 0 0 1 0 0 1 0 0 0 0 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+##  [681] 0 1 0 1 0 1 1 0 1 0 1 0 1 1 0 1 1 0 0 0 0 1 0 1 0 0 0 1 1 0 1 0 0 1
+##  [715] 0 1 1 1 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 0
+##  [749] 0 0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 1 1 0 1 1 0 0
+##  [783] 1 1 1 1 1 0 0 1 1 0 0 0 0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 0 1 0 0 0 1 1
+##  [817] 1 1 0 0 1 0 1 1 0 0 0 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 0 1 0 1 1 0 0
+##  [851] 1 0 1 0 1 1 0 1 0 0 1 0 1 1 0 1 0 0 0 1 1 1 1 1 0 1 1 0 1 1 0 0 0 1
+##  [885] 1 0 0 1 1 0 1 0 1 1 0 0 0 1 1 1 1 0 0 1 0 1 0 1 1 1 0 1 0 1 0 0 1 1
+##  [919] 0 0 0 1 1 1 1 1 0 0 1 0 1 0 0 0 0 1 1 1 1 0 1 1 1 1 0 1 1 0 1 1 0 1
+##  [953] 0 1 1 0 0 0 0 1 1 0 0 1 0 1 1 0 1 0 0 1 0 1 1 0 1 0 1 1 0 0 0 0 0 1
+##  [987] 0 1 0 1 1 1 0 0 0 1 1 0 1 0 0 1 0 1 1 1 0 1 1 0 1 1 0 1 1 0 1 1 1 1
+## [1021] 1 0 1 1 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 0 1 1 0 1 0 0 1 0 1 1 1 1 1 1
+## [1055] 0 1 0 0 1 0 0 1 0 0 0 1 0 0 0 0 0 1 1 1 0 1 0 0 0 1 1 0 1 1 1 0 0 0
+## [1089] 0 0 1 0 1 0 0 0 1 1 1 1 1 1 1 1 1 0 1 0 1 0 0 1 1 1 0 0 0 1 0 1 0 0
+## [1123] 1 1 1 1 0 1 0 1 1 0 1 0 1 0 1 1 1 1 1 0 0 0 1 0 1 1 1 1 0 1 0 1 0 1
+## [1157] 0 0 0 0 1 0 0 1 1 1 1 0 0 0 1 0 0 1 0 0 1 0 1 0 0 1 1 0 0 1 1 0 1 0
+## [1191] 1 1 1 0 1 0 1 1 1 1 1 0 1 1 1 1 1 0 1 1 0 1 1 1 1 1 1 1 1 1 1 0 1 0
+## [1225] 0 0 1 0 1 1 0 0 1 1 0 0 0 0 0 0 0 1 0 1 0 1 1 0 1 1 1 1 1 0 1 1 1 0
+## [1259] 1 1 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 1 1 1 1 0 0 1 1 1 0 0 0 0 0 1
+## [1293] 1 1 1 1 0 0 1 1 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 1 1 0 0 1 0 1 1 1 1
+## [1327] 0 0 1 0 1 1 1 0 1 0 0 0 0 0 1 1 1 0 1 0 1 1 1 1 0 0 1 1 0 0 1 0 0 0
+## [1361] 0 0 1 1 1 0 1 0 1 0 0 0 0 1 0 1 1 0 0 0 0 0 1 1 0 1 0 1 1 1 0 0 0 0
+## [1395] 1 0 1 1 1 1 0 1 0 0 0 1 1 1 0 1 0 1 0 1 0 1 0 1 1 0 0 0 1 1 0 1 1 1
+## [1429] 1 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 1 0 0 1 1 0 0 1 0 1 1 1 1 0 1 0 0
+## [1463] 1 0 1 0 1 0 0 1 1 1 0 1 0 1 0 1 0 1 0 0 1 1 0 0 1 1 0 1 0 1 0 0 1 1
+## [1497] 1 1 0 0 1 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 1 0 1 0 0
+## [1531] 0 0 0 1 1 1 0 1 0 0 1 1 1 0 0 0 1 1 0 0 0 0 1 1 1 0 0 1 0 0 1 0 1 1
+## [1565] 1 1 0 0 1 1 1 1 1 1 1 0 0 0 1 1 0 1 0 1 1 0 0 0 0 1 0 1 1 0 1 1 1 0
+## [1599] 1 1 1 0 0 0 1 1 0 0 1 0 0 0 0 1 1 1 1 1 1 1 0 0 1 1 1 1 0 1 1 0 0 1
+## [1633] 1 1 0 0 0 0 0 0 0 1 0 0 1 1 0 1 1 0 0 0 0 1 0 1 1 1 1 0 0 0 1 1 0 1
+## [1667] 0 1 0 1 1 1 0 0 0 0 1 1 1 1 0 1 0 1 1 0 0 1 0 1 1 0 1 1 1 0 0 1 0 0
+## [1701] 1 0 1 1 0 1 1 0 1 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 0 1 0 1 1 1 1 1 1
+## [1735] 1 1 0 1 1 1 1 1 1 0 0 0 1 0 0 0 1 1 0 1 0 1 1 0 0 0 0 0 1 1 0 0 1 0
+## [1769] 1 1 1 0 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1 1 1 0 0 1 0 0 0 0 0 0 0 0 1 0
+## [1803] 0 0 0 1 0 0 0 1 1 0 0 1 1 0 0 0 0 1 0 0 1 0 0 1 0 0 0 1 1 0 0 1 1 1
+## [1837] 1 0 1 0 1 0 0 1 1 1 1 0 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 0 0 1 0 1 0
+## [1871] 0 1 1 0 0 0 0 0 0 0 1 1 1 1 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 0 1 1
+## [1905] 1 0 0 1 1 1 0 1 1 1 0 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 1 0 1 1 0 1 0 1
+## [1939] 1 1 1 1 0 0 0 1 1 1 0 0 1 0 0 1 1 0 1 0 0 1 1 1 1 1 1 1 0 0 0 1 0 0
+## [1973] 1 1 1 1 0 0 0 1 1 0 0 1 0 0 0 1 0 0 1 1 0 1 0 0 1 1 1 0 0 1 1 0 0 1
+## [2007] 1 0 0 0 1 0 1 1 1 1 1 0</code></pre>
+<p>Valores simulados para a resposta.</p>
+<p>Nosso objetivo aqui é aplicar os métodos de seleção de covariáveis e de regularização estudados em sala de aula e avaliar o quanto eles são capazes, nesta aplicação, de identificar as variáveis usadas na simulação.</p>
+<p>Ajuste do glm com todas as covariáveis.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">ajuste &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> dados_simul)</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="kw">summary</span>(ajuste)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ ., family = binomial, data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.246  -1.081   0.471   1.079   2.139  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.03335    0.04763    0.70    0.484    
+## x1           0.45731    0.06700    6.83  8.7e-12 ***
+## x2          -0.02159    0.06593   -0.33    0.743    
+## x3           0.37459    0.06676    5.61  2.0e-08 ***
+## x4           0.09842    0.06557    1.50    0.133    
+## x5           0.00927    0.06674    0.14    0.889    
+## x6          -0.10733    0.06499   -1.65    0.099 .  
+## x7          -0.64054    0.06908   -9.27  &lt; 2e-16 ***
+## x8          -0.06316    0.06434   -0.98    0.326    
+## x9           0.01701    0.06646    0.26    0.798    
+## x10         -0.39721    0.06662   -5.96  2.5e-09 ***
+## x11          0.13858    0.06458    2.15    0.032 *  
+## x12         -0.08598    0.06618   -1.30    0.194    
+## x13          0.13475    0.06600    2.04    0.041 *  
+## x14         -0.11155    0.06527   -1.71    0.087 .  
+## x15          0.07060    0.06666    1.06    0.290    
+## x16         -0.02675    0.06509   -0.41    0.681    
+## x17         -0.10436    0.06696   -1.56    0.119    
+## x18         -0.04778    0.06503   -0.73    0.462    
+## x19          0.35345    0.06637    5.33  1.0e-07 ***
+## x20         -0.03002    0.06606   -0.45    0.650    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2551.6  on 1997  degrees of freedom
+## AIC: 2594
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Ajuste do modelo nulo.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">ajuste_null &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span><span class="dv">1</span>, <span class="dt">family =</span> binomial, <span class="dt">data =</span> dados_simul)</a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="kw">summary</span>(ajuste_null)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ 1, family = binomial, data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -1.18   -1.18    1.17    1.17    1.17  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)  0.00991    0.04452    0.22     0.82
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2797.5  on 2017  degrees of freedom
+## AIC: 2799
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<p>Método 1: Backward com k = 2 (AIC)</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">mod1a &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste, <span class="dt">direction =</span> <span class="st">&#39;backward&#39;</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=2594
+## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 + 
+##     x12 + x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x5    1     2552 2592
+## - x9    1     2552 2592
+## - x2    1     2552 2592
+## - x16   1     2552 2592
+## - x20   1     2552 2592
+## - x18   1     2552 2592
+## - x8    1     2553 2593
+## - x15   1     2553 2593
+## - x12   1     2553 2593
+## &lt;none&gt;        2552 2594
+## - x4    1     2554 2594
+## - x17   1     2554 2594
+## - x6    1     2554 2594
+## - x14   1     2554 2594
+## - x13   1     2556 2596
+## - x11   1     2556 2596
+## - x19   1     2581 2621
+## - x3    1     2584 2624
+## - x10   1     2588 2628
+## - x1    1     2600 2640
+## - x7    1     2644 2684
+## 
+## Step:  AIC=2592
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x9 + x10 + x11 + x12 + 
+##     x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x9    1     2552 2590
+## - x2    1     2552 2590
+## - x16   1     2552 2590
+## - x20   1     2552 2590
+## - x18   1     2552 2590
+## - x8    1     2553 2591
+## - x15   1     2553 2591
+## - x12   1     2553 2591
+## &lt;none&gt;        2552 2592
+## - x4    1     2554 2592
+## - x17   1     2554 2592
+## - x6    1     2554 2592
+## - x14   1     2554 2592
+## - x13   1     2556 2594
+## - x11   1     2556 2594
+## - x19   1     2581 2619
+## - x3    1     2584 2622
+## - x10   1     2588 2626
+## - x1    1     2600 2638
+## - x7    1     2644 2682
+## 
+## Step:  AIC=2590
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + 
+##     x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x2    1     2552 2588
+## - x16   1     2552 2588
+## - x20   1     2552 2588
+## - x18   1     2552 2588
+## - x8    1     2553 2589
+## - x15   1     2553 2589
+## - x12   1     2553 2589
+## &lt;none&gt;        2552 2590
+## - x4    1     2554 2590
+## - x17   1     2554 2590
+## - x6    1     2554 2590
+## - x14   1     2554 2590
+## - x13   1     2556 2592
+## - x11   1     2556 2592
+## - x19   1     2581 2617
+## - x3    1     2585 2621
+## - x10   1     2588 2624
+## - x1    1     2600 2636
+## - x7    1     2644 2680
+## 
+## Step:  AIC=2588
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x16   1     2552 2586
+## - x20   1     2552 2586
+## - x18   1     2552 2586
+## - x8    1     2553 2587
+## - x15   1     2553 2587
+## - x12   1     2553 2587
+## &lt;none&gt;        2552 2588
+## - x4    1     2554 2588
+## - x17   1     2554 2588
+## - x6    1     2554 2588
+## - x14   1     2555 2589
+## - x13   1     2556 2590
+## - x11   1     2556 2590
+## - x19   1     2581 2615
+## - x3    1     2585 2619
+## - x10   1     2589 2623
+## - x1    1     2600 2634
+## - x7    1     2645 2679
+## 
+## Step:  AIC=2586
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x20   1     2552 2584
+## - x18   1     2552 2584
+## - x8    1     2553 2585
+## - x15   1     2553 2585
+## - x12   1     2554 2586
+## &lt;none&gt;        2552 2586
+## - x4    1     2554 2586
+## - x17   1     2554 2586
+## - x6    1     2555 2587
+## - x14   1     2555 2587
+## - x13   1     2556 2588
+## - x11   1     2556 2588
+## - x19   1     2581 2613
+## - x3    1     2585 2617
+## - x10   1     2589 2621
+## - x1    1     2600 2632
+## - x7    1     2646 2678
+## 
+## Step:  AIC=2584
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19
+## 
+##        Df Deviance  AIC
+## - x18   1     2553 2583
+## - x8    1     2553 2583
+## - x15   1     2553 2583
+## - x12   1     2554 2584
+## &lt;none&gt;        2552 2584
+## - x4    1     2554 2584
+## - x17   1     2555 2585
+## - x6    1     2555 2585
+## - x14   1     2555 2585
+## - x13   1     2556 2586
+## - x11   1     2557 2587
+## - x19   1     2581 2611
+## - x3    1     2585 2615
+## - x10   1     2590 2620
+## - x1    1     2600 2630
+## - x7    1     2647 2677
+## 
+## Step:  AIC=2583
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x15   1     2554 2582
+## - x8    1     2554 2582
+## &lt;none&gt;        2553 2583
+## - x12   1     2555 2583
+## - x4    1     2555 2583
+## - x17   1     2556 2584
+## - x6    1     2556 2584
+## - x14   1     2556 2584
+## - x13   1     2557 2585
+## - x11   1     2557 2585
+## - x19   1     2581 2609
+## - x3    1     2585 2613
+## - x10   1     2591 2619
+## - x1    1     2600 2628
+## - x7    1     2648 2676
+## 
+## Step:  AIC=2582
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x17 + x19
+## 
+##        Df Deviance  AIC
+## - x8    1     2555 2581
+## - x12   1     2555 2581
+## &lt;none&gt;        2554 2582
+## - x4    1     2556 2582
+## - x17   1     2556 2582
+## - x6    1     2556 2582
+## - x14   1     2557 2583
+## - x13   1     2558 2584
+## - x11   1     2558 2584
+## - x19   1     2583 2609
+## - x3    1     2586 2612
+## - x10   1     2591 2617
+## - x1    1     2603 2629
+## - x7    1     2648 2674
+## 
+## Step:  AIC=2581
+## y ~ x1 + x3 + x4 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + 
+##     x19
+## 
+##        Df Deviance  AIC
+## - x4    1     2557 2581
+## &lt;none&gt;        2555 2581
+## - x12   1     2557 2581
+## - x17   1     2558 2582
+## - x6    1     2558 2582
+## - x14   1     2558 2582
+## - x13   1     2559 2583
+## - x11   1     2559 2583
+## - x19   1     2584 2608
+## - x3    1     2587 2611
+## - x10   1     2593 2617
+## - x1    1     2603 2627
+## - x7    1     2650 2674
+## 
+## Step:  AIC=2581
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x12   1     2558 2580
+## &lt;none&gt;        2557 2581
+## - x6    1     2559 2581
+## - x17   1     2559 2581
+## - x14   1     2560 2582
+## - x13   1     2561 2583
+## - x11   1     2561 2583
+## - x19   1     2588 2610
+## - x3    1     2590 2612
+## - x10   1     2594 2616
+## - x1    1     2606 2628
+## - x7    1     2650 2672
+## 
+## Step:  AIC=2580
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## &lt;none&gt;        2558 2580
+## - x6    1     2561 2581
+## - x17   1     2561 2581
+## - x14   1     2562 2582
+## - x13   1     2562 2582
+## - x11   1     2563 2583
+## - x19   1     2588 2608
+## - x3    1     2591 2611
+## - x10   1     2599 2619
+## - x1    1     2607 2627
+## - x7    1     2655 2675</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">summary</span>(mod1a)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x1 + x3 + x6 + x7 + x10 + x11 + x13 + x14 + 
+##     x17 + x19, family = binomial, data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -2.20   -1.08    0.48    1.08    2.09  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0350     0.0474    0.74    0.461    
+## x1            0.4445     0.0649    6.85  7.6e-12 ***
+## x3            0.3649     0.0652    5.60  2.1e-08 ***
+## x6           -0.1036     0.0632   -1.64    0.101    
+## x7           -0.6435     0.0679   -9.48  &lt; 2e-16 ***
+## x10          -0.4038     0.0646   -6.25  4.0e-10 ***
+## x11           0.1290     0.0628    2.05    0.040 *  
+## x13           0.1237     0.0639    1.94    0.053 .  
+## x14          -0.1136     0.0633   -1.79    0.073 .  
+## x17          -0.1110     0.0651   -1.71    0.088 .  
+## x19           0.3471     0.0642    5.41  6.3e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2558.5  on 2007  degrees of freedom
+## AIC: 2580
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Método 2: Backward com k = log(300) (BIC)</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">mod1b &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste, <span class="dt">direction =</span> <span class="st">&#39;backward&#39;</span>, <span class="dt">k =</span> <span class="kw">log</span>(n))</a></code></pre></div>
+<pre><code>## Start:  AIC=2711
+## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 + 
+##     x12 + x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x5    1     2552 2704
+## - x9    1     2552 2704
+## - x2    1     2552 2704
+## - x16   1     2552 2704
+## - x20   1     2552 2704
+## - x18   1     2552 2704
+## - x8    1     2553 2705
+## - x15   1     2553 2705
+## - x12   1     2553 2705
+## - x4    1     2554 2706
+## - x17   1     2554 2706
+## - x6    1     2554 2706
+## - x14   1     2554 2707
+## - x13   1     2556 2708
+## - x11   1     2556 2708
+## &lt;none&gt;        2552 2711
+## - x19   1     2581 2733
+## - x3    1     2584 2736
+## - x10   1     2588 2740
+## - x1    1     2600 2752
+## - x7    1     2644 2796
+## 
+## Step:  AIC=2704
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x9 + x10 + x11 + x12 + 
+##     x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x9    1     2552 2696
+## - x2    1     2552 2696
+## - x16   1     2552 2696
+## - x20   1     2552 2696
+## - x18   1     2552 2697
+## - x8    1     2553 2697
+## - x15   1     2553 2697
+## - x12   1     2553 2698
+## - x4    1     2554 2698
+## - x17   1     2554 2699
+## - x6    1     2554 2699
+## - x14   1     2554 2699
+## - x13   1     2556 2700
+## - x11   1     2556 2701
+## &lt;none&gt;        2552 2704
+## - x19   1     2581 2725
+## - x3    1     2584 2729
+## - x10   1     2588 2733
+## - x1    1     2600 2745
+## - x7    1     2644 2788
+## 
+## Step:  AIC=2696
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + 
+##     x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x2    1     2552 2689
+## - x16   1     2552 2689
+## - x20   1     2552 2689
+## - x18   1     2552 2689
+## - x8    1     2553 2690
+## - x15   1     2553 2690
+## - x12   1     2553 2690
+## - x4    1     2554 2691
+## - x17   1     2554 2691
+## - x6    1     2554 2691
+## - x14   1     2554 2691
+## - x13   1     2556 2693
+## - x11   1     2556 2693
+## &lt;none&gt;        2552 2696
+## - x19   1     2581 2718
+## - x3    1     2585 2722
+## - x10   1     2588 2725
+## - x1    1     2600 2737
+## - x7    1     2644 2781
+## 
+## Step:  AIC=2689
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x16   1     2552 2681
+## - x20   1     2552 2681
+## - x18   1     2552 2682
+## - x8    1     2553 2682
+## - x15   1     2553 2682
+## - x12   1     2553 2683
+## - x4    1     2554 2683
+## - x17   1     2554 2684
+## - x6    1     2554 2684
+## - x14   1     2555 2684
+## - x13   1     2556 2685
+## - x11   1     2556 2686
+## &lt;none&gt;        2552 2689
+## - x19   1     2581 2710
+## - x3    1     2585 2714
+## - x10   1     2589 2718
+## - x1    1     2600 2730
+## - x7    1     2645 2774
+## 
+## Step:  AIC=2681
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x20   1     2552 2674
+## - x18   1     2552 2674
+## - x8    1     2553 2675
+## - x15   1     2553 2675
+## - x12   1     2554 2675
+## - x4    1     2554 2676
+## - x17   1     2554 2676
+## - x6    1     2555 2676
+## - x14   1     2555 2677
+## - x13   1     2556 2678
+## - x11   1     2556 2678
+## &lt;none&gt;        2552 2681
+## - x19   1     2581 2703
+## - x3    1     2585 2706
+## - x10   1     2589 2711
+## - x1    1     2600 2722
+## - x7    1     2646 2768
+## 
+## Step:  AIC=2674
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19
+## 
+##        Df Deviance  AIC
+## - x18   1     2553 2667
+## - x8    1     2553 2667
+## - x15   1     2553 2667
+## - x12   1     2554 2668
+## - x4    1     2554 2669
+## - x17   1     2555 2669
+## - x6    1     2555 2669
+## - x14   1     2555 2669
+## - x13   1     2556 2670
+## - x11   1     2557 2671
+## &lt;none&gt;        2552 2674
+## - x19   1     2581 2695
+## - x3    1     2585 2699
+## - x10   1     2590 2704
+## - x1    1     2600 2715
+## - x7    1     2647 2761
+## 
+## Step:  AIC=2667
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x15   1     2554 2660
+## - x8    1     2554 2660
+## - x12   1     2555 2661
+## - x4    1     2555 2661
+## - x17   1     2556 2662
+## - x6    1     2556 2662
+## - x14   1     2556 2663
+## - x13   1     2557 2663
+## - x11   1     2557 2664
+## &lt;none&gt;        2553 2667
+## - x19   1     2581 2688
+## - x3    1     2585 2691
+## - x10   1     2591 2698
+## - x1    1     2600 2707
+## - x7    1     2648 2754
+## 
+## Step:  AIC=2660
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x17 + x19
+## 
+##        Df Deviance  AIC
+## - x8    1     2555 2654
+## - x12   1     2555 2654
+## - x4    1     2556 2655
+## - x17   1     2556 2655
+## - x6    1     2556 2655
+## - x14   1     2557 2656
+## - x13   1     2558 2657
+## - x11   1     2558 2657
+## &lt;none&gt;        2554 2660
+## - x19   1     2583 2682
+## - x3    1     2586 2685
+## - x10   1     2591 2690
+## - x1    1     2603 2702
+## - x7    1     2648 2747
+## 
+## Step:  AIC=2654
+## y ~ x1 + x3 + x4 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + 
+##     x19
+## 
+##        Df Deviance  AIC
+## - x4    1     2557 2648
+## - x12   1     2557 2648
+## - x17   1     2558 2649
+## - x6    1     2558 2649
+## - x14   1     2558 2649
+## - x13   1     2559 2650
+## - x11   1     2559 2650
+## &lt;none&gt;        2555 2654
+## - x19   1     2584 2675
+## - x3    1     2587 2678
+## - x10   1     2593 2684
+## - x1    1     2603 2694
+## - x7    1     2650 2741
+## 
+## Step:  AIC=2648
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x12   1     2558 2642
+## - x6    1     2559 2643
+## - x17   1     2559 2643
+## - x14   1     2560 2643
+## - x13   1     2561 2645
+## - x11   1     2561 2645
+## &lt;none&gt;        2557 2648
+## - x19   1     2588 2672
+## - x3    1     2590 2673
+## - x10   1     2594 2678
+## - x1    1     2606 2690
+## - x7    1     2650 2734
+## 
+## Step:  AIC=2642
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x6    1     2561 2637
+## - x17   1     2561 2638
+## - x14   1     2562 2638
+## - x13   1     2562 2638
+## - x11   1     2563 2639
+## &lt;none&gt;        2558 2642
+## - x19   1     2588 2664
+## - x3    1     2591 2667
+## - x10   1     2599 2675
+## - x1    1     2607 2683
+## - x7    1     2655 2731
+## 
+## Step:  AIC=2637
+## y ~ x1 + x3 + x7 + x10 + x11 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x13   1     2565 2633
+## - x11   1     2565 2633
+## - x17   1     2565 2633
+## - x14   1     2565 2634
+## &lt;none&gt;        2561 2637
+## - x19   1     2590 2658
+## - x3    1     2591 2660
+## - x10   1     2604 2672
+## - x1    1     2608 2677
+## - x7    1     2662 2731
+## 
+## Step:  AIC=2633
+## y ~ x1 + x3 + x7 + x10 + x11 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x17   1     2567 2628
+## - x14   1     2568 2629
+## - x11   1     2569 2629
+## &lt;none&gt;        2565 2633
+## - x19   1     2596 2657
+## - x3    1     2598 2658
+## - x10   1     2605 2666
+## - x1    1     2616 2677
+## - x7    1     2663 2723
+## 
+## Step:  AIC=2628
+## y ~ x1 + x3 + x7 + x10 + x11 + x14 + x19
+## 
+##        Df Deviance  AIC
+## - x11   1     2571 2624
+## - x14   1     2571 2625
+## &lt;none&gt;        2567 2628
+## - x19   1     2596 2650
+## - x3    1     2598 2652
+## - x10   1     2611 2665
+## - x1    1     2616 2670
+## - x7    1     2670 2723
+## 
+## Step:  AIC=2624
+## y ~ x1 + x3 + x7 + x10 + x14 + x19
+## 
+##        Df Deviance  AIC
+## - x14   1     2574 2619
+## &lt;none&gt;        2571 2624
+## - x19   1     2603 2649
+## - x3    1     2605 2651
+## - x10   1     2612 2658
+## - x1    1     2623 2669
+## - x7    1     2670 2715
+## 
+## Step:  AIC=2619
+## y ~ x1 + x3 + x7 + x10 + x19
+## 
+##        Df Deviance  AIC
+## &lt;none&gt;        2574 2619
+## - x19   1     2603 2641
+## - x3    1     2606 2644
+## - x10   1     2619 2657
+## - x1    1     2624 2662
+## - x7    1     2681 2719</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="kw">summary</span>(mod1b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x1 + x3 + x7 + x10 + x19, family = binomial, 
+##     data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.080  -1.081   0.481   1.074   2.015  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0367     0.0472    0.78     0.44    
+## x1            0.4294     0.0619    6.94  3.9e-12 ***
+## x3            0.3439     0.0616    5.58  2.4e-08 ***
+## x7           -0.6443     0.0647   -9.95  &lt; 2e-16 ***
+## x10          -0.4107     0.0620   -6.63  3.4e-11 ***
+## x19           0.3242     0.0603    5.37  7.8e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2573.8  on 2012  degrees of freedom
+## AIC: 2586
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Método 3: Stepwise com k = 2 (AIC)</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">mod2a &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste, <span class="dt">direction =</span> <span class="st">&#39;both&#39;</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=2594
+## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 + 
+##     x12 + x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x5    1     2552 2592
+## - x9    1     2552 2592
+## - x2    1     2552 2592
+## - x16   1     2552 2592
+## - x20   1     2552 2592
+## - x18   1     2552 2592
+## - x8    1     2553 2593
+## - x15   1     2553 2593
+## - x12   1     2553 2593
+## &lt;none&gt;        2552 2594
+## - x4    1     2554 2594
+## - x17   1     2554 2594
+## - x6    1     2554 2594
+## - x14   1     2554 2594
+## - x13   1     2556 2596
+## - x11   1     2556 2596
+## - x19   1     2581 2621
+## - x3    1     2584 2624
+## - x10   1     2588 2628
+## - x1    1     2600 2640
+## - x7    1     2644 2684
+## 
+## Step:  AIC=2592
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x9 + x10 + x11 + x12 + 
+##     x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x9    1     2552 2590
+## - x2    1     2552 2590
+## - x16   1     2552 2590
+## - x20   1     2552 2590
+## - x18   1     2552 2590
+## - x8    1     2553 2591
+## - x15   1     2553 2591
+## - x12   1     2553 2591
+## &lt;none&gt;        2552 2592
+## - x4    1     2554 2592
+## - x17   1     2554 2592
+## - x6    1     2554 2592
+## - x14   1     2554 2592
+## + x5    1     2552 2594
+## - x13   1     2556 2594
+## - x11   1     2556 2594
+## - x19   1     2581 2619
+## - x3    1     2584 2622
+## - x10   1     2588 2626
+## - x1    1     2600 2638
+## - x7    1     2644 2682
+## 
+## Step:  AIC=2590
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + 
+##     x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x2    1     2552 2588
+## - x16   1     2552 2588
+## - x20   1     2552 2588
+## - x18   1     2552 2588
+## - x8    1     2553 2589
+## - x15   1     2553 2589
+## - x12   1     2553 2589
+## &lt;none&gt;        2552 2590
+## - x4    1     2554 2590
+## - x17   1     2554 2590
+## - x6    1     2554 2590
+## - x14   1     2554 2590
+## + x9    1     2552 2592
+## + x5    1     2552 2592
+## - x13   1     2556 2592
+## - x11   1     2556 2592
+## - x19   1     2581 2617
+## - x3    1     2585 2621
+## - x10   1     2588 2624
+## - x1    1     2600 2636
+## - x7    1     2644 2680
+## 
+## Step:  AIC=2588
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x16   1     2552 2586
+## - x20   1     2552 2586
+## - x18   1     2552 2586
+## - x8    1     2553 2587
+## - x15   1     2553 2587
+## - x12   1     2553 2587
+## &lt;none&gt;        2552 2588
+## - x4    1     2554 2588
+## - x17   1     2554 2588
+## - x6    1     2554 2588
+## - x14   1     2555 2589
+## + x2    1     2552 2590
+## + x9    1     2552 2590
+## + x5    1     2552 2590
+## - x13   1     2556 2590
+## - x11   1     2556 2590
+## - x19   1     2581 2615
+## - x3    1     2585 2619
+## - x10   1     2589 2623
+## - x1    1     2600 2634
+## - x7    1     2645 2679
+## 
+## Step:  AIC=2586
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x20   1     2552 2584
+## - x18   1     2552 2584
+## - x8    1     2553 2585
+## - x15   1     2553 2585
+## - x12   1     2554 2586
+## &lt;none&gt;        2552 2586
+## - x4    1     2554 2586
+## - x17   1     2554 2586
+## - x6    1     2555 2587
+## - x14   1     2555 2587
+## + x16   1     2552 2588
+## + x2    1     2552 2588
+## + x9    1     2552 2588
+## + x5    1     2552 2588
+## - x13   1     2556 2588
+## - x11   1     2556 2588
+## - x19   1     2581 2613
+## - x3    1     2585 2617
+## - x10   1     2589 2621
+## - x1    1     2600 2632
+## - x7    1     2646 2678
+## 
+## Step:  AIC=2584
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19
+## 
+##        Df Deviance  AIC
+## - x18   1     2553 2583
+## - x8    1     2553 2583
+## - x15   1     2553 2583
+## - x12   1     2554 2584
+## &lt;none&gt;        2552 2584
+## - x4    1     2554 2584
+## - x17   1     2555 2585
+## - x6    1     2555 2585
+## - x14   1     2555 2585
+## + x20   1     2552 2586
+## + x16   1     2552 2586
+## + x2    1     2552 2586
+## + x9    1     2552 2586
+## + x5    1     2552 2586
+## - x13   1     2556 2586
+## - x11   1     2557 2587
+## - x19   1     2581 2611
+## - x3    1     2585 2615
+## - x10   1     2590 2620
+## - x1    1     2600 2630
+## - x7    1     2647 2677
+## 
+## Step:  AIC=2583
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x15   1     2554 2582
+## - x8    1     2554 2582
+## &lt;none&gt;        2553 2583
+## - x12   1     2555 2583
+## - x4    1     2555 2583
+## - x17   1     2556 2584
+## - x6    1     2556 2584
+## - x14   1     2556 2584
+## + x18   1     2552 2584
+## + x20   1     2552 2584
+## + x16   1     2553 2585
+## + x2    1     2553 2585
+## - x13   1     2557 2585
+## + x9    1     2553 2585
+## + x5    1     2553 2585
+## - x11   1     2557 2585
+## - x19   1     2581 2609
+## - x3    1     2585 2613
+## - x10   1     2591 2619
+## - x1    1     2600 2628
+## - x7    1     2648 2676
+## 
+## Step:  AIC=2582
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x17 + x19
+## 
+##        Df Deviance  AIC
+## - x8    1     2555 2581
+## - x12   1     2555 2581
+## &lt;none&gt;        2554 2582
+## - x4    1     2556 2582
+## - x17   1     2556 2582
+## - x6    1     2556 2582
+## - x14   1     2557 2583
+## + x15   1     2553 2583
+## + x18   1     2553 2583
+## + x20   1     2553 2583
+## + x16   1     2553 2583
+## + x2    1     2553 2583
+## + x9    1     2554 2584
+## + x5    1     2554 2584
+## - x13   1     2558 2584
+## - x11   1     2558 2584
+## - x19   1     2583 2609
+## - x3    1     2586 2612
+## - x10   1     2591 2617
+## - x1    1     2603 2629
+## - x7    1     2648 2674
+## 
+## Step:  AIC=2581
+## y ~ x1 + x3 + x4 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + 
+##     x19
+## 
+##        Df Deviance  AIC
+## - x4    1     2557 2581
+## &lt;none&gt;        2555 2581
+## - x12   1     2557 2581
+## + x8    1     2554 2582
+## - x17   1     2558 2582
+## - x6    1     2558 2582
+## + x15   1     2554 2582
+## - x14   1     2558 2582
+## + x18   1     2554 2582
+## + x20   1     2554 2582
+## + x16   1     2554 2582
+## + x2    1     2555 2583
+## - x13   1     2559 2583
+## + x9    1     2555 2583
+## + x5    1     2555 2583
+## - x11   1     2559 2583
+## - x19   1     2584 2608
+## - x3    1     2587 2611
+## - x10   1     2593 2617
+## - x1    1     2603 2627
+## - x7    1     2650 2674
+## 
+## Step:  AIC=2581
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x12   1     2558 2580
+## &lt;none&gt;        2557 2581
+## + x4    1     2555 2581
+## - x6    1     2559 2581
+## - x17   1     2559 2581
+## - x14   1     2560 2582
+## + x15   1     2556 2582
+## + x8    1     2556 2582
+## + x18   1     2556 2582
+## + x20   1     2557 2583
+## + x2    1     2557 2583
+## + x16   1     2557 2583
+## + x9    1     2557 2583
+## + x5    1     2557 2583
+## - x13   1     2561 2583
+## - x11   1     2561 2583
+## - x19   1     2588 2610
+## - x3    1     2590 2612
+## - x10   1     2594 2616
+## - x1    1     2606 2628
+## - x7    1     2650 2672
+## 
+## Step:  AIC=2580
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## &lt;none&gt;        2558 2580
+## + x12   1     2557 2581
+## + x4    1     2557 2581
+## - x6    1     2561 2581
+## + x8    1     2557 2581
+## - x17   1     2561 2581
+## - x14   1     2562 2582
+## + x15   1     2558 2582
+## + x18   1     2558 2582
+## + x20   1     2558 2582
+## + x16   1     2558 2582
+## - x13   1     2562 2582
+## + x2    1     2558 2582
+## + x9    1     2558 2582
+## + x5    1     2558 2582
+## - x11   1     2563 2583
+## - x19   1     2588 2608
+## - x3    1     2591 2611
+## - x10   1     2599 2619
+## - x1    1     2607 2627
+## - x7    1     2655 2675</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">summary</span>(mod2a)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x1 + x3 + x6 + x7 + x10 + x11 + x13 + x14 + 
+##     x17 + x19, family = binomial, data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -2.20   -1.08    0.48    1.08    2.09  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0350     0.0474    0.74    0.461    
+## x1            0.4445     0.0649    6.85  7.6e-12 ***
+## x3            0.3649     0.0652    5.60  2.1e-08 ***
+## x6           -0.1036     0.0632   -1.64    0.101    
+## x7           -0.6435     0.0679   -9.48  &lt; 2e-16 ***
+## x10          -0.4038     0.0646   -6.25  4.0e-10 ***
+## x11           0.1290     0.0628    2.05    0.040 *  
+## x13           0.1237     0.0639    1.94    0.053 .  
+## x14          -0.1136     0.0633   -1.79    0.073 .  
+## x17          -0.1110     0.0651   -1.71    0.088 .  
+## x19           0.3471     0.0642    5.41  6.3e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2558.5  on 2007  degrees of freedom
+## AIC: 2580
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Método 4: Stepwise com k = log(300) (BIC)</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">mod2b &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste, <span class="dt">direction =</span> <span class="st">&#39;both&#39;</span>, <span class="dt">k =</span> <span class="kw">log</span>(<span class="dv">500</span>))</a></code></pre></div>
+<pre><code>## Start:  AIC=2682
+## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 + 
+##     x12 + x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x5    1     2552 2676
+## - x9    1     2552 2676
+## - x2    1     2552 2676
+## - x16   1     2552 2676
+## - x20   1     2552 2676
+## - x18   1     2552 2676
+## - x8    1     2553 2677
+## - x15   1     2553 2677
+## - x12   1     2553 2678
+## - x4    1     2554 2678
+## - x17   1     2554 2678
+## - x6    1     2554 2679
+## - x14   1     2554 2679
+## - x13   1     2556 2680
+## - x11   1     2556 2680
+## &lt;none&gt;        2552 2682
+## - x19   1     2581 2705
+## - x3    1     2584 2708
+## - x10   1     2588 2712
+## - x1    1     2600 2724
+## - x7    1     2644 2768
+## 
+## Step:  AIC=2676
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x9 + x10 + x11 + x12 + 
+##     x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x9    1     2552 2670
+## - x2    1     2552 2670
+## - x16   1     2552 2670
+## - x20   1     2552 2670
+## - x18   1     2552 2670
+## - x8    1     2553 2671
+## - x15   1     2553 2671
+## - x12   1     2553 2671
+## - x4    1     2554 2672
+## - x17   1     2554 2672
+## - x6    1     2554 2672
+## - x14   1     2554 2673
+## - x13   1     2556 2674
+## - x11   1     2556 2674
+## &lt;none&gt;        2552 2676
+## + x5    1     2552 2682
+## - x19   1     2581 2699
+## - x3    1     2584 2702
+## - x10   1     2588 2706
+## - x1    1     2600 2718
+## - x7    1     2644 2762
+## 
+## Step:  AIC=2670
+## y ~ x1 + x2 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + 
+##     x14 + x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x2    1     2552 2664
+## - x16   1     2552 2664
+## - x20   1     2552 2664
+## - x18   1     2552 2664
+## - x8    1     2553 2664
+## - x15   1     2553 2665
+## - x12   1     2553 2665
+## - x4    1     2554 2666
+## - x17   1     2554 2666
+## - x6    1     2554 2666
+## - x14   1     2554 2666
+## - x13   1     2556 2668
+## - x11   1     2556 2668
+## &lt;none&gt;        2552 2670
+## + x9    1     2552 2676
+## + x5    1     2552 2676
+## - x19   1     2581 2693
+## - x3    1     2585 2696
+## - x10   1     2588 2700
+## - x1    1     2600 2712
+## - x7    1     2644 2756
+## 
+## Step:  AIC=2664
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x16 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x16   1     2552 2658
+## - x20   1     2552 2658
+## - x18   1     2552 2658
+## - x8    1     2553 2658
+## - x15   1     2553 2659
+## - x12   1     2553 2659
+## - x4    1     2554 2660
+## - x17   1     2554 2660
+## - x6    1     2554 2660
+## - x14   1     2555 2660
+## - x13   1     2556 2662
+## - x11   1     2556 2662
+## &lt;none&gt;        2552 2664
+## + x2    1     2552 2670
+## + x9    1     2552 2670
+## + x5    1     2552 2670
+## - x19   1     2581 2687
+## - x3    1     2585 2690
+## - x10   1     2589 2694
+## - x1    1     2600 2706
+## - x7    1     2645 2751
+## 
+## Step:  AIC=2658
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19 + x20
+## 
+##        Df Deviance  AIC
+## - x20   1     2552 2652
+## - x18   1     2552 2652
+## - x8    1     2553 2652
+## - x15   1     2553 2652
+## - x12   1     2554 2653
+## - x4    1     2554 2654
+## - x17   1     2554 2654
+## - x6    1     2555 2654
+## - x14   1     2555 2654
+## - x13   1     2556 2655
+## - x11   1     2556 2656
+## &lt;none&gt;        2552 2658
+## + x16   1     2552 2664
+## + x2    1     2552 2664
+## + x9    1     2552 2664
+## + x5    1     2552 2664
+## - x19   1     2581 2680
+## - x3    1     2585 2684
+## - x10   1     2589 2689
+## - x1    1     2600 2700
+## - x7    1     2646 2745
+## 
+## Step:  AIC=2652
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x18 + x19
+## 
+##        Df Deviance  AIC
+## - x18   1     2553 2646
+## - x8    1     2553 2646
+## - x15   1     2553 2646
+## - x12   1     2554 2647
+## - x4    1     2554 2648
+## - x17   1     2555 2648
+## - x6    1     2555 2648
+## - x14   1     2555 2649
+## - x13   1     2556 2649
+## - x11   1     2557 2650
+## &lt;none&gt;        2552 2652
+## + x20   1     2552 2658
+## + x16   1     2552 2658
+## + x2    1     2552 2658
+## + x9    1     2552 2658
+## + x5    1     2552 2658
+## - x19   1     2581 2674
+## - x3    1     2585 2678
+## - x10   1     2590 2684
+## - x1    1     2600 2694
+## - x7    1     2647 2740
+## 
+## Step:  AIC=2646
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x15 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x15   1     2554 2641
+## - x8    1     2554 2641
+## - x12   1     2555 2642
+## - x4    1     2555 2642
+## - x17   1     2556 2643
+## - x6    1     2556 2643
+## - x14   1     2556 2643
+## - x13   1     2557 2644
+## - x11   1     2557 2644
+## &lt;none&gt;        2553 2646
+## + x18   1     2552 2652
+## + x20   1     2552 2652
+## + x16   1     2553 2652
+## + x2    1     2553 2652
+## + x9    1     2553 2652
+## + x5    1     2553 2652
+## - x19   1     2581 2668
+## - x3    1     2585 2672
+## - x10   1     2591 2678
+## - x1    1     2600 2687
+## - x7    1     2648 2735
+## 
+## Step:  AIC=2641
+## y ~ x1 + x3 + x4 + x6 + x7 + x8 + x10 + x11 + x12 + x13 + x14 + 
+##     x17 + x19
+## 
+##        Df Deviance  AIC
+## - x8    1     2555 2635
+## - x12   1     2555 2636
+## - x4    1     2556 2637
+## - x17   1     2556 2637
+## - x6    1     2556 2637
+## - x14   1     2557 2637
+## - x13   1     2558 2639
+## - x11   1     2558 2639
+## &lt;none&gt;        2554 2641
+## + x15   1     2553 2646
+## + x18   1     2553 2646
+## + x20   1     2553 2647
+## + x16   1     2553 2647
+## + x2    1     2553 2647
+## + x9    1     2554 2647
+## + x5    1     2554 2647
+## - x19   1     2583 2664
+## - x3    1     2586 2667
+## - x10   1     2591 2672
+## - x1    1     2603 2684
+## - x7    1     2648 2729
+## 
+## Step:  AIC=2635
+## y ~ x1 + x3 + x4 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + 
+##     x19
+## 
+##        Df Deviance  AIC
+## - x4    1     2557 2631
+## - x12   1     2557 2631
+## - x17   1     2558 2632
+## - x6    1     2558 2632
+## - x14   1     2558 2633
+## - x13   1     2559 2633
+## - x11   1     2559 2634
+## &lt;none&gt;        2555 2635
+## + x8    1     2554 2641
+## + x15   1     2554 2641
+## + x18   1     2554 2641
+## + x20   1     2554 2641
+## + x16   1     2554 2641
+## + x2    1     2555 2642
+## + x9    1     2555 2642
+## + x5    1     2555 2642
+## - x19   1     2584 2658
+## - x3    1     2587 2661
+## - x10   1     2593 2668
+## - x1    1     2603 2678
+## - x7    1     2650 2724
+## 
+## Step:  AIC=2631
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x12 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x12   1     2558 2627
+## - x6    1     2559 2628
+## - x17   1     2559 2628
+## - x14   1     2560 2628
+## - x13   1     2561 2629
+## - x11   1     2561 2630
+## &lt;none&gt;        2557 2631
+## + x4    1     2555 2635
+## + x15   1     2556 2637
+## + x8    1     2556 2637
+## + x18   1     2556 2637
+## + x20   1     2557 2637
+## + x2    1     2557 2637
+## + x16   1     2557 2637
+## + x9    1     2557 2637
+## + x5    1     2557 2637
+## - x19   1     2588 2656
+## - x3    1     2590 2658
+## - x10   1     2594 2662
+## - x1    1     2606 2675
+## - x7    1     2650 2719
+## 
+## Step:  AIC=2627
+## y ~ x1 + x3 + x6 + x7 + x10 + x11 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x6    1     2561 2623
+## - x17   1     2561 2624
+## - x14   1     2562 2624
+## - x13   1     2562 2624
+## - x11   1     2563 2625
+## &lt;none&gt;        2558 2627
+## + x12   1     2557 2631
+## + x4    1     2557 2631
+## + x8    1     2557 2632
+## + x15   1     2558 2632
+## + x18   1     2558 2632
+## + x20   1     2558 2633
+## + x16   1     2558 2633
+## + x2    1     2558 2633
+## + x9    1     2558 2633
+## + x5    1     2558 2633
+## - x19   1     2588 2651
+## - x3    1     2591 2653
+## - x10   1     2599 2661
+## - x1    1     2607 2669
+## - x7    1     2655 2717
+## 
+## Step:  AIC=2623
+## y ~ x1 + x3 + x7 + x10 + x11 + x13 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x13   1     2565 2621
+## - x11   1     2565 2621
+## - x17   1     2565 2621
+## - x14   1     2565 2621
+## &lt;none&gt;        2561 2623
+## + x6    1     2558 2627
+## + x12   1     2559 2628
+## + x8    1     2560 2628
+## + x4    1     2560 2628
+## + x18   1     2560 2629
+## + x15   1     2561 2629
+## + x20   1     2561 2629
+## + x16   1     2561 2629
+## + x2    1     2561 2629
+## + x5    1     2561 2630
+## + x9    1     2561 2630
+## - x19   1     2590 2646
+## - x3    1     2591 2647
+## - x10   1     2604 2660
+## - x1    1     2608 2664
+## - x7    1     2662 2718
+## 
+## Step:  AIC=2621
+## y ~ x1 + x3 + x7 + x10 + x11 + x14 + x17 + x19
+## 
+##        Df Deviance  AIC
+## - x17   1     2567 2617
+## - x14   1     2568 2618
+## - x11   1     2569 2618
+## &lt;none&gt;        2565 2621
+## + x13   1     2561 2623
+## + x6    1     2562 2624
+## + x4    1     2563 2625
+## + x12   1     2563 2625
+## + x8    1     2564 2626
+## + x15   1     2564 2626
+## + x18   1     2564 2626
+## + x16   1     2564 2627
+## + x20   1     2564 2627
+## + x2    1     2564 2627
+## + x9    1     2565 2627
+## + x5    1     2565 2627
+## - x19   1     2596 2646
+## - x3    1     2598 2647
+## - x10   1     2605 2654
+## - x1    1     2616 2666
+## - x7    1     2663 2712
+## 
+## Step:  AIC=2617
+## y ~ x1 + x3 + x7 + x10 + x11 + x14 + x19
+## 
+##        Df Deviance  AIC
+## - x11   1     2571 2614
+## - x14   1     2571 2615
+## &lt;none&gt;        2567 2617
+## + x6    1     2565 2620
+## + x17   1     2565 2621
+## + x13   1     2565 2621
+## + x12   1     2566 2622
+## + x8    1     2566 2622
+## + x4    1     2566 2622
+## + x18   1     2567 2622
+## + x20   1     2567 2623
+## + x15   1     2567 2623
+## + x16   1     2567 2623
+## + x2    1     2567 2623
+## + x5    1     2567 2623
+## + x9    1     2567 2623
+## - x19   1     2596 2640
+## - x3    1     2598 2642
+## - x10   1     2611 2655
+## - x1    1     2616 2660
+## - x7    1     2670 2713
+## 
+## Step:  AIC=2614
+## y ~ x1 + x3 + x7 + x10 + x14 + x19
+## 
+##        Df Deviance  AIC
+## - x14   1     2574 2611
+## &lt;none&gt;        2571 2614
+## + x11   1     2567 2617
+## + x13   1     2568 2617
+## + x17   1     2569 2618
+## + x6    1     2569 2618
+## + x4    1     2569 2619
+## + x12   1     2570 2619
+## + x8    1     2570 2620
+## + x15   1     2570 2620
+## + x18   1     2570 2620
+## + x20   1     2571 2620
+## + x16   1     2571 2620
+## + x2    1     2571 2620
+## + x9    1     2571 2620
+## + x5    1     2571 2620
+## - x19   1     2603 2640
+## - x3    1     2605 2642
+## - x10   1     2612 2650
+## - x1    1     2623 2661
+## - x7    1     2670 2707
+## 
+## Step:  AIC=2611
+## y ~ x1 + x3 + x7 + x10 + x19
+## 
+##        Df Deviance  AIC
+## &lt;none&gt;        2574 2611
+## + x14   1     2571 2614
+## + x6    1     2571 2614
+## + x17   1     2571 2614
+## + x13   1     2571 2615
+## + x11   1     2571 2615
+## + x12   1     2572 2616
+## + x8    1     2572 2616
+## + x4    1     2573 2616
+## + x18   1     2573 2616
+## + x20   1     2573 2617
+## + x16   1     2573 2617
+## + x15   1     2573 2617
+## + x2    1     2573 2617
+## + x5    1     2574 2617
+## + x9    1     2574 2617
+## - x19   1     2603 2634
+## - x3    1     2606 2637
+## - x10   1     2619 2650
+## - x1    1     2624 2655
+## - x7    1     2681 2712</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="kw">summary</span>(mod2b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x1 + x3 + x7 + x10 + x19, family = binomial, 
+##     data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.080  -1.081   0.481   1.074   2.015  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0367     0.0472    0.78     0.44    
+## x1            0.4294     0.0619    6.94  3.9e-12 ***
+## x3            0.3439     0.0616    5.58  2.4e-08 ***
+## x7           -0.6443     0.0647   -9.95  &lt; 2e-16 ***
+## x10          -0.4107     0.0620   -6.63  3.4e-11 ***
+## x19           0.3242     0.0603    5.37  7.8e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2573.8  on 2012  degrees of freedom
+## AIC: 2586
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Método 5: Forward com k = 2 (AIC)</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">mod3a &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste_null, <span class="dt">scope =</span> <span class="kw">formula</span>(ajuste), <span class="dt">direction =</span> <span class="st">&#39;forward&#39;</span>)</a></code></pre></div>
+<pre><code>## Start:  AIC=2799
+## y ~ 1
+## 
+##        Df Deviance  AIC
+## + x7    1     2760 2764
+## + x1    1     2771 2775
+## + x19   1     2778 2782
+## + x10   1     2781 2785
+## + x3    1     2782 2786
+## + x13   1     2794 2798
+## + x4    1     2795 2799
+## &lt;none&gt;        2797 2799
+## + x11   1     2796 2800
+## + x15   1     2797 2801
+## + x12   1     2797 2801
+## + x6    1     2797 2801
+## + x5    1     2797 2801
+## + x14   1     2797 2801
+## + x20   1     2797 2801
+## + x9    1     2797 2801
+## + x17   1     2797 2801
+## + x18   1     2797 2801
+## + x8    1     2797 2801
+## + x2    1     2797 2801
+## + x16   1     2797 2801
+## 
+## Step:  AIC=2764
+## y ~ x7
+## 
+##        Df Deviance  AIC
+## + x1    1     2671 2677
+## + x19   1     2685 2691
+## + x3    1     2691 2697
+## + x13   1     2727 2733
+## + x11   1     2731 2737
+## + x4    1     2732 2738
+## + x15   1     2736 2742
+## + x5    1     2741 2747
+## + x9    1     2743 2749
+## + x20   1     2744 2750
+## + x2    1     2745 2751
+## + x18   1     2746 2752
+## + x8    1     2747 2753
+## + x16   1     2747 2753
+## + x17   1     2749 2755
+## + x14   1     2750 2756
+## + x6    1     2751 2757
+## + x12   1     2752 2758
+## &lt;none&gt;        2760 2764
+## + x10   1     2759 2765
+## 
+## Step:  AIC=2677
+## y ~ x7 + x1
+## 
+##        Df Deviance  AIC
+## + x3    1     2639 2647
+## + x19   1     2639 2647
+## + x10   1     2650 2658
+## + x13   1     2665 2673
+## + x11   1     2665 2673
+## + x4    1     2666 2674
+## + x15   1     2669 2677
+## &lt;none&gt;        2671 2677
+## + x5    1     2670 2678
+## + x9    1     2670 2678
+## + x2    1     2671 2679
+## + x16   1     2671 2679
+## + x20   1     2671 2679
+## + x18   1     2671 2679
+## + x12   1     2671 2679
+## + x6    1     2671 2679
+## + x14   1     2671 2679
+## + x8    1     2671 2679
+## + x17   1     2671 2679
+## 
+## Step:  AIC=2647
+## y ~ x7 + x1 + x3
+## 
+##        Df Deviance  AIC
+## + x10   1     2603 2613
+## + x19   1     2619 2629
+## + x6    1     2636 2646
+## + x17   1     2637 2647
+## + x12   1     2637 2647
+## + x14   1     2637 2647
+## &lt;none&gt;        2639 2647
+## + x11   1     2638 2648
+## + x13   1     2638 2648
+## + x8    1     2638 2648
+## + x20   1     2638 2648
+## + x4    1     2639 2649
+## + x18   1     2639 2649
+## + x16   1     2639 2649
+## + x2    1     2639 2649
+## + x9    1     2639 2649
+## + x15   1     2639 2649
+## + x5    1     2639 2649
+## 
+## Step:  AIC=2613
+## y ~ x7 + x1 + x3 + x10
+## 
+##        Df Deviance  AIC
+## + x19   1     2574 2586
+## + x13   1     2597 2609
+## + x11   1     2597 2609
+## + x4    1     2599 2611
+## + x15   1     2601 2613
+## &lt;none&gt;        2603 2613
+## + x5    1     2602 2614
+## + x9    1     2603 2615
+## + x6    1     2603 2615
+## + x14   1     2603 2615
+## + x2    1     2603 2615
+## + x17   1     2603 2615
+## + x16   1     2603 2615
+## + x8    1     2603 2615
+## + x18   1     2603 2615
+## + x12   1     2603 2615
+## + x20   1     2603 2615
+## 
+## Step:  AIC=2586
+## y ~ x7 + x1 + x3 + x10 + x19
+## 
+##        Df Deviance  AIC
+## + x14   1     2571 2585
+## + x6    1     2571 2585
+## + x17   1     2571 2585
+## + x13   1     2571 2585
+## + x11   1     2571 2585
+## &lt;none&gt;        2574 2586
+## + x12   1     2572 2586
+## + x8    1     2572 2586
+## + x4    1     2573 2587
+## + x18   1     2573 2587
+## + x20   1     2573 2587
+## + x16   1     2573 2587
+## + x15   1     2573 2587
+## + x2    1     2573 2587
+## + x5    1     2574 2588
+## + x9    1     2574 2588
+## 
+## Step:  AIC=2585
+## y ~ x7 + x1 + x3 + x10 + x19 + x14
+## 
+##        Df Deviance  AIC
+## + x11   1     2567 2583
+## + x13   1     2568 2584
+## + x17   1     2569 2585
+## + x6    1     2569 2585
+## &lt;none&gt;        2571 2585
+## + x4    1     2569 2585
+## + x12   1     2570 2586
+## + x8    1     2570 2586
+## + x15   1     2570 2586
+## + x18   1     2570 2586
+## + x20   1     2571 2587
+## + x16   1     2571 2587
+## + x2    1     2571 2587
+## + x9    1     2571 2587
+## + x5    1     2571 2587
+## 
+## Step:  AIC=2583
+## y ~ x7 + x1 + x3 + x10 + x19 + x14 + x11
+## 
+##        Df Deviance  AIC
+## + x6    1     2565 2583
+## + x17   1     2565 2583
+## + x13   1     2565 2583
+## &lt;none&gt;        2567 2583
+## + x12   1     2566 2584
+## + x8    1     2566 2584
+## + x4    1     2566 2584
+## + x18   1     2567 2585
+## + x20   1     2567 2585
+## + x15   1     2567 2585
+## + x16   1     2567 2585
+## + x2    1     2567 2585
+## + x5    1     2567 2585
+## + x9    1     2567 2585
+## 
+## Step:  AIC=2583
+## y ~ x7 + x1 + x3 + x10 + x19 + x14 + x11 + x6
+## 
+##        Df Deviance  AIC
+## + x13   1     2561 2581
+## + x17   1     2562 2582
+## &lt;none&gt;        2565 2583
+## + x4    1     2563 2583
+## + x12   1     2563 2583
+## + x8    1     2564 2584
+## + x15   1     2564 2584
+## + x18   1     2564 2584
+## + x20   1     2564 2584
+## + x16   1     2564 2584
+## + x2    1     2564 2584
+## + x9    1     2564 2584
+## + x5    1     2565 2585
+## 
+## Step:  AIC=2581
+## y ~ x7 + x1 + x3 + x10 + x19 + x14 + x11 + x6 + x13
+## 
+##        Df Deviance  AIC
+## + x17   1     2558 2580
+## + x12   1     2559 2581
+## &lt;none&gt;        2561 2581
+## + x8    1     2560 2582
+## + x4    1     2560 2582
+## + x18   1     2561 2583
+## + x20   1     2561 2583
+## + x15   1     2561 2583
+## + x16   1     2561 2583
+## + x2    1     2561 2583
+## + x5    1     2561 2583
+## + x9    1     2561 2583
+## 
+## Step:  AIC=2580
+## y ~ x7 + x1 + x3 + x10 + x19 + x14 + x11 + x6 + x13 + x17
+## 
+##        Df Deviance  AIC
+## &lt;none&gt;        2558 2580
+## + x12   1     2557 2581
+## + x4    1     2557 2581
+## + x8    1     2557 2581
+## + x15   1     2558 2582
+## + x18   1     2558 2582
+## + x20   1     2558 2582
+## + x16   1     2558 2582
+## + x2    1     2558 2582
+## + x9    1     2558 2582
+## + x5    1     2558 2582</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">summary</span>(mod3a)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x7 + x1 + x3 + x10 + x19 + x14 + x11 + x6 + 
+##     x13 + x17, family = binomial, data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -2.20   -1.08    0.48    1.08    2.09  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0350     0.0474    0.74    0.461    
+## x7           -0.6435     0.0679   -9.48  &lt; 2e-16 ***
+## x1            0.4445     0.0649    6.85  7.6e-12 ***
+## x3            0.3649     0.0652    5.60  2.1e-08 ***
+## x10          -0.4038     0.0646   -6.25  4.0e-10 ***
+## x19           0.3471     0.0642    5.41  6.3e-08 ***
+## x14          -0.1136     0.0633   -1.79    0.073 .  
+## x11           0.1290     0.0628    2.05    0.040 *  
+## x6           -0.1036     0.0632   -1.64    0.101    
+## x13           0.1237     0.0639    1.94    0.053 .  
+## x17          -0.1110     0.0651   -1.71    0.088 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2558.5  on 2007  degrees of freedom
+## AIC: 2580
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Método 6: Forward com k = log(300) (BIC)</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1">mod3b &lt;-<span class="st"> </span><span class="kw">step</span>(ajuste_null, <span class="dt">scope =</span> <span class="kw">formula</span>(ajuste), <span class="dt">direction =</span> <span class="st">&#39;forward&#39;</span>, <span class="dt">k =</span> <span class="kw">log</span>(n))</a></code></pre></div>
+<pre><code>## Start:  AIC=2805
+## y ~ 1
+## 
+##        Df Deviance  AIC
+## + x7    1     2760 2775
+## + x1    1     2771 2787
+## + x19   1     2778 2794
+## + x10   1     2781 2797
+## + x3    1     2782 2798
+## &lt;none&gt;        2797 2805
+## + x13   1     2794 2809
+## + x4    1     2795 2811
+## + x11   1     2796 2811
+## + x15   1     2797 2812
+## + x12   1     2797 2812
+## + x6    1     2797 2812
+## + x5    1     2797 2812
+## + x14   1     2797 2813
+## + x20   1     2797 2813
+## + x9    1     2797 2813
+## + x17   1     2797 2813
+## + x18   1     2797 2813
+## + x8    1     2797 2813
+## + x2    1     2797 2813
+## + x16   1     2797 2813
+## 
+## Step:  AIC=2775
+## y ~ x7
+## 
+##        Df Deviance  AIC
+## + x1    1     2671 2694
+## + x19   1     2685 2708
+## + x3    1     2691 2714
+## + x13   1     2727 2750
+## + x11   1     2731 2754
+## + x4    1     2732 2755
+## + x15   1     2736 2759
+## + x5    1     2741 2764
+## + x9    1     2743 2766
+## + x20   1     2744 2767
+## + x2    1     2745 2768
+## + x18   1     2746 2769
+## + x8    1     2747 2770
+## + x16   1     2747 2770
+## + x17   1     2749 2772
+## + x14   1     2750 2773
+## + x6    1     2751 2774
+## &lt;none&gt;        2760 2775
+## + x12   1     2752 2775
+## + x10   1     2759 2781
+## 
+## Step:  AIC=2694
+## y ~ x7 + x1
+## 
+##        Df Deviance  AIC
+## + x3    1     2639 2670
+## + x19   1     2639 2670
+## + x10   1     2650 2680
+## &lt;none&gt;        2671 2694
+## + x13   1     2665 2695
+## + x11   1     2665 2695
+## + x4    1     2666 2697
+## + x15   1     2669 2699
+## + x5    1     2670 2700
+## + x9    1     2670 2700
+## + x2    1     2671 2701
+## + x16   1     2671 2701
+## + x20   1     2671 2702
+## + x18   1     2671 2702
+## + x12   1     2671 2702
+## + x6    1     2671 2702
+## + x14   1     2671 2702
+## + x8    1     2671 2702
+## + x17   1     2671 2702
+## 
+## Step:  AIC=2670
+## y ~ x7 + x1 + x3
+## 
+##        Df Deviance  AIC
+## + x10   1     2603 2641
+## + x19   1     2619 2657
+## &lt;none&gt;        2639 2670
+## + x6    1     2636 2674
+## + x17   1     2637 2675
+## + x12   1     2637 2675
+## + x14   1     2637 2675
+## + x11   1     2638 2676
+## + x13   1     2638 2676
+## + x8    1     2638 2676
+## + x20   1     2638 2676
+## + x4    1     2639 2677
+## + x18   1     2639 2677
+## + x16   1     2639 2677
+## + x2    1     2639 2677
+## + x9    1     2639 2677
+## + x15   1     2639 2677
+## + x5    1     2639 2677
+## 
+## Step:  AIC=2641
+## y ~ x7 + x1 + x3 + x10
+## 
+##        Df Deviance  AIC
+## + x19   1     2574 2619
+## &lt;none&gt;        2603 2641
+## + x13   1     2597 2643
+## + x11   1     2597 2643
+## + x4    1     2599 2644
+## + x15   1     2601 2646
+## + x5    1     2602 2648
+## + x9    1     2603 2648
+## + x6    1     2603 2648
+## + x14   1     2603 2649
+## + x2    1     2603 2649
+## + x17   1     2603 2649
+## + x16   1     2603 2649
+## + x8    1     2603 2649
+## + x18   1     2603 2649
+## + x12   1     2603 2649
+## + x20   1     2603 2649
+## 
+## Step:  AIC=2619
+## y ~ x7 + x1 + x3 + x10 + x19
+## 
+##        Df Deviance  AIC
+## &lt;none&gt;        2574 2619
+## + x14   1     2571 2624
+## + x6    1     2571 2624
+## + x17   1     2571 2624
+## + x13   1     2571 2625
+## + x11   1     2571 2625
+## + x12   1     2572 2625
+## + x8    1     2572 2626
+## + x4    1     2573 2626
+## + x18   1     2573 2626
+## + x20   1     2573 2627
+## + x16   1     2573 2627
+## + x15   1     2573 2627
+## + x2    1     2573 2627
+## + x5    1     2574 2627
+## + x9    1     2574 2627</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="kw">summary</span>(mod3b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x7 + x1 + x3 + x10 + x19, family = binomial, 
+##     data = dados_simul)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.080  -1.081   0.481   1.074   2.015  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0367     0.0472    0.78     0.44    
+## x7           -0.6443     0.0647   -9.95  &lt; 2e-16 ***
+## x1            0.4294     0.0619    6.94  3.9e-12 ***
+## x3            0.3439     0.0616    5.58  2.4e-08 ***
+## x10          -0.4107     0.0620   -6.63  3.4e-11 ***
+## x19           0.3242     0.0603    5.37  7.8e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2797.5  on 2017  degrees of freedom
+## Residual deviance: 2573.8  on 2012  degrees of freedom
+## AIC: 2586
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div id="método-lasso" class="section level2">
+<h2>Método lasso</h2>
+<p>Agora, usando o método lasso.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(ajuste)[, <span class="dv">-1</span>]</a></code></pre></div>
+<p>Matriz de covariáveis. Observe a exclusão da primeira coluna, que corresponde à coluna de uns (referente ao intercepto), que não deve ser incluída.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1">y &lt;-<span class="st"> </span>dados_simul<span class="op">$</span>y</a>
+<a class="sourceLine" id="cb120-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb120-3" data-line-number="3">mod4a &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p>Lasso regression (penalização de primeira ordem)</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb121-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb121-3" data-line-number="3"><span class="kw">plot</span>(mod4a, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">label=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="kw">plot</span>(mod4a, <span class="dt">xvar=</span><span class="st">&quot;lambda&quot;</span>, <span class="dt">label=</span><span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">cex =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-48-2.png" width="672" /></p>
+<p>Gráficos das estimativas vs termo de penalização e vs lambda.</p>
+<p>Usando validação cruzada para determinar o valor de lambda.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1">cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x, y, <span class="dt">family =</span> <span class="st">&#39;binomial&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">nfolds =</span> <span class="dv">20</span>) </a>
+<a class="sourceLine" id="cb123-2" data-line-number="2"><span class="kw">plot</span>(cvfit)</a></code></pre></div>
+<p><img src="sel_var_mod9_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1">cvfit<span class="op">$</span>lambda.min </a></code></pre></div>
+<pre><code>## [1] 0.003168</code></pre>
+<p>Lambda ótimo.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">coef</span>(mod4a, <span class="dt">s =</span> cvfit<span class="op">$</span>lambda.min)</a></code></pre></div>
+<pre><code>## 21 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     1
+## (Intercept)  0.032687
+## x1           0.414572
+## x2           .       
+## x3           0.332071
+## x4           0.062465
+## x5           .       
+## x6          -0.077943
+## x7          -0.602741
+## x8          -0.037250
+## x9           .       
+## x10         -0.367717
+## x11          0.099494
+## x12         -0.058783
+## x13          0.099088
+## x14         -0.081810
+## x15          0.032377
+## x16         -0.003516
+## x17         -0.076739
+## x18         -0.020300
+## x19          0.316156
+## x20         -0.004053</code></pre>
+<p>Modelo ajustado usando o lambda indicado pela validação cruzada.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">coef</span>(mod4a, <span class="dt">s =</span> <span class="fl">0.015</span>)</a></code></pre></div>
+<pre><code>## 21 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                     1
+## (Intercept)  0.027910
+## x1           0.304821
+## x2           .       
+## x3           0.218197
+## x4           .       
+## x5           .       
+## x6           .       
+## x7          -0.467763
+## x8           .       
+## x9           .       
+## x10         -0.251875
+## x11          .       
+## x12          .       
+## x13          0.002373
+## x14          .       
+## x15          .       
+## x16          .       
+## x17          .       
+## x18          .       
+## x19          0.216489
+## x20          .</code></pre>
+<p>Solução obtida fixando lambda = 0.015.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

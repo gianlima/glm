@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Estimação em MLG usando bootstrap</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Estimação em MLG usando bootstrap</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<p>Vamos utilizar uma aplicação bastante simples de glm, com apenas n=15 observações, para ilustrar o uso de simulação (bootstrap não paramétrico) para estimar o viés e o erro padrão das estimativas, bem como obter intervalos de confiança para os parâmetros do modelo.</p>
+<p>Vamos usar a função Boot do pacote car para realização das simulações. Antes de usar a função, vamos usar o R para fazer “na mão” um ou dois passos do algoritmo, para que você entenda o que é feito.</p>
+<div id="passo-1" class="section level2">
+<h2>Passo 1</h2>
+<p>Entrada dos dados e ajuste de um MLG Poisson.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.0</span>, <span class="fl">1.1</span>,<span class="fl">1.4</span>, <span class="fl">0.9</span>, <span class="fl">1.6</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">1.4</span>, <span class="fl">0.6</span>, <span class="fl">1.9</span>, <span class="fl">1.0</span>, <span class="fl">0.8</span>)</a></code></pre></div>
+<p>Variável explicativa.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">11</span>,  <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">0</span>,  <span class="dv">2</span>,  <span class="dv">0</span>,  <span class="dv">4</span>,  <span class="dv">4</span>,  <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>) </a></code></pre></div>
+<p>Variável resposta, discreta com valores positivos. Vamos usar o modelo de Poisson.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot</span>(x, y, <span class="dt">pch =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="estimacao_mod11_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dados &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x,y)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">ajuste &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">family =</span> <span class="st">&#39;poisson&#39;</span>, <span class="dt">data =</span> dados)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">summary</span>(ajuste)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = &quot;poisson&quot;, data = dados)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.2083  -0.6926  -0.2858   0.7530   1.7735  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)   0.3396     0.3501    0.97  0.33207   
+## x             0.9196     0.2821    3.26  0.00111 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 29.385  on 14  degrees of freedom
+## Residual deviance: 19.083  on 13  degrees of freedom
+## AIC: 64.841
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Observe as estimativas, os erros padrões assintóticos e os testes para as hipóteses de nulidade dos parâmetros do modelo.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">confint</span>(ajuste) <span class="co"># Intervalos com nível (assintótico) de 95% de confiança.</span></a></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                  2.5 %    97.5 %
+## (Intercept) -0.3778400 0.9982974
+## x            0.3626389 1.4721078</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">confint.default</span>(ajuste)</a></code></pre></div>
+<pre><code>##                  2.5 %   97.5 %
+## (Intercept) -0.3465971 1.025746
+## x            0.3667752 1.472423</code></pre>
+</div>
+<div id="passo-2" class="section level2">
+<h2>Passo 2</h2>
+<p>Primeiros passos do bootstrap não paramétrico (à mão, para ilustração)</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">indices &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">replace =</span> T); indices </a></code></pre></div>
+<pre><code>##  [1] 14 14 10  3  3 15  8  5 11  4 10  3  7 14 12</code></pre>
+<p>Armazenamos em indices os índices das observações que vão compor a primeira re-amostra. Observe que algumas observações vão aparecer mais de uma vez,outras não aparecerão na reamostra.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">dadosb1 &lt;-<span class="st"> </span>dados[indices,]; dadosb1 </a></code></pre></div>
+<pre><code>##        x  y
+## 14   1.0  3
+## 14.1 1.0  3
+## 10   0.4  0
+## 3    1.4  5
+## 3.1  1.4  5
+## 15   0.8  4
+## 8    0.6  0
+## 5    1.6 11
+## 11   1.4  4
+## 4    0.9  6
+## 10.1 0.4  0
+## 3.2  1.4  5
+## 7    0.5  4
+## 14.2 1.0  3
+## 12   0.6  4</code></pre>
+<p>dadosb1 é a base de dados correspondente à primeira reamostra. Vamos ajustar o modelo de Poisson para essa primeira reamostra.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ajusteb1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>x,<span class="dt">family =</span> <span class="st">&#39;poisson&#39;</span>, <span class="dt">data =</span> dadosb1)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">coef</span>(ajuste) </a></code></pre></div>
+<pre><code>## (Intercept)           x 
+##   0.3395743   0.9195993</code></pre>
+<p>Estimativas dos betas geradas pelo modelo ajustado com a amostra original…</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">coef</span>(ajusteb1) </a></code></pre></div>
+<pre><code>## (Intercept)           x 
+##  -0.1168241   1.3654160</code></pre>
+<p>Estimativas dos betas geradas pelo modelo ajustado</p>
+<p>Com a primeira reamostra bootstrap. Você pode observar que as estimativas são diferentes daquelas obtidas no primeiro ajuste, o que já era de se esperar (a base é outra).</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">summary</span>(ajusteb1) <span class="co">### Resumo do modelo ajustado com a primeira amostra bootstrap.</span></a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = &quot;poisson&quot;, data = dadosb1)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.0093  -0.6521  -0.2664   0.9033   1.4959  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -0.1168     0.4432  -0.264 0.792072    
+## x             1.3654     0.3641   3.750 0.000177 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 34.484  on 14  degrees of freedom
+## Residual deviance: 19.211  on 13  degrees of freedom
+## AIC: 63.6
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Fazendo uma segunda vez:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">indices2 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">replace =</span> T); indices2 <span class="co">### Outro conjunto de índices.</span></a></code></pre></div>
+<pre><code>##  [1] 12  9 10 15  2  3 14 12 13  3 10 13  6  9  1</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">dadosb2 &lt;-<span class="st"> </span>dados[indices2,]; dadosb2 </a></code></pre></div>
+<pre><code>##        x y
+## 12   0.6 4
+## 9    0.4 2
+## 10   0.4 0
+## 15   0.8 4
+## 2    1.1 3
+## 3    1.4 5
+## 14   1.0 3
+## 12.1 0.6 4
+## 13   1.9 5
+## 3.1  1.4 5
+## 10.1 0.4 0
+## 13.1 1.9 5
+## 6    0.6 2
+## 9.1  0.4 2
+## 1    1.0 2</code></pre>
+<p>A base correspondente aos índices selecionados (nossa segunda reamostra).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">ajusteb2 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">family =</span> <span class="st">&#39;poisson&#39;</span>, <span class="dt">data =</span> dadosb2)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">coef</span>(ajusteb2) <span class="co">### E as estimativas dos parâmetros geradas pela segunda reamostra.</span></a></code></pre></div>
+<pre><code>## (Intercept)           x 
+##   0.3720940   0.7289805</code></pre>
+<p>A ideia é repetir esses passos um grande número de vezes (gerando um grande número de estimativas) e estimar os parâmetros com base na distribuição das estimativas geradas pelas reamostras, conforme discutido em sala de aula. Fica como exercício para os alunos programar esse procedimento sem usar alguma função específica do R.</p>
+</div>
+<div id="passo-3" class="section level2">
+<h2>Passo 3</h2>
+<p>Vamos usar a função Boot, do pacote car, para a execução do bootstrap.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">require</span>(car)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">require</span>(boot)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">help</span>(Boot)</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">b1 &lt;-<span class="st"> </span><span class="kw">Boot</span>(ajuste, <span class="dt">R =</span> <span class="dv">999</span>) <span class="co">### Vamos utilizar 999 reamostragens.</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="kw">head</span>(<span class="kw">boot.array</span>(b1)) </a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+## [1,]    1    1    1    0    2    1    0    0    3     1     1     0     1
+## [2,]    0    0    2    1    2    2    0    0    3     1     2     0     0
+## [3,]    1    1    0    1    1    2    0    2    0     2     1     2     2
+## [4,]    1    1    0    2    2    0    0    2    1     0     2     2     0
+## [5,]    1    1    2    1    0    1    1    1    2     0     1     1     1
+## [6,]    3    1    0    1    0    0    1    0    2     3     1     1     1
+##      [,14] [,15]
+## [1,]     2     1
+## [2,]     2     0
+## [3,]     0     0
+## [4,]     2     0
+## [5,]     2     0
+## [6,]     1     0</code></pre>
+<p>Com a função boot.array podemos verificar a composição (os índices)<br />
+em cada reamostra. Observar que cada linha se refere a uma reamostra.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">hist</span>(b1) <span class="co">### Histogramas para as estimativas dos dois parâmetros.</span></a></code></pre></div>
+<p><img src="estimacao_mod11_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">summary</span>(b1) <span class="co">### Por colunas: Número de reamostragens; </span></a></code></pre></div>
+<pre><code>## 
+## Number of bootstrap replications R = 999 
+##             original  bootBias  bootSE bootMed
+## (Intercept)  0.33957 -0.078691 0.44947 0.31055
+## x            0.91960  0.060629 0.39496 0.93700</code></pre>
+<p>Estimativas geradas pelo modelo inicial (com a base original); Estimativas bootstrap para o vício; Estimativas bootstrap para o erro padrão; Mediana das estimativas bootstrap. Comparar as duas últimas colunas com os resultados correspondentes no summary do modelo original.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">round</span>(<span class="kw">summary</span>(ajuste)<span class="op">$</span>coefficients[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dv">4</span>)</a></code></pre></div>
+<pre><code>##             Estimate Std. Error
+## (Intercept)   0.3396     0.3501
+## x             0.9196     0.2821</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">confint</span>(b1)</a></code></pre></div>
+<pre><code>## Bootstrap bca confidence intervals
+## 
+##                  2.5 %   97.5 %
+## (Intercept) -0.6575624 1.028130
+## x            0.3161908 1.799637</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">confint</span>(b1, <span class="dt">type=</span><span class="st">&#39;perc&#39;</span>)</a></code></pre></div>
+<pre><code>## Bootstrap percent confidence intervals
+## 
+##                  2.5 %   97.5 %
+## (Intercept) -0.7607477 1.006801
+## x            0.3401830 1.845118</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">confint.default</span>(ajuste) </a></code></pre></div>
+<pre><code>##                  2.5 %   97.5 %
+## (Intercept) -0.3465971 1.025746
+## x            0.3667752 1.472423</code></pre>
+<p>Intervalos de confiança usando bootstrap (de duas formas diferentes)<br />
+e os intervalos assintóticos. Repare que os intervalos assintóticos são, indevidamente, mais precisos.</p>
+<p>Agora, usando Bootstrap para estimar a resposta esperada para x = 1,5. exp(beta0 + beta1 * 1,5).</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">coef</span>(ajuste)</a></code></pre></div>
+<pre><code>## (Intercept)           x 
+##   0.3395743   0.9195993</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="cf">function</span>(obj) <span class="kw">exp</span>(<span class="kw">coef</span>(obj)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="kw">coef</span>(obj)[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">bpred &lt;-<span class="st"> </span><span class="kw">Boot</span>(ajuste,f , <span class="dt">R=</span><span class="dv">999</span>)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="kw">confint</span>(bpred, <span class="dt">type =</span> <span class="st">&#39;perc&#39;</span>)</a></code></pre></div>
+<pre><code>## Bootstrap percent confidence intervals
+## 
+##                2.5 %   97.5 %
+## (Intercept) 3.921622 8.764966</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(ajuste, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="fl">1.5</span>), <span class="dt">type =</span> <span class="st">&#39;link&#39;</span>, <span class="dt">se.fit =</span> T)</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">intLink &lt;-<span class="st"> </span><span class="kw">c</span>(p1<span class="op">$</span>fit <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>p1<span class="op">$</span>se.fit, p1<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>p1<span class="op">$</span>se.fit)</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">intResp &lt;-<span class="st"> </span><span class="kw">exp</span>(intLink)</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">intResp</a></code></pre></div>
+<pre><code>##        1        1 
+## 4.014595 7.752459</code></pre>
+<p>Exercício - Usar bootstrap para produzir inferências para o problema dos sinistros (estimar os erros padrões, calcular ICs). Comparar com os correspondentes resultados assintóticos.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

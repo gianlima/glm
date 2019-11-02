@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Reação química + tipos de embalagens (Modelo com erros normais)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reação química + tipos de embalagens (Modelo com erros normais)</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(effects)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">require</span>(car)</a></code></pre></div>
+<div id="exemplo---análise-de-reação-química-modelo-com-erros-normais" class="section level2">
+<h2>Exemplo - Análise de reação química (Modelo com erros normais)</h2>
+<p>Leitura e descritiva dos dados</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dados &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;https://pastebin.com/raw/BTzCSEgy&#39;</span>,<span class="dt">header=</span>T)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">names</span>(dados) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Viscosidade&#39;</span>,<span class="st">&#39;Temperatura&#39;</span>,<span class="st">&#39;Alimentação&#39;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">summary</span>(dados)</a></code></pre></div>
+<pre><code>##   Viscosidade    Temperatura     Alimentação   
+##  Min.   :2250   Min.   : 80.0   Min.   : 8.00  
+##  1st Qu.:2315   1st Qu.: 85.8   1st Qu.: 8.75  
+##  Median :2352   Median : 93.0   Median :10.50  
+##  Mean   :2349   Mean   : 91.1   Mean   :10.25  
+##  3rd Qu.:2385   3rd Qu.: 96.2   3rd Qu.:12.00  
+##  Max.   :2440   Max.   :100.0   Max.   :13.00</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">plot</span>(dados, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Observando os gráficos, notamos indícios de existência de uma tendência crescente da viscosidade com relação às outras duas variáveis (sobretudo quanto à temperatura).</p>
+<p>Ajuste do modelo de regressão linear com as duas variáveis explicativas</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">ajuste1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Viscosidade<span class="op">~</span>Temperatura<span class="op">+</span>Alimentação,<span class="dt">data=</span>dados) </a></code></pre></div>
+<p>A função lm ajusta modelos lineares (neste caso, um modelo de regressão linear com duas variáveis explicativas).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">summary</span>(ajuste1) </a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.497 -13.198  -0.474  10.556  25.430 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1566.078     61.592   25.43  1.8e-12 ***
+## Temperatura    7.621      0.618   12.32  1.5e-08 ***
+## Alimentação    8.585      2.439    3.52   0.0038 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.4 on 13 degrees of freedom
+## Multiple R-squared:  0.927,  Adjusted R-squared:  0.916 
+## F-statistic: 82.5 on 2 and 13 DF,  p-value: 4.1e-08</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">model.matrix</span>(ajuste1) <span class="co"># Matriz do modelo.</span></a></code></pre></div>
+<pre><code>##    (Intercept) Temperatura Alimentação
+## 1            1          80           8
+## 2            1          93           9
+## 3            1         100          10
+## 4            1          82          12
+## 5            1          90          11
+## 6            1          99           8
+## 7            1          81           8
+## 8            1          96          10
+## 9            1          94          12
+## 10           1          93          11
+## 11           1          97          13
+## 12           1          95          11
+## 13           1         100           8
+## 14           1          85          12
+## 15           1          86           9
+## 16           1          87          12
+## attr(,&quot;assign&quot;)
+## [1] 0 1 2</code></pre>
+<p>Por meio do summary, obtemos as estimativas (e os respectivos erros) associados a cada parâmetro do modelo, suas significâncias, além de indicadores de qualidade do ajuste como os coeficientes de determinação ajustado e não ajustado e o teste F para significância do modelo. Pode-se atestar, pelo teste F, a significância do modelo, que é capaz de explicar 92,7% da variação dos dados. Além disso, as evidências de tendências crescentes destacadas na análise descritiva são aqui confirmadas com base nas significâncias dos coeficientes do modelo (p&lt;0,001, para a temperatura, e p=0,003, para a taxa de alimentação).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">names</span>(ajuste1) <span class="co">### Retorna a relação dos resultados produzidos pela função lm. </span></a></code></pre></div>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<p>Para mais informações, consultar a documentação - help(‘lm’)</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ajuste2 &lt;-<span class="st"> </span><span class="kw">lm</span>(Viscosidade <span class="op">~</span><span class="st"> </span><span class="kw">scale</span>(Temperatura,<span class="dt">scale=</span>F) <span class="op">+</span><span class="st"> </span><span class="kw">scale</span>(Alimentação,<span class="dt">scale=</span>F), <span class="dt">data=</span>dados) </a></code></pre></div>
+<p>Ajuste alternativo, ‘centrando’ as variáveis explicativas, ou seja, diminuindo de cada observação das variáveis explicativas a respectiva média.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">summary</span>(ajuste2)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Viscosidade ~ scale(Temperatura, scale = F) + scale(Alimentação, 
+##     scale = F), data = dados)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.497 -13.198  -0.474  10.556  25.430 
+## 
+## Coefficients:
+##                               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   2348.562      4.090  574.27  &lt; 2e-16 ***
+## scale(Temperatura, scale = F)    7.621      0.618   12.32  1.5e-08 ***
+## scale(Alimentação, scale = F)    8.585      2.439    3.52   0.0038 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.4 on 13 degrees of freedom
+## Multiple R-squared:  0.927,  Adjusted R-squared:  0.916 
+## F-statistic: 82.5 on 2 and 13 DF,  p-value: 4.1e-08</code></pre>
+<p>O que mudou?</p>
+<p>Diagnóstico do modelo</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ajuste1<span class="op">$</span>residuals <span class="co"># Vetor de resíduos ordinarios</span></a></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+##  11.54026 -12.12136  11.94476  -1.04171 -16.42718 -21.26426  -2.08103 
+##         8         9        10        11        12        13        14 
+##  25.42992 -21.49719   9.70895  23.05409 -20.53363   7.11445   0.09442 
+##        15        16 
+##  10.22767  -4.14816</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">residuos &lt;-<span class="st"> </span><span class="kw">rstandard</span>(ajuste1);residuos <span class="co"># Vetor de resíduos padronizados</span></a></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+##  0.874677 -0.782134  0.804720 -0.073584 -1.045178 -1.516552 -0.154195 
+##         8         9        10        11        12        13        14 
+##  1.636773 -1.418617  0.618737  1.658978 -1.320321  0.515950  0.006394 
+##        15        16 
+##  0.671908 -0.275947</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">rstudent</span>(ajuste1) <span class="co"># Vetor de resíduos studentizados</span></a></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+##  0.866239 -0.769780  0.793157 -0.070712 -1.049225 -1.606033 -0.148282 
+##         8         9        10        11        12        13        14 
+##  1.764894 -1.482537  0.603415  1.795214 -1.363213  0.500863  0.006144 
+##        15        16 
+##  0.657058 -0.265902</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">preditos &lt;-<span class="st"> </span>ajuste1<span class="op">$</span>fitted.values <span class="co"># Vetor de valores ajustados pelo modelo.</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">plot</span>(preditos, residuos,<span class="dt">xlab=</span><span class="st">&#39;Valores ajustados&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Resíduos&#39;</span>, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Há algum indício nos resíduos de variância não constante (a dispersão aumenta conforme a viscosidade). Como poderíamos remediar (ou melhor avaliar) isso?</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">hist</span>(residuos)</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">qqnorm</span>(residuos)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="kw">qqline</span>(residuos)</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div id="investigar-normalidade." class="section level3">
+<h3>Investigar normalidade.</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">shapiro.test</span>(residuos) </a></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.94, p-value = 0.4</code></pre>
+<p>Teste de normalidade para os resíduos. Não há evidências de não normalidade.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">influence.measures</span>(ajuste1)</a></code></pre></div>
+<pre><code>## Influence measures of
+##   lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados) :
+## 
+##       dfb.1_ dfb.Tmpr dfb.Almç    dffit cov.r   cook.d    hat inf
+## 1   0.572998 -0.44867 -0.35643  0.63496 1.629 1.37e-01 0.3495    
+## 2  -0.021266 -0.05888  0.15190 -0.26010 1.226 2.33e-02 0.1025    
+## 3  -0.239857  0.29356 -0.03506  0.36741 1.325 4.63e-02 0.1767    
+## 4  -0.018564  0.02837 -0.02156 -0.04094 1.696 6.05e-04 0.2511   *
+## 5  -0.011855  0.04748 -0.12249 -0.30281 1.058 3.03e-02 0.0769    
+## 6   0.227172 -0.56314  0.63321 -0.96516 0.965 2.77e-01 0.2653    
+## 7  -0.089694  0.06829  0.05970 -0.10157 1.858 3.72e-03 0.3194   *
+## 8  -0.253758  0.34306 -0.07215  0.58164 0.705 9.70e-02 0.0980    
+## 9   0.298212 -0.17042 -0.41605 -0.60286 0.895 1.11e-01 0.1419    
+## 10 -0.058204  0.04400  0.06996  0.17781 1.263 1.11e-02 0.0799    
+## 11 -0.737662  0.46204  0.86239  1.11495 0.863 3.54e-01 0.2784    
+## 12  0.231498 -0.20870 -0.15855 -0.44471 0.913 6.18e-02 0.0962    
+## 13 -0.092517  0.20105 -0.20099  0.31970 1.682 3.62e-02 0.2895    
+## 14  0.000843 -0.00159  0.00179  0.00293 1.560 3.10e-06 0.1852    
+## 15  0.188814 -0.13570 -0.13043  0.25863 1.321 2.33e-02 0.1342    
+## 16 -0.015882  0.04576 -0.07587 -0.11413 1.479 4.68e-03 0.1556</code></pre>
+<p>Medidas de influência. As unidades 4 e 7 são destacadas como possíveis observações influentes.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">influence.measures</span>(ajuste1))</a></code></pre></div>
+<pre><code>## Potentially influential observations of
+##   lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados) :
+## 
+##   dfb.1_ dfb.Tmpr dfb.Almç dffit cov.r   cook.d hat  
+## 4 -0.02   0.03    -0.02    -0.04  1.70_*  0.00   0.25
+## 7 -0.09   0.07     0.06    -0.10  1.86_*  0.00   0.32</code></pre>
+<p>Ambas as observações são destacadas por com relação à medida COVR, ou seja, pela alteração na precisão das estimativas. Vamos ver como ficariam os resultados eliminando tais observações.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">summary</span>(ajuste1)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.497 -13.198  -0.474  10.556  25.430 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1566.078     61.592   25.43  1.8e-12 ***
+## Temperatura    7.621      0.618   12.32  1.5e-08 ***
+## Alimentação    8.585      2.439    3.52   0.0038 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.4 on 13 degrees of freedom
+## Multiple R-squared:  0.927,  Adjusted R-squared:  0.916 
+## F-statistic: 82.5 on 2 and 13 DF,  p-value: 4.1e-08</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">update</span>(ajuste1, <span class="dt">subset =</span> <span class="dv">-4</span>))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados, 
+##     subset = -4)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -21.6  -14.3   -0.2   10.7   25.4 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1567.268     66.265   23.65  2.0e-11 ***
+## Temperatura    7.603      0.693   10.96  1.3e-07 ***
+## Alimentação    8.640      2.653    3.26   0.0069 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17 on 12 degrees of freedom
+## Multiple R-squared:  0.922,  Adjusted R-squared:  0.909 
+## F-statistic: 70.5 on 2 and 12 DF,  p-value: 2.33e-07</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">update</span>(ajuste1, <span class="dt">subset =</span> <span class="dv">-7</span>))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados, 
+##     subset = -7)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.450 -14.487  -0.101  10.117  25.415 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1571.823     74.854   21.00  7.9e-11 ***
+## Temperatura    7.577      0.708   10.70  1.7e-07 ***
+## Alimentação    8.433      2.734    3.08   0.0095 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17 on 12 degrees of freedom
+## Multiple R-squared:  0.907,  Adjusted R-squared:  0.891 
+## F-statistic: 58.4 on 2 and 12 DF,  p-value: 6.54e-07</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">update</span>(ajuste1, <span class="dt">subset =</span> <span class="op">-</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">7</span>)))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Viscosidade ~ Temperatura + Alimentação, data = dados, 
+##     subset = -c(4, 7))
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -21.45 -15.68   3.35  10.04  25.43 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1573.973     81.721   19.26  8.0e-10 ***
+## Temperatura    7.549      0.805    9.37  1.4e-06 ***
+## Alimentação    8.492      2.928    2.90    0.014 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.8 on 11 degrees of freedom
+## Multiple R-squared:  0.895,  Adjusted R-squared:  0.876 
+## F-statistic:   47 on 2 and 11 DF,  p-value: 4.07e-06</code></pre>
+<p>A eliminação das observações 4 e 7 não altera de forma substancial as estimativas e não muda as inferências do modelo.</p>
+<p>Intervalos de confiança para os parâmetros do modelo.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">confint</span>(ajuste1)</a></code></pre></div>
+<pre><code>##                2.5 %   97.5 %
+## (Intercept) 1433.017 1699.139
+## Temperatura    6.285    8.957
+## Alimentação    3.316   13.853</code></pre>
+<p>Algumas predições</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">predict</span>(ajuste1) <span class="co">### Viscosidade estimada para cada observação na base.</span></a></code></pre></div>
+<pre><code>##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
+## 2244 2352 2414 2294 2346 2389 2252 2384 2385 2369 2417 2385 2397 2317 2299 
+##   16 
+## 2332</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">predict</span>(ajuste1, <span class="dt">interval =</span> <span class="st">&#39;confidence&#39;</span>) </a></code></pre></div>
+<pre><code>##     fit  lwr  upr
+## 1  2244 2224 2265
+## 2  2352 2341 2363
+## 3  2414 2399 2429
+## 4  2294 2276 2312
+## 5  2346 2337 2356
+## 6  2389 2371 2407
+## 7  2252 2232 2272
+## 8  2384 2373 2395
+## 9  2385 2372 2399
+## 10 2369 2359 2379
+## 11 2417 2398 2436
+## 12 2385 2374 2395
+## 13 2397 2378 2416
+## 14 2317 2302 2332
+## 15 2299 2286 2312
+## 16 2332 2318 2346</code></pre>
+<p>Viscosidade estimada e intervalo de confiança (95%) para a viscosidade média.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">predict</span>(ajuste1, <span class="dt">interval =</span> <span class="st">&#39;prediction&#39;</span>)</a></code></pre></div>
+<pre><code>##     fit  lwr  upr
+## 1  2244 2203 2286
+## 2  2352 2315 2389
+## 3  2414 2376 2452
+## 4  2294 2255 2334
+## 5  2346 2310 2383
+## 6  2389 2350 2429
+## 7  2252 2211 2293
+## 8  2384 2347 2421
+## 9  2385 2348 2423
+## 10 2369 2333 2406
+## 11 2417 2377 2457
+## 12 2385 2348 2422
+## 13 2397 2357 2437
+## 14 2317 2278 2355
+## 15 2299 2261 2336
+## 16 2332 2294 2370</code></pre>
+<p>Viscosidade estimada e intervalo de predição (95%) para a viscosidade de uma nova observação.</p>
+<p>Agora, vamos repetir os códigos considerando um par de valores diferente dos que aparecem na base.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">predict</span>(ajuste1, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Temperatura =</span> <span class="dv">95</span>, Alimentaçã<span class="dt">o =</span> <span class="dv">11</span>))</a></code></pre></div>
+<pre><code>##    1 
+## 2385</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">predict</span>(ajuste1, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Temperatura =</span> <span class="dv">95</span>, Alimentaçã<span class="dt">o =</span> <span class="dv">11</span>),</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">        <span class="dt">interval =</span> <span class="st">&#39;confidence&#39;</span>)</a></code></pre></div>
+<pre><code>##    fit  lwr  upr
+## 1 2385 2374 2395</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">predict</span>(ajuste1, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Temperatura =</span> <span class="dv">95</span>, Alimentaçã<span class="dt">o =</span> <span class="dv">11</span>),</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">        <span class="dt">interval =</span> <span class="st">&#39;prediction&#39;</span>)</a></code></pre></div>
+<pre><code>##    fit  lwr  upr
+## 1 2385 2348 2422</code></pre>
+<p>Gráficos para a viscosidade estimada com bandas de confiança.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">effect</span>(<span class="st">&quot;Temperatura&quot;</span>, ajuste1))</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Viscosidade estimada versus temperatura (alimentação fixada na média)</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">effect</span>(<span class="st">&quot;Alimentação&quot;</span>, ajuste1))</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Viscosidade estimada versus alimentação (temperatura fixada na média)</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">effect</span>(<span class="st">&quot;Alimentação&quot;</span>, <span class="dt">given.values =</span> <span class="kw">c</span>(<span class="dt">Temperatura =</span> <span class="dv">85</span>), ajuste1))</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Viscosidade estimada versus alimentação (temperatura fixada em 85)</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">effect</span>(<span class="st">&quot;Temperatura&quot;</span>, <span class="dt">given.values =</span> <span class="kw">c</span>(Alimentaçã<span class="dt">o =</span> <span class="dv">12</span>), ajuste1))</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Viscosidade estimada versus temperatura (alimentação fixada em 12)</p>
+</div>
+</div>
+<div id="exemplo-2---vendas-segundo-o-tipo-de-embalagem." class="section level2">
+<h2>Exemplo 2 - vendas segundo o tipo de embalagem.</h2>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">Embalagem &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;E1&#39;</span>,<span class="st">&#39;E2&#39;</span>,<span class="st">&#39;E3&#39;</span>,<span class="st">&#39;E4&#39;</span>), <span class="dt">each=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">Vendas &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">18</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">19</span>,<span class="dv">17</span>,<span class="dv">21</span>,<span class="dv">24</span>,<span class="dv">30</span>,<span class="dv">27</span>)</a></code></pre></div>
+<div id="descrição-dos-dados" class="section level3">
+<h3>Descrição dos dados</h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">stripchart</span>(Vendas <span class="op">~</span><span class="st"> </span>Embalagem, <span class="dt">vertical=</span>T, <span class="dt">pch=</span><span class="dv">20</span>) <span class="co"># Gráfico de vendas vs embalagem.</span></a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Há fortes indícios de diferença nas vendas conforme o tipo de embalagem.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">tapply</span>(Vendas, Embalagem, mean) <span class="co"># Vendas médias por tipo de embalagem.</span></a></code></pre></div>
+<pre><code>## E1 E2 E3 E4 
+## 14 12 19 27</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">tapply</span>(Vendas, Embalagem, sd) <span class="co"># Desvios padrões das vendas por tipo de embalagem.</span></a></code></pre></div>
+<pre><code>##    E1    E2    E3    E4 
+## 3.606 2.000 2.000 3.000</code></pre>
+<p>Ajuste do modelo de análise de variância com um fator</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">modelo1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Vendas <span class="op">~</span><span class="st"> </span>Embalagem)</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">anova</span>(modelo1) </a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Vendas
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+## Embalagem  3    402   134.0    17.9 0.00066 ***
+## Residuals  8     60     7.5                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>A análise de variância confirma as evidências anteriores de que as vendas, em média, variam conforme o tipo de embalagem. summary(modelo1) Repare que nessa parametrização o intercepro corresponde à média para a embalagem 1 e os demais parâmetros às diferenças das médias para as embalagens 2, 3 e 4 em relação à média da embalagem 1.</p>
+<p>Os resultados indicam que as embalagens 3 e 4 proporcionam maior venda média do que a embalagem 1, não havendo diferença entre as vendas médias proporcionadas pelas embalagens 1 e 2. Nota - se desejado, poderia prosseguir com a execução de algum teste de comparações múltiplas.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">names</span>(modelo1)</a></code></pre></div>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+## [13] &quot;model&quot;</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">model.matrix</span>(modelo1) <span class="co"># Matriz do modelo (X).</span></a></code></pre></div>
+<pre><code>##    (Intercept) EmbalagemE2 EmbalagemE3 EmbalagemE4
+## 1            1           0           0           0
+## 2            1           0           0           0
+## 3            1           0           0           0
+## 4            1           1           0           0
+## 5            1           1           0           0
+## 6            1           1           0           0
+## 7            1           0           1           0
+## 8            1           0           1           0
+## 9            1           0           1           0
+## 10           1           0           0           1
+## 11           1           0           0           1
+## 12           1           0           0           1
+## attr(,&quot;assign&quot;)
+## [1] 0 1 1 1
+## attr(,&quot;contrasts&quot;)
+## attr(,&quot;contrasts&quot;)$Embalagem
+## [1] &quot;contr.treatment&quot;</code></pre>
+<p>Ajuste do modelo sem intercepto (parametrização alternativa)</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">modelo2 &lt;-<span class="st"> </span><span class="kw">lm</span>(Vendas <span class="op">~</span><span class="st"> </span>Embalagem<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">summary</span>(modelo2) </a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Vendas ~ Embalagem - 1)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##     -3     -2      0      2      4 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## EmbalagemE1    14.00       1.58    8.85  2.1e-05 ***
+## EmbalagemE2    12.00       1.58    7.59  6.4e-05 ***
+## EmbalagemE3    19.00       1.58   12.02  2.1e-06 ***
+## EmbalagemE4    27.00       1.58   17.08  1.4e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.74 on 8 degrees of freedom
+## Multiple R-squared:  0.986,  Adjusted R-squared:  0.979 
+## F-statistic:  143 on 4 and 8 DF,  p-value: 1.79e-07</code></pre>
+<p>Agora, os quatro parâmetros correspondem às vendas médias das quatro embalagens.</p>
+<p>Diagnóstico do modelo</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">residuos &lt;-<span class="st"> </span><span class="kw">rstandard</span>(modelo1) <span class="co"># Vetor de resíduos</span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2">preditos &lt;-<span class="st"> </span>modelo1<span class="op">$</span>fitted.values <span class="co"># Vetor de valores ajustados</span></a>
+<a class="sourceLine" id="cb69-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb69-4" data-line-number="4"><span class="kw">plot</span>(preditos,residuos,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">xlab=</span><span class="st">&#39;Valores ajustados&#39;</span>,<span class="dt">ylab=</span><span class="st">&#39;Resíduos&#39;</span>,<span class="dt">cex=</span><span class="fl">1.5</span>)</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Investigar heterocedasticidade, observações mal-ajustadas (outliers, pontos influentes).</p>
+<p>Não há qualquer indício de problemas no ajuste.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw">hist</span>(residuos)</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3"><span class="kw">qqnorm</span>(residuos)</a>
+<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="kw">qqline</span>(residuos)</a></code></pre></div>
+<p><img src="reacao_mod2_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>Sem problemas quanto ao pressuposto de normalidade.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">shapiro.test</span>(residuos) </a></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.94, p-value = 0.4</code></pre>
+<p>Teste de normalidade. A hipótese nula de normalidade não é rejeitada.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">bartlett.test</span>(residuos<span class="op">~</span>Embalagem) </a></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  residuos by Embalagem
+## Bartlett&#39;s K-squared = 0.87, df = 3, p-value = 0.8</code></pre>
+<p>Teste de igualdade de variâncias. A hipótese nula de igualdade não é rejeitada.</p>
+<p>Intervalos de confiança sob as duas parametrizações.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">confint</span>(modelo1)</a></code></pre></div>
+<pre><code>##               2.5 % 97.5 %
+## (Intercept) 10.3539 17.646
+## EmbalagemE2 -7.1564  3.156
+## EmbalagemE3 -0.1564 10.156
+## EmbalagemE4  7.8436 18.156</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">confint</span>(modelo2)</a></code></pre></div>
+<pre><code>##              2.5 % 97.5 %
+## EmbalagemE1 10.354  17.65
+## EmbalagemE2  8.354  15.65
+## EmbalagemE3 15.354  22.65
+## EmbalagemE4 23.354  30.65</code></pre>
+<p>Vamos testar algumas hipóteses referentes a combinações lineares dos parâmetros.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">linearHypothesis</span>(modelo2, <span class="st">&quot;1*EmbalagemE4 - 1*EmbalagemE3 = 0&quot;</span>)</a></code></pre></div>
+<pre><code>## Linear hypothesis test
+## 
+## Hypothesis:
+## - EmbalagemE3  + EmbalagemE4 = 0
+## 
+## Model 1: restricted model
+## Model 2: Vendas ~ Embalagem - 1
+## 
+##   Res.Df RSS Df Sum of Sq    F Pr(&gt;F)   
+## 1      9 156                            
+## 2      8  60  1        96 12.8 0.0072 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Testando a igualdade de médias das embalagens 3 e 4.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">linearHypothesis</span>(modelo2, <span class="st">&quot;1*EmbalagemE3 - 0.5*EmbalagemE4 - 0.5*EmbalagemE2 = 0&quot;</span>)</a></code></pre></div>
+<pre><code>## Linear hypothesis test
+## 
+## Hypothesis:
+## - 0.5 EmbalagemE2  + EmbalagemE3 - 0.5 EmbalagemE4 = 0
+## 
+## Model 1: restricted model
+## Model 2: Vendas ~ Embalagem - 1
+## 
+##   Res.Df  RSS Df Sum of Sq    F Pr(&gt;F)
+## 1      9 60.5                         
+## 2      8 60.0  1       0.5 0.07    0.8</code></pre>
+<p>Testando a igualdade da embalagem 3 e da média das embalagens 4 e 2.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

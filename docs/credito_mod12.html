@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Cesar Taconeli" />
+
+
+<title>Análise de risco de crédito</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Gian Lima</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://gianlima.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 1-9
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Conteúdo de GLM</li>
+    <li class="dropdown-header">Módulo 2 - Revisão de modelos lineares</li>
+    <li>
+      <a href="reacao_mod2.html">Reação química + tipos de embalagens (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="venda_cos_mod2.html">Vendas de cosméticos (Modelo com erros normais)</a>
+    </li>
+    <li>
+      <a href="min_qua_pon_mod3.html">Módulo 3 - Modelo linear com erros heterocedásticos</a>
+    </li>
+    <li class="dropdown-header">Módulo 6 - Estimação em modelos lineares generalizados</li>
+    <li>
+      <a href="estim_glm_mod6.html">Estimação em modelos lineares generalizados</a>
+    </li>
+    <li>
+      <a href="sini_auto_mod6.html">Sinistros de Automóveis (Dados de contagens)</a>
+    </li>
+    <li>
+      <a href="aval_qua_mod8.html">Módulo 8 - Análise de deviance</a>
+    </li>
+    <li>
+      <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    GLM 10-15
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
+    <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
+    <li>
+      <a href="besouro_mod11.html">Auditoria</a>
+    </li>
+    <li>
+      <a href="besouro_mod11.html">Besouro da Farinha</a>
+    </li>
+    <li>
+      <a href="estimacao_mod11.html">Estimação em MLG usando bootstrap</a>
+    </li>
+    <li>
+      <a href="plebis_mod11.html">Plebiscito no Chile</a>
+    </li>
+    <li class="dropdown-header">Módulo 12 - Regressão para dados binários - predição</li>
+    <li>
+      <a href="credito_mod12.html">Análise de risco de crédito</a>
+    </li>
+    <li>
+      <a href="base_mod12.html">Base de dados sobre spams</a>
+    </li>
+    <li class="dropdown-header">Módulo 13 - Regressão para dados de contagens</li>
+    <li>
+      <a href="queda_idoso_mod13.html">Quedas de idosos</a>
+    </li>
+    <li>
+      <a href="cromo_mod13.html">Cromossomos anormais (Regressão Poisson com termo offset)</a>
+    </li>
+    <li class="dropdown-header">Módulo 14 - Regressão para dados de contagens com super dispersão</li>
+    <li>
+      <a href="super_disp_mod14.html">superdispersão (simulação)</a>
+    </li>
+    <li>
+      <a href="exe_comp_mod14.html">Executivos compartilhados</a>
+    </li>
+    <li>
+      <a href="Consulta_mod14.html">Número de consultas ao médico (Austrália)</a>
+    </li>
+    <li>
+      <a href="ratos_mod14.html">Suplementação de ferro em ratos</a>
+    </li>
+    <li>
+      <a href="cevada_mod14.html">Doença da cevada</a>
+    </li>
+    <li class="dropdown-header">Módulo 15 - Regressão para dados contínuos assimétricos</li>
+    <li>
+      <a href="turbina_mod15.html">Tempo de vida de turbinas de avião</a>
+    </li>
+    <li>
+      <a href="tweedie_valor_sin_mod15.html">Valor de sinistros</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/gianlima/r-exams-tutorial">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Análise de risco de crédito</h1>
+<h4 class="author">Cesar Taconeli</h4>
+
+</div>
+
+
+<p>Dados sobre concessão numa instituição crédito alemã. Na página da disciplina há um arquivo com informações sobre as variáveis.</p>
+<p>Início da análise</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">dados &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;https://pastebin.com/raw/RshQ8KjB&#39;</span>, <span class="dt">header =</span> T)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">head</span>(dados, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>##   Status_Account Duration Credit_History Purpose Credit_Amount
+## 1            A11        6            A34     A43          1169
+## 2            A12       48            A32     A43          5951
+##   Saving_Account Present_Employment_Since Installament_Rate
+## 1            A65                      A75                 4
+## 2            A61                      A73                 2
+##   Personal_Status_Sex Other_Debtors Present Residence_Since Property  Age
+## 1                 A93          A101       4            A121       67 A143
+## 2                 A92          A101       2            A121       22 A143
+##   Other_Plans Number_Credits  Job Number_Provider Telephone Foreign_Worker
+## 1        A152              2 A173               1      A192           A201
+## 2        A152              1 A173               1      A191           A201
+##   Status
+## 1      1
+## 2      2</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">summary</span>(dados)</a></code></pre></div>
+<pre><code>##  Status_Account    Duration    Credit_History    Purpose   
+##  A11:274        Min.   : 4.0   A30: 40        A43    :280  
+##  A12:269        1st Qu.:12.0   A31: 49        A40    :234  
+##  A13: 63        Median :18.0   A32:530        A42    :181  
+##  A14:394        Mean   :20.9   A33: 88        A41    :103  
+##                 3rd Qu.:24.0   A34:293        A49    : 97  
+##                 Max.   :72.0                  A46    : 50  
+##                                               (Other): 55  
+##  Credit_Amount   Saving_Account Present_Employment_Since Installament_Rate
+##  Min.   :  250   A61:603        A71: 62                  Min.   :1.000    
+##  1st Qu.: 1366   A62:103        A72:172                  1st Qu.:2.000    
+##  Median : 2320   A63: 63        A73:339                  Median :3.000    
+##  Mean   : 3271   A64: 48        A74:174                  Mean   :2.973    
+##  3rd Qu.: 3972   A65:183        A75:253                  3rd Qu.:4.000    
+##  Max.   :18424                                           Max.   :4.000    
+##                                                                           
+##  Personal_Status_Sex Other_Debtors    Present      Residence_Since
+##  A91: 50             A101:907      Min.   :1.000   A121:282       
+##  A92:310             A102: 41      1st Qu.:2.000   A122:232       
+##  A93:548             A103: 52      Median :3.000   A123:332       
+##  A94: 92                           Mean   :2.845   A124:154       
+##                                    3rd Qu.:4.000                  
+##                                    Max.   :4.000                  
+##                                                                   
+##     Property       Age      Other_Plans Number_Credits    Job     
+##  Min.   :19.00   A141:139   A151:179    Min.   :1.000   A171: 22  
+##  1st Qu.:27.00   A142: 47   A152:713    1st Qu.:1.000   A172:200  
+##  Median :33.00   A143:814   A153:108    Median :1.000   A173:630  
+##  Mean   :35.55                          Mean   :1.407   A174:148  
+##  3rd Qu.:42.00                          3rd Qu.:2.000             
+##  Max.   :75.00                          Max.   :4.000             
+##                                                                   
+##  Number_Provider Telephone  Foreign_Worker     Status   
+##  Min.   :1.000   A191:596   A201:963       Min.   :1.0  
+##  1st Qu.:1.000   A192:404   A202: 37       1st Qu.:1.0  
+##  Median :1.000                             Median :1.0  
+##  Mean   :1.155                             Mean   :1.3  
+##  3rd Qu.:1.000                             3rd Qu.:2.0  
+##  Max.   :2.000                             Max.   :2.0  
+## </code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">dados<span class="op">$</span>Status &lt;-<span class="st"> </span><span class="kw">factor</span>(dados<span class="op">$</span>Status)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">levels</span>(dados<span class="op">$</span>Status) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Good&#39;</span>, <span class="st">&#39;Bad&#39;</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">dados<span class="op">$</span>Status &lt;-<span class="st"> </span><span class="kw">relevel</span>(dados<span class="op">$</span>Status, <span class="dt">ref =</span> <span class="st">&#39;Bad&#39;</span>)</a></code></pre></div>
+<p>O motivo de redefinir o nível de referência é para modelarmos a probabilidade de um bom pagador. Para isso, devemos definir o nível de referência como o outro (Bad).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">dim</span>(dados)</a></code></pre></div>
+<pre><code>## [1] 1000   21</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">summary</span>(dados<span class="op">$</span>Status)</a></code></pre></div>
+<pre><code>##  Bad Good 
+##  300  700</code></pre>
+<p>Exercício - Fazer uma análise descritiva (uni e bivariada), buscando avaliar, de forma preliminar por meio de gráficos e medidas resumo, a relação entre as covariáveis e a resposta.</p>
+<p>Vamos separar, aleatoriamente, a base em duas: uma para o ajuste do modelo (com 700 observações) e outra para validação (com 300 observações).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">898</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">indices &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">700</span>) </a></code></pre></div>
+<p>indices é um vetor com números de 1 a 1000 numa sequência aleatória.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">dadosajuste &lt;-<span class="st"> </span>dados[indices,]</a></code></pre></div>
+<p>dataframe com as 700 linhas para ajuste.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">dadosvalid &lt;-<span class="st"> </span>dados[<span class="op">-</span>indices,]</a></code></pre></div>
+<p>dataframe com 300 linhas, apenas para validação.</p>
+<div id="modelo-de-regressão-logística" class="section level2">
+<h2>Modelo de Regressão Logística</h2>
+<p>Vamos ajustar um modelo de regressão logística, com as covariáveis selecionadas via Backward(AIC)</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">ajuste &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">glm</span>(Status <span class="op">~</span><span class="st"> </span>.,<span class="dt">family=</span>binomial,<span class="dt">data =</span> dadosajuste), <span class="dt">direction =</span> <span class="st">&#39;backward&#39;</span>) </a></code></pre></div>
+<pre><code>## Start:  AIC=699.65
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Present_Employment_Since + 
+##     Installament_Rate + Personal_Status_Sex + Other_Debtors + 
+##     Present + Residence_Since + Property + Age + Other_Plans + 
+##     Number_Credits + Job + Number_Provider + Telephone + Foreign_Worker
+## 
+##                            Df Deviance    AIC
+## - Job                       3   602.38 694.38
+## - Present                   1   602.09 698.09
+## - Present_Employment_Since  4   608.41 698.41
+## - Property                  1   602.55 698.55
+## - Age                       2   605.03 699.03
+## - Number_Provider           1   603.19 699.19
+## - Number_Credits            1   603.36 699.36
+## - Telephone                 1   603.39 699.39
+## &lt;none&gt;                          601.65 699.65
+## - Other_Debtors             2   605.68 699.68
+## - Personal_Status_Sex       3   608.41 700.41
+## - Duration                  1   604.67 700.67
+## - Residence_Since           3   608.96 700.96
+## - Other_Plans               2   608.43 702.43
+## - Foreign_Worker            1   606.61 702.61
+## - Credit_Amount             1   607.20 703.20
+## - Purpose                   9   628.59 708.59
+## - Saving_Account            4   620.53 710.53
+## - Credit_History            4   623.35 713.35
+## - Installament_Rate         1   619.61 715.61
+## - Status_Account            3   659.31 751.31
+## 
+## Step:  AIC=694.38
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Present_Employment_Since + 
+##     Installament_Rate + Personal_Status_Sex + Other_Debtors + 
+##     Present + Residence_Since + Property + Age + Other_Plans + 
+##     Number_Credits + Number_Provider + Telephone + Foreign_Worker
+## 
+##                            Df Deviance    AIC
+## - Present                   1   602.68 692.68
+## - Present_Employment_Since  4   608.82 692.82
+## - Property                  1   603.34 693.34
+## - Age                       2   605.75 693.75
+## - Number_Provider           1   604.01 694.01
+## - Number_Credits            1   604.12 694.12
+## - Other_Debtors             2   606.30 694.30
+## &lt;none&gt;                          602.38 694.38
+## - Personal_Status_Sex       3   609.00 695.00
+## - Telephone                 1   605.38 695.38
+## - Residence_Since           3   609.38 695.38
+## - Duration                  1   605.61 695.61
+## - Other_Plans               2   608.92 696.92
+## - Foreign_Worker            1   607.31 697.31
+## - Credit_Amount             1   607.34 697.34
+## - Purpose                   9   630.50 704.50
+## - Saving_Account            4   620.97 704.97
+## - Credit_History            4   624.15 708.15
+## - Installament_Rate         1   619.84 709.84
+## - Status_Account            3   660.23 746.23
+## 
+## Step:  AIC=692.68
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Present_Employment_Since + 
+##     Installament_Rate + Personal_Status_Sex + Other_Debtors + 
+##     Residence_Since + Property + Age + Other_Plans + Number_Credits + 
+##     Number_Provider + Telephone + Foreign_Worker
+## 
+##                            Df Deviance    AIC
+## - Present_Employment_Since  4   609.20 691.20
+## - Property                  1   603.79 691.79
+## - Age                       2   606.08 692.08
+## - Number_Provider           1   604.26 692.26
+## - Number_Credits            1   604.37 692.37
+## - Other_Debtors             2   606.67 692.67
+## &lt;none&gt;                          602.68 692.68
+## - Personal_Status_Sex       3   609.16 693.16
+## - Residence_Since           3   609.62 693.62
+## - Telephone                 1   605.75 693.75
+## - Duration                  1   605.77 693.77
+## - Other_Plans               2   608.92 694.92
+## - Foreign_Worker            1   607.48 695.48
+## - Credit_Amount             1   607.88 695.88
+## - Purpose                   9   630.68 702.68
+## - Saving_Account            4   621.43 703.43
+## - Credit_History            4   624.66 706.66
+## - Installament_Rate         1   620.10 708.10
+## - Status_Account            3   660.24 744.24
+## 
+## Step:  AIC=691.2
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Installament_Rate + Personal_Status_Sex + 
+##     Other_Debtors + Residence_Since + Property + Age + Other_Plans + 
+##     Number_Credits + Number_Provider + Telephone + Foreign_Worker
+## 
+##                       Df Deviance    AIC
+## - Property             1   609.90 689.90
+## - Number_Provider      1   610.61 690.61
+## - Number_Credits       1   610.88 690.88
+## - Age                  2   613.09 691.09
+## &lt;none&gt;                     609.20 691.20
+## - Other_Debtors        2   613.48 691.48
+## - Duration             1   611.81 691.81
+## - Residence_Since      3   616.13 692.13
+## - Other_Plans          2   614.66 692.66
+## - Personal_Status_Sex  3   616.86 692.86
+## - Telephone            1   613.05 693.05
+## - Foreign_Worker       1   613.68 693.68
+## - Credit_Amount        1   614.48 694.48
+## - Purpose              9   637.03 701.03
+## - Saving_Account       4   628.23 702.23
+## - Credit_History       4   631.52 705.52
+## - Installament_Rate    1   626.43 706.43
+## - Status_Account       3   667.60 743.60
+## 
+## Step:  AIC=689.9
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Installament_Rate + Personal_Status_Sex + 
+##     Other_Debtors + Residence_Since + Age + Other_Plans + Number_Credits + 
+##     Number_Provider + Telephone + Foreign_Worker
+## 
+##                       Df Deviance    AIC
+## - Number_Provider      1   611.23 689.23
+## - Number_Credits       1   611.34 689.34
+## - Age                  2   613.56 689.56
+## &lt;none&gt;                     609.90 689.90
+## - Other_Debtors        2   614.23 690.23
+## - Residence_Since      3   616.78 690.78
+## - Duration             1   612.87 690.87
+## - Personal_Status_Sex  3   617.63 691.63
+## - Telephone            1   614.17 692.17
+## - Other_Plans          2   616.32 692.32
+## - Foreign_Worker       1   614.36 692.36
+## - Credit_Amount        1   614.98 692.98
+## - Purpose              9   637.39 699.39
+## - Saving_Account       4   629.54 701.54
+## - Credit_History       4   632.49 704.49
+## - Installament_Rate    1   626.71 704.71
+## - Status_Account       3   669.31 743.31
+## 
+## Step:  AIC=689.23
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Installament_Rate + Personal_Status_Sex + 
+##     Other_Debtors + Residence_Since + Age + Other_Plans + Number_Credits + 
+##     Telephone + Foreign_Worker
+## 
+##                       Df Deviance    AIC
+## - Number_Credits       1   612.81 688.81
+## - Age                  2   614.86 688.86
+## &lt;none&gt;                     611.23 689.23
+## - Other_Debtors        2   615.25 689.25
+## - Personal_Status_Sex  3   617.84 689.84
+## - Residence_Since      3   617.88 689.88
+## - Duration             1   614.05 690.05
+## - Telephone            1   615.45 691.45
+## - Other_Plans          2   617.46 691.46
+## - Foreign_Worker       1   615.66 691.66
+## - Credit_Amount        1   615.98 691.98
+## - Purpose              9   638.97 698.97
+## - Saving_Account       4   630.73 700.73
+## - Installament_Rate    1   627.46 703.46
+## - Credit_History       4   634.81 704.81
+## - Status_Account       3   670.80 742.80
+## 
+## Step:  AIC=688.81
+## Status ~ Status_Account + Duration + Credit_History + Purpose + 
+##     Credit_Amount + Saving_Account + Installament_Rate + Personal_Status_Sex + 
+##     Other_Debtors + Residence_Since + Age + Other_Plans + Telephone + 
+##     Foreign_Worker
+## 
+##                       Df Deviance    AIC
+## &lt;none&gt;                     612.81 688.81
+## - Age                  2   616.87 688.87
+## - Other_Debtors        2   616.92 688.92
+## - Residence_Since      3   619.14 689.14
+## - Personal_Status_Sex  3   619.16 689.16
+## - Duration             1   615.48 689.48
+## - Telephone            1   616.73 690.73
+## - Other_Plans          2   619.22 691.22
+## - Credit_Amount        1   617.36 691.36
+## - Foreign_Worker       1   617.50 691.50
+## - Purpose              9   641.00 699.00
+## - Saving_Account       4   632.00 700.00
+## - Installament_Rate    1   628.52 702.52
+## - Credit_History       4   634.98 702.98
+## - Status_Account       3   672.15 742.15</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">data.frame</span>(ajuste<span class="op">$</span>y, dadosajuste<span class="op">$</span>Status),<span class="dt">n =</span> <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##     ajuste.y dadosajuste.Status
+## 4          1               Good
+## 677        1               Good
+## 922        1               Good
+## 848        1               Good
+## 49         1               Good</code></pre>
+<p>Apenas para conferir para quais categorias está atribuindo 0 e 1.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">summary</span>(ajuste)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Status ~ Status_Account + Duration + Credit_History + 
+##     Purpose + Credit_Amount + Saving_Account + Installament_Rate + 
+##     Personal_Status_Sex + Other_Debtors + Residence_Since + Age + 
+##     Other_Plans + Telephone + Foreign_Worker, family = binomial, 
+##     data = dadosajuste)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.8440  -0.6515   0.3564   0.6846   2.2711  
+## 
+## Coefficients:
+##                          Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)            -8.019e-01  8.481e-01  -0.945 0.344410    
+## Status_AccountA12       2.810e-01  2.611e-01   1.076 0.281909    
+## Status_AccountA13       1.592e+00  4.912e-01   3.242 0.001187 ** 
+## Status_AccountA14       1.795e+00  2.731e-01   6.572 4.96e-11 ***
+## Duration               -1.848e-02  1.128e-02  -1.638 0.101496    
+## Credit_HistoryA31       1.938e-01  6.355e-01   0.305 0.760376    
+## Credit_HistoryA32       9.175e-01  5.108e-01   1.796 0.072449 .  
+## Credit_HistoryA33       6.634e-01  5.636e-01   1.177 0.239134    
+## Credit_HistoryA34       1.772e+00  5.376e-01   3.297 0.000978 ***
+## PurposeA41              1.902e+00  4.780e-01   3.980 6.89e-05 ***
+## PurposeA410             2.258e+00  1.193e+00   1.892 0.058452 .  
+## PurposeA42              8.549e-01  3.099e-01   2.759 0.005805 ** 
+## PurposeA43              8.869e-01  2.960e-01   2.996 0.002732 ** 
+## PurposeA44              7.624e-01  9.945e-01   0.767 0.443313    
+## PurposeA45              1.152e-01  6.245e-01   0.184 0.853633    
+## PurposeA46              8.966e-02  4.917e-01   0.182 0.855317    
+## PurposeA48              1.283e+00  1.289e+00   0.996 0.319229    
+## PurposeA49              9.045e-01  3.927e-01   2.303 0.021271 *  
+## Credit_Amount          -1.188e-04  5.613e-05  -2.117 0.034276 *  
+## Saving_AccountA62       7.181e-01  3.492e-01   2.057 0.039730 *  
+## Saving_AccountA63       1.049e+00  5.259e-01   1.995 0.046027 *  
+## Saving_AccountA64       1.466e+00  5.890e-01   2.488 0.012829 *  
+## Saving_AccountA65       9.522e-01  3.193e-01   2.982 0.002865 ** 
+## Installament_Rate      -4.138e-01  1.071e-01  -3.863 0.000112 ***
+## Personal_Status_SexA92 -1.922e-01  4.801e-01  -0.400 0.688964    
+## Personal_Status_SexA93  3.955e-01  4.711e-01   0.840 0.401115    
+## Personal_Status_SexA94  2.730e-01  5.669e-01   0.482 0.630055    
+## Other_DebtorsA102      -3.728e-01  5.014e-01  -0.743 0.457252    
+## Other_DebtorsA103       9.604e-01  5.468e-01   1.756 0.079007 .  
+## Residence_SinceA122    -4.234e-01  3.016e-01  -1.404 0.160360    
+## Residence_SinceA123    -5.220e-01  2.862e-01  -1.824 0.068152 .  
+## Residence_SinceA124    -1.167e+00  5.224e-01  -2.233 0.025536 *  
+## AgeA142                -5.097e-02  5.029e-01  -0.101 0.919286    
+## AgeA143                 5.326e-01  3.102e-01   1.717 0.086008 .  
+## Other_PlansA152         6.153e-01  2.687e-01   2.290 0.022043 *  
+## Other_PlansA153         1.032e+00  5.714e-01   1.806 0.070928 .  
+## TelephoneA192           4.423e-01  2.251e-01   1.965 0.049401 *  
+## Foreign_WorkerA202      1.588e+00  8.357e-01   1.900 0.057407 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 868.33  on 699  degrees of freedom
+## Residual deviance: 612.81  on 662  degrees of freedom
+## AIC: 688.81
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Resumo do ajuste.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">paj2 &lt;-<span class="st"> </span><span class="kw">predict</span>(ajuste, <span class="dt">type=</span><span class="st">&#39;response&#39;</span>, <span class="dt">newdata=</span>dadosajuste)</a></code></pre></div>
+<p>Probabilidades estimadas para os indivíduos da base de ajuste;</p>
+<p>Probabilidades estimadas para os indivíduos da base de ajuste;</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">pval2 &lt;-<span class="kw">predict</span>(ajuste, <span class="dt">type=</span><span class="st">&#39;response&#39;</span>, <span class="dt">newdata=</span>dadosvalid) </a></code></pre></div>
+<p>Probabilidades estimadas para os indivíduos da base de validação.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">round</span>(pval2 <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># Escores de crédito</span></a></code></pre></div>
+<pre><code>##   5   6  10 
+## 167 835 336</code></pre>
+</div>
+<div id="classificação-de-clientes" class="section level2">
+<h2>Classificação de clientes</h2>
+<p>Usando o modelo ajustado para classificação dos clientes da base de validação.</p>
+<p>Como fica se usarmos <span class="math inline">\(pc=0,5\)</span> como ponto de corte para classificação, ou seja: Classificar como mau pagador se <span class="math inline">\(p &lt; 0,5\)</span>; Classificar como bom pagador se <span class="math inline">\(p &gt;= 0,5\)</span>.</p>
+<p>Vamos cruzar realidade e predição para diferentes pontos de corte.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">classp0<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(pval2 <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;PredGood&#39;</span>, <span class="st">&#39;PredBad&#39;</span>))</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">head</span>(classp0<span class="fl">.5</span>, <span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># Classificações usando o ponto de corte 0,5.</span></a></code></pre></div>
+<pre><code>##        5        6       10 
+##  PredBad PredGood  PredBad 
+## Levels: PredBad PredGood</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">data.frame</span>(pval2, classp0<span class="fl">.5</span>), <span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># Probabilidades estimadas e classificações.</span></a></code></pre></div>
+<pre><code>##        pval2 classp0.5
+## 5  0.1667900   PredBad
+## 6  0.8347193  PredGood
+## 10 0.3359807   PredBad</code></pre>
+<p>Classificando como “Devedores” indivíduos com <span class="math inline">\(p &gt; 0,5\)</span>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">tabela1 &lt;-<span class="st"> </span><span class="kw">table</span>(classp0<span class="fl">.5</span>,dadosvalid<span class="op">$</span>Status) </a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">tabela1</a></code></pre></div>
+<pre><code>##           
+## classp0.5  Bad Good
+##   PredBad   36   32
+##   PredGood  46  186</code></pre>
+<p>Vamos estimar a sensibilidade e a especificidade referentes a esta regra de decisão.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">sensp0<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.5</span> <span class="op">==</span><span class="st"> &#39;PredGood&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">sensp0<span class="fl">.5</span></a></code></pre></div>
+<pre><code>## [1] 0.853211</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">espec0<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.5</span> <span class="op">==</span><span class="st"> &#39;PredBad&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">espec0<span class="fl">.5</span></a></code></pre></div>
+<pre><code>## [1] 0.4390244</code></pre>
+<p>E se usássemos os dados de ajuste para calcular a sensibilidade e a especificidade?</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">classp0<span class="fl">.5</span>aj &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(paj2 <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&#39;PredGood&#39;</span>, <span class="st">&#39;PredBad&#39;</span>))</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">sensp0<span class="fl">.5</span>aj &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.5</span>aj <span class="op">==</span><span class="st"> &#39;PredGood&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosajuste<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosajuste<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">sensp0<span class="fl">.5</span>aj</a></code></pre></div>
+<pre><code>## [1] 0.8921162</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">espec0<span class="fl">.5</span>aj &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.5</span>aj <span class="op">==</span><span class="st"> &#39;PredBad&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosajuste<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosajuste<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">espec0<span class="fl">.5</span>aj</a></code></pre></div>
+<pre><code>## [1] 0.5825688</code></pre>
+<p>Observe que ao usar os dados de ajuste, tanto a sensibilidade quanto a especificidade são maiores. Isso reforça a importância de se usar dados de validação para avaliar adequadamente o desempenho preditivo do modelo.</p>
+<p>Observe que ao usar <span class="math inline">\(pc = 0,5\)</span>, temos uma regra de classificação com elevada sensibilidade (0,84), mas baixa especificidade (0,49). Assim, a capacidade de se predizer um bom pagador é alta, mas o poder preditivo para maus pagadores é baixo (vamos acertar aproximadamente metade das vezes).</p>
+<p>E se relaxássemos, classificando como pagador (e concedendo empréstimo a) todo indivíduo com <span class="math inline">\(p&gt;=0,3\)</span>?</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">classp0<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(pval2 <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.3</span>,<span class="st">&#39;PredGood&#39;</span>, <span class="st">&#39;PredBad&#39;</span>))</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">head</span>(classp0<span class="fl">.3</span>, <span class="dt">n =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##        5        6       10 
+##  PredBad PredGood PredGood 
+## Levels: PredBad PredGood</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">tabela2 &lt;-<span class="st"> </span><span class="kw">table</span>(classp0<span class="fl">.3</span> , dadosvalid<span class="op">$</span>Status) </a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">tabela2 </a></code></pre></div>
+<pre><code>##           
+## classp0.3  Bad Good
+##   PredBad   20   11
+##   PredGood  62  207</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">sensp0<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.3</span> <span class="op">==</span><span class="st"> &#39;PredGood&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">sensp0<span class="fl">.3</span> </a></code></pre></div>
+<pre><code>## [1] 0.9495413</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">espec0<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.3</span> <span class="op">==</span><span class="st"> &#39;PredBad&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">espec0<span class="fl">.3</span> </a></code></pre></div>
+<pre><code>## [1] 0.2439024</code></pre>
+<p>Ao tomar <span class="math inline">\(pc=0,3\)</span>, a sensibilidade aumenta ainda mais, mas a especificidade (probabilidade de classificar corretamente um mau pagador) fica baixíssima.</p>
+<p>E se fossemos mais rigorosos, classificando como pagador (e concedendo empréstimo a) apenas indivíduos com <span class="math inline">\(p&gt;=0,7\)</span>?</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">classp0<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(pval2 <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.7</span>,<span class="st">&#39;PredGood&#39;</span>, <span class="st">&#39;PredBad&#39;</span>))</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">head</span>(classp0<span class="fl">.7</span>, <span class="dt">n =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##        5        6       10 
+##  PredBad PredGood  PredBad 
+## Levels: PredBad PredGood</code></pre>
+<p>Classificando como “Devedores” indivíduos com <span class="math inline">\(p&gt;0,7\)</span>.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">tabela3 &lt;-<span class="st"> </span><span class="kw">table</span>(classp0<span class="fl">.7</span>,dadosvalid<span class="op">$</span>Status)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">tabela3</a></code></pre></div>
+<pre><code>##           
+## classp0.7  Bad Good
+##   PredBad   49   61
+##   PredGood  33  157</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">sensp0<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.7</span> <span class="op">==</span><span class="st"> &#39;PredGood&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Good&#39;</span>)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">sensp0<span class="fl">.7</span></a></code></pre></div>
+<pre><code>## [1] 0.7201835</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">espec0<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(classp0<span class="fl">.7</span> <span class="op">==</span><span class="st"> &#39;PredBad&#39;</span> <span class="op">&amp;</span><span class="st"> </span>dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)<span class="op">/</span><span class="kw">sum</span>(dadosvalid<span class="op">$</span>Status <span class="op">==</span><span class="st"> &#39;Bad&#39;</span>)</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">espec0<span class="fl">.7</span></a></code></pre></div>
+<pre><code>## [1] 0.597561</code></pre>
+<p>Para essa regra, temos sensibilidade e especificidade aproximadamente iguais.</p>
+<p>Botando num quadro:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">datacomp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">c</span>(sensp0<span class="fl">.3</span>,sensp0<span class="fl">.5</span>,sensp0<span class="fl">.7</span>),</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">                       <span class="kw">c</span>(espec0<span class="fl">.3</span>,espec0<span class="fl">.5</span>,espec0<span class="fl">.7</span>))</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="kw">names</span>(datacomp)&lt;-<span class="kw">c</span>(<span class="st">&#39;Sensibilidade&#39;</span>,<span class="st">&#39;Especificidade&#39;</span>)</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="kw">rownames</span>(datacomp)&lt;-<span class="kw">c</span>(<span class="st">&#39;pc=0,3&#39;</span>,<span class="st">&#39;pc=0,5&#39;</span>,<span class="st">&#39;pc=0,7&#39;</span>)</a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">datacomp</a></code></pre></div>
+<pre><code>##        Sensibilidade Especificidade
+## pc=0,3     0.9495413      0.2439024
+## pc=0,5     0.8532110      0.4390244
+## pc=0,7     0.7201835      0.5975610</code></pre>
+</div>
+<div id="calcular-algumas-medidas-de-qualidade-preditiva." class="section level2">
+<h2>Calcular algumas medidas de qualidade preditiva.</h2>
+<p>Vamos usar o pacote ROCR para calcular algumas medidas de qualidade preditiva.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">require</span>(ROCR)</a></code></pre></div>
+<pre><code>## Loading required package: ROCR</code></pre>
+<pre><code>## Loading required package: gplots</code></pre>
+<pre><code>## 
+## Attaching package: &#39;gplots&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     lowess</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(pval2, dadosvalid<span class="op">$</span>Status)</a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">help</span>(<span class="st">&#39;performance&#39;</span>)</a></code></pre></div>
+<p>Vamos plotar a curva ROC</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span> , <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>) </a></code></pre></div>
+<p>tpr: True Positive Rate; fpr: False Positive Rate.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">plot</span>(perf, <span class="dt">colorize=</span><span class="ot">TRUE</span>,  <span class="dt">print.cutoffs.at=</span><span class="kw">seq</span>(<span class="fl">0.05</span>,<span class="fl">0.95</span>,<span class="fl">0.05</span>), <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="kw">performance</span>(pred, <span class="st">&#39;auc&#39;</span>)</a></code></pre></div>
+<pre><code>## An object of class &quot;performance&quot;
+## Slot &quot;x.name&quot;:
+## [1] &quot;None&quot;
+## 
+## Slot &quot;y.name&quot;:
+## [1] &quot;Area under the ROC curve&quot;
+## 
+## Slot &quot;alpha.name&quot;:
+## [1] &quot;none&quot;
+## 
+## Slot &quot;x.values&quot;:
+## list()
+## 
+## Slot &quot;y.values&quot;:
+## [[1]]
+## [1] 0.7426158
+## 
+## 
+## Slot &quot;alpha.values&quot;:
+## list()</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># Extraindo a área sob a curva.</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="co"># Como ficaria a curva ROC se usássemos os dados de ajuste para sua construção?</span></a>
+<a class="sourceLine" id="cb64-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb64-5" data-line-number="5">predaj &lt;-<span class="st"> </span><span class="kw">prediction</span>(paj2, dadosajuste<span class="op">$</span>Status)</a>
+<a class="sourceLine" id="cb64-6" data-line-number="6">perfaj &lt;-<span class="st"> </span><span class="kw">performance</span>(predaj, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span> , <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>) </a>
+<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="kw">plot</span>(perfaj, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> T)</a></code></pre></div>
+<p><img src="credito_mod12_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">performance</span>(predaj, <span class="st">&#39;auc&#39;</span>)</a></code></pre></div>
+<pre><code>## An object of class &quot;performance&quot;
+## Slot &quot;x.name&quot;:
+## [1] &quot;None&quot;
+## 
+## Slot &quot;y.name&quot;:
+## [1] &quot;Area under the ROC curve&quot;
+## 
+## Slot &quot;alpha.name&quot;:
+## [1] &quot;none&quot;
+## 
+## Slot &quot;x.values&quot;:
+## list()
+## 
+## Slot &quot;y.values&quot;:
+## [[1]]
+## [1] 0.8472915
+## 
+## 
+## Slot &quot;alpha.values&quot;:
+## list()</code></pre>
+<p>Agora, vamos supor que o custo de classificar um mau pagador como bom seja cinco vezes o de classificar um bom como mau <span class="math inline">\((C(M|B) = 3*C(B|M))\)</span>. Assim, para uma regra de classificação com probabilidades de classificação incorretas P(M|B) e P(B|M), o cusro esperado de má classificação (ECMC) fica dado por:</p>
+<p><span class="math inline">\(ECMC = C(M|B)*P(M|B)*P(B) + C(B|M)*P(B|M)*P(M)\)</span></p>
+<p>Como na base toda há 30% de maus pagadores, vamos tomar <span class="math inline">\(P(B) = 0,3\)</span>; <span class="math inline">\(P(G) = 0,7\)</span>.</p>
+<p>Assim, ECMC = 0.9<em>P(M|B) + 0,7</em>P(B|M). Vamos avaliar ECMC para diferentes regras.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">perf2 &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&#39;fpr&#39;</span>, <span class="dt">x.measure =</span> <span class="st">&#39;fnr&#39;</span>)</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">PMB &lt;-<span class="st"> </span>perf2<span class="op">@</span>y.values[[<span class="dv">1</span>]] <span class="co"># P(M|B) para os diferentes pontos de corte (pc)</span></a>
+<a class="sourceLine" id="cb67-3" data-line-number="3">PBM &lt;-<span class="st"> </span>perf2<span class="op">@</span>x.values[[<span class="dv">1</span>]] <span class="co"># P(B|M) para os diferentes pontos de corte.</span></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4">pc &lt;-<span class="st"> </span>perf2<span class="op">@</span>alpha.values[[<span class="dv">1</span>]] <span class="co"># pontos de corte.</span></a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb67-6" data-line-number="6">ECMC &lt;-<span class="st"> </span><span class="fl">0.9</span><span class="op">*</span>PMB <span class="op">+</span><span class="st"> </span><span class="fl">0.7</span><span class="op">*</span>PBM <span class="co"># Custos esperados de má-classificação.</span></a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">plot</span>(pc, ECMC)</a></code></pre></div>
+<p><img src="credito_mod12_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>Algum em torno de 0.7 parece satisfatório.</p>
+<p>Exercício - Repetir a análise considerando outros modelos. Você pode tentar modelos com preditores e/ou funções de ligação diferentes. Compare os resultados. Se possível, use também outros métodos preditivos, como árvores, Random Forests, boosting… Compare os resultados.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
