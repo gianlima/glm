@@ -27,10 +27,10 @@ navbar:
         href: sel_var_mod9.html
       - text: "Módulo 10 - Diagnóstico do ajuste de MLGs"
         href: diag_mod10.html
-      - text: "Módulo 11 - Regressão para dados binários"
-      - text: "Auditoria"
     - text: "GLM 11-15"
       menu:
+      - text: "Módulo 11 - Regressão para dados binários"
+      - text: "Auditoria"
         href: besouro_mod11.html
       - text: "Besouro da Farinha"
         href: besouro_mod11.html

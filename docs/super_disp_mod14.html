@@ -429,7 +429,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    GLM 1-9
+    GLM 1-10
      
     <span class="caret"></span>
   </a>
@@ -458,18 +458,18 @@ div.tocify {
     <li>
       <a href="sel_var_mod9.html">Módulo 9 - Seleção de covariáveis</a>
     </li>
+    <li>
+      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    GLM 10-15
+    GLM 11-15
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="diag_mod10.html">Módulo 10 - Diagnóstico do ajuste de MLGs</a>
-    </li>
     <li class="dropdown-header">Módulo 11 - Regressão para dados binários</li>
     <li>
       <a href="besouro_mod11.html">Auditoria</a>
@@ -639,43 +639,46 @@ div.tocify {
 </div>
 <div id="simulação---regressão-binomial-negativa" class="section level2">
 <h2>Simulação - Regressão binomial negativa</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># ICs &lt;- matrix(0, nrow = 1000, ncol = 2)</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co"># for (i in 1:1000){</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#     amostra &lt;- sample(1:nrow(Ornstein), 70)</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#     Ornstein_Novo &lt;- Ornstein[amostra,]</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#     ajuste_novo &lt;- glm.nb(interlocks ~ log(assets) + nation + sector, data = Ornstein_Novo)</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#     ICs[i,] &lt;- confint.default(ajuste_novo)[2,]</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co"># }</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co"># </span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co"># cobert &lt;- apply(ICs, 1, indica_cobert)</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co"># mean(cobert) # Taxa de cobertura estimada para o modelo binomial negativo.</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ICs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">    amostra &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Ornstein), <span class="dv">70</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">    Ornstein_Novo &lt;-<span class="st"> </span>Ornstein[amostra,]</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">    ajuste_novo &lt;-<span class="st"> </span><span class="kw">glm.nb</span>(interlocks <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(assets) <span class="op">+</span><span class="st"> </span>nation <span class="op">+</span><span class="st"> </span>sector, <span class="dt">data =</span> Ornstein_Novo)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">    ICs[i,] &lt;-<span class="st"> </span><span class="kw">confint.default</span>(ajuste_novo)[<span class="dv">2</span>,]</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">cobert &lt;-<span class="st"> </span><span class="kw">apply</span>(ICs, <span class="dv">1</span>, indica_cobert)</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw">mean</span>(cobert) <span class="co"># Taxa de cobertura estimada para o modelo binomial negativo.</span></a></code></pre></div>
+<pre><code>## [1] 0.954</code></pre>
 </div>
 <div id="simulação---regressão-quase-poisson" class="section level2">
 <h2>Simulação - Regressão quase Poisson</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># ICs &lt;- matrix(0, nrow = 1000, ncol = 2)</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># for (i in 1:1000){</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#     amostra &lt;- sample(1:nrow(Ornstein), 70)</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#     Ornstein_Novo &lt;- Ornstein[amostra,]</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#     ajuste_novo &lt;- glm(interlocks ~ log(assets) + nation + sector, family = quasipoisson, data = Ornstein_Novo)</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#     ICs[i,] &lt;- confint.default(ajuste_novo)[2,]</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co"># }</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co"># </span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co"># cobert &lt;- apply(ICs, 1, indica_cobert)</span></a>
-<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co"># mean(cobert) # Taxa de cobertura estimada para o modelo quase Poisson.</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ICs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">    amostra &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Ornstein), <span class="dv">70</span>)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">    Ornstein_Novo &lt;-<span class="st"> </span>Ornstein[amostra,]</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">    ajuste_novo &lt;-<span class="st"> </span><span class="kw">glm</span>(interlocks <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(assets) <span class="op">+</span><span class="st"> </span>nation <span class="op">+</span><span class="st"> </span>sector, <span class="dt">family =</span> quasipoisson, <span class="dt">data =</span> Ornstein_Novo)</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">    ICs[i,] &lt;-<span class="st"> </span><span class="kw">confint.default</span>(ajuste_novo)[<span class="dv">2</span>,]</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9">cobert &lt;-<span class="st"> </span><span class="kw">apply</span>(ICs, <span class="dv">1</span>, indica_cobert)</a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="kw">mean</span>(cobert) <span class="co"># Taxa de cobertura estimada para o modelo quase Poisson.</span></a></code></pre></div>
+<pre><code>## [1] 0.942</code></pre>
 </div>
 <div id="simulação---regressão-poisson-com-ic-bootstrap" class="section level2">
 <h2>Simulação - Regressão Poisson com IC Bootstrap</h2>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># ICs &lt;- matrix(0, nrow = 1000, ncol = 2)</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co"># for (i in 1:1000){</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#     amostra &lt;- sample(1:nrow(Ornstein), 70)</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#     Ornstein_Novo &lt;- Ornstein[amostra,]</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#     ajuste_novo &lt;- glm(interlocks ~ log(assets) + nation + sector, family = poisson, data = Ornstein_Novo)</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#     boot_pois &lt;- Boot(ajuste_novo)</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#     ICs[i,] &lt;- confint(boot_pois, type = &#39;perc&#39;)[2,]</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co"># }</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co"># </span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co"># cobert &lt;- apply(ICs, 1, indica_cobert)</span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co"># mean(cobert) # Taxa de cobertura = 0.98.</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ICs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">    amostra &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Ornstein), <span class="dv">70</span>)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">    Ornstein_Novo &lt;-<span class="st"> </span>Ornstein[amostra,]</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">    ajuste_novo &lt;-<span class="st"> </span><span class="kw">glm</span>(interlocks <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(assets) <span class="op">+</span><span class="st"> </span>nation <span class="op">+</span><span class="st"> </span>sector, <span class="dt">family =</span> poisson, <span class="dt">data =</span> Ornstein_Novo)</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">    boot_pois &lt;-<span class="st"> </span><span class="kw">Boot</span>(ajuste_novo)</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">    ICs[i,] &lt;-<span class="st"> </span><span class="kw">confint</span>(boot_pois, <span class="dt">type =</span> <span class="st">&#39;perc&#39;</span>)[<span class="dv">2</span>,]</a>
+<a class="sourceLine" id="cb16-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10">cobert &lt;-<span class="st"> </span><span class="kw">apply</span>(ICs, <span class="dv">1</span>, indica_cobert)</a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="kw">mean</span>(cobert) <span class="co"># Taxa de cobertura = 0.98.</span></a></code></pre></div>
+<pre><code>## [1] 0.976</code></pre>
 </div>
 
 

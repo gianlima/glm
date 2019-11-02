@@ -94,48 +94,48 @@ mean(cobert) # Taxa de cobertura estimada para o modelo Poisson.
 ## Simulação - Regressão binomial negativa
 
 ```{r}
-# ICs <- matrix(0, nrow = 1000, ncol = 2)
-# for (i in 1:1000){
-#     amostra <- sample(1:nrow(Ornstein), 70)
-#     Ornstein_Novo <- Ornstein[amostra,]
-#     ajuste_novo <- glm.nb(interlocks ~ log(assets) + nation + sector, data = Ornstein_Novo)
-#     ICs[i,] <- confint.default(ajuste_novo)[2,]
-# }
-# 
-# cobert <- apply(ICs, 1, indica_cobert)
-# mean(cobert) # Taxa de cobertura estimada para o modelo binomial negativo.
+ICs <- matrix(0, nrow = 1000, ncol = 2)
+for (i in 1:1000){
+    amostra <- sample(1:nrow(Ornstein), 70)
+    Ornstein_Novo <- Ornstein[amostra,]
+    ajuste_novo <- glm.nb(interlocks ~ log(assets) + nation + sector, data = Ornstein_Novo)
+    ICs[i,] <- confint.default(ajuste_novo)[2,]
+}
+
+cobert <- apply(ICs, 1, indica_cobert)
+mean(cobert) # Taxa de cobertura estimada para o modelo binomial negativo.
 ```
 
 
 ## Simulação - Regressão quase Poisson
 
 ```{r}
-# ICs <- matrix(0, nrow = 1000, ncol = 2)
-# for (i in 1:1000){
-#     amostra <- sample(1:nrow(Ornstein), 70)
-#     Ornstein_Novo <- Ornstein[amostra,]
-#     ajuste_novo <- glm(interlocks ~ log(assets) + nation + sector, family = quasipoisson, data = Ornstein_Novo)
-#     ICs[i,] <- confint.default(ajuste_novo)[2,]
-# }
-# 
-# cobert <- apply(ICs, 1, indica_cobert)
-# mean(cobert) # Taxa de cobertura estimada para o modelo quase Poisson.
+ICs <- matrix(0, nrow = 1000, ncol = 2)
+for (i in 1:1000){
+    amostra <- sample(1:nrow(Ornstein), 70)
+    Ornstein_Novo <- Ornstein[amostra,]
+    ajuste_novo <- glm(interlocks ~ log(assets) + nation + sector, family = quasipoisson, data = Ornstein_Novo)
+    ICs[i,] <- confint.default(ajuste_novo)[2,]
+}
+
+cobert <- apply(ICs, 1, indica_cobert)
+mean(cobert) # Taxa de cobertura estimada para o modelo quase Poisson.
 ```
 
 
 ## Simulação - Regressão Poisson com IC Bootstrap
 
 ```{r}
-# ICs <- matrix(0, nrow = 1000, ncol = 2)
-# for (i in 1:1000){
-#     amostra <- sample(1:nrow(Ornstein), 70)
-#     Ornstein_Novo <- Ornstein[amostra,]
-#     ajuste_novo <- glm(interlocks ~ log(assets) + nation + sector, family = poisson, data = Ornstein_Novo)
-#     boot_pois <- Boot(ajuste_novo)
-#     ICs[i,] <- confint(boot_pois, type = 'perc')[2,]
-# }
-# 
-# cobert <- apply(ICs, 1, indica_cobert)
-# mean(cobert) # Taxa de cobertura = 0.98.
+ICs <- matrix(0, nrow = 1000, ncol = 2)
+for (i in 1:1000){
+    amostra <- sample(1:nrow(Ornstein), 70)
+    Ornstein_Novo <- Ornstein[amostra,]
+    ajuste_novo <- glm(interlocks ~ log(assets) + nation + sector, family = poisson, data = Ornstein_Novo)
+    boot_pois <- Boot(ajuste_novo)
+    ICs[i,] <- confint(boot_pois, type = 'perc')[2,]
+}
+
+cobert <- apply(ICs, 1, indica_cobert)
+mean(cobert) # Taxa de cobertura = 0.98.
 ```
 
